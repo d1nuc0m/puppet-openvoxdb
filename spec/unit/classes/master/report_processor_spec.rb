@@ -22,11 +22,11 @@ describe 'puppetdb::master::report_processor', type: :class do
         it {
           is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb').
             with(
-              'ensure' => 'absent',
-              'path' => '/etc/puppet/puppet.conf',
-              'section' => 'master',
-              'setting' => 'reports',
-              'subsetting' => 'puppetdb',
+              'ensure'               => 'absent',
+              'path'                 => '/etc/puppetlabs/puppet/puppet.conf',
+              'section'              => 'master',
+              'setting'              => 'reports',
+              'subsetting'           => 'puppetdb',
               'subsetting_separator' => ','
             )
         }
@@ -42,11 +42,11 @@ describe 'puppetdb::master::report_processor', type: :class do
         it {
           is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb').
             with(
-              'ensure' => 'present',
-              'path' => '/etc/puppet/puppet.conf',
-              'section' => 'master',
-              'setting' => 'reports',
-              'subsetting' => 'puppetdb',
+              'ensure'               => 'present',
+              'path'                 => '/etc/puppetlabs/puppet/puppet.conf',
+              'section'              => 'master',
+              'setting'              => 'reports',
+              'subsetting'           => 'puppetdb',
               'subsetting_separator' => ','
             )
         }

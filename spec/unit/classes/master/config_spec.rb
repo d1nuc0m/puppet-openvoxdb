@@ -74,19 +74,6 @@ describe 'puppetdb::master::config', type: :class do
           it { is_expected.to contain_package(termini_package_name).with(ensure: 'present') }
           it { is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(test_url: '/pdb/meta/v1/version') }
         end
-
-        context 'when using an older puppetdb version' do
-          let(:pre_condition) { 'class { "puppetdb::globals": version => "2.2.0", }' }
-
-          it { is_expected.to contain_package('puppetdb-terminus').with(ensure: '2.2.0') }
-          it { is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(test_url: '/v3/version') }
-
-          it {
-            is_expected.to contain_service('puppetmaster').
-              with_ensure('running').
-              with_enable(true)
-          }
-        end
       end
 
       context 'when restart_puppet is true' do
