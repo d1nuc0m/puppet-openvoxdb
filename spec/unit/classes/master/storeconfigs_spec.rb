@@ -13,7 +13,7 @@ describe 'puppetdb::master::storeconfigs', type: :class do
 
   let(:param_ensure) { params[:enable] ? 'present' : 'absent' }
   let(:puppet_conf_section) { params[:masterless] ? 'main' : 'master' }
-  let(:puppet_conf) { File.join(Puppet[:confdir], 'puppet.conf') }
+  let(:puppet_conf) { '/etc/puppetlabs/puppet/puppet.conf' }
 
   context 'with default parameters' do
     it {

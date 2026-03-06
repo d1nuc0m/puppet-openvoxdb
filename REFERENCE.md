@@ -10,7 +10,6 @@
 
 * [`puppetdb`](#puppetdb): manage PuppetDB
 * [`puppetdb::database::postgresql`](#puppetdb--database--postgresql): create the PuppetDB postgresql database
-* [`puppetdb::globals`](#puppetdb--globals): global configuration class for PuppetDB
 * [`puppetdb::master::config`](#puppetdb--master--config): manage the puppet configuration on the primary
 * [`puppetdb::server`](#puppetdb--server): manage the PuppetDB server
 
@@ -1110,34 +1109,6 @@ Data type: `Postgresql::Pg_password_encryption`
 PostgreSQL password authentication method, either `md5` or `scram-sha-256`
 
 Default value: `$puppetdb::params::password_encryption`
-
-### <a name="puppetdb--globals"></a>`puppetdb::globals`
-
-global configuration class for PuppetDB
-
-#### Parameters
-
-The following parameters are available in the `puppetdb::globals` class:
-
-* [`version`](#-puppetdb--globals--version)
-* [`puppet_confdir`](#-puppetdb--globals--puppet_confdir)
-
-##### <a name="-puppetdb--globals--version"></a>`version`
-
-Data type: `Any`
-
-The version of the `puppetdb` package that should be installed. You may specify
-an explicit version number, 'present', or 'latest' (defaults to 'present').
-
-Default value: `'present'`
-
-##### <a name="-puppetdb--globals--puppet_confdir"></a>`puppet_confdir`
-
-Data type: `Stdlib::Absolutepath`
-
-Puppet's config directory. Defaults to `/etc/puppetlabs/puppet`.
-
-Default value: `$settings::confdir`
 
 ### <a name="puppetdb--master--config"></a>`puppetdb::master::config`
 
