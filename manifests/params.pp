@@ -1,7 +1,7 @@
 # @summary default configuration settings
 #
 # @api private
-class puppetdb::params inherits puppetdb::globals {
+class puppetdb::params {
   $listen_address            = 'localhost'
   $listen_port               = '8080'
   $disable_cleartext         = false
@@ -14,7 +14,7 @@ class puppetdb::params inherits puppetdb::globals {
   $open_ssl_listen_port      = undef
   $postgres_listen_addresses = 'localhost'
 
-  $puppetdb_version          = $puppetdb::globals::version
+  $puppetdb_version          = 'present'
   $manage_dbserver           = true
   $manage_database           = true
 
@@ -81,106 +81,70 @@ class puppetdb::params inherits puppetdb::globals {
   $puppetdb_service     = 'puppetdb'
   $masterless           = false
 
-  if !($puppetdb_version in ['latest','present','absent']) and versioncmp($puppetdb_version, '3.0.0') < 0 {
-    case fact('os.family') {
-      'RedHat', 'Suse', 'Archlinux','Debian': {
-        $puppetdb_package       = 'puppetdb'
-        $terminus_package       = 'puppetdb-terminus'
-        $etcdir                 = '/etc/puppetdb'
-        $vardir                 = '/var/lib/puppetdb'
-        $puppet_confdir         = pick($puppetdb::globals::puppet_confdir,'/etc/puppet')
-        $puppet_service_name    = 'puppetmaster'
-      }
-      'OpenBSD': {
-        $puppetdb_package       = 'puppetdb'
-        $terminus_package       = 'puppetdb-terminus'
-        $etcdir                 = '/etc/puppetdb'
-        $vardir                 = '/var/db/puppetdb'
-        $puppet_confdir         = pick($puppetdb::globals::puppet_confdir,'/etc/puppet')
-        $puppet_service_name    = 'puppetmasterd'
-      }
-      'FreeBSD': {
-        $puppetdb_package       = inline_epp('puppetdb<%= $puppetdb::params::puppetdb_major_version %>')
-        $terminus_package       = inline_epp('puppetdb-terminus<%= $puppetdb::params::puppetdb_major_version %>')
-        $etcdir                 = '/usr/local/etc/puppetdb'
-        $vardir                 = '/var/db/puppetdb'
-        $puppet_confdir         = pick($puppetdb::globals::puppet_confdir,'/usr/local/etc/puppet')
-        $puppet_service_name    = 'puppetmaster'
-      }
-      default: {
-        fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")
-      }
-    }
-    $test_url         = '/v3/version'
-  } else {
-    case fact('os.family') {
-      'Archlinux': {
-        $puppetdb_package    = 'puppetdb'
-        $terminus_package    = 'puppetdb-termini'
-        $etcdir              = '/etc/puppetlabs/puppetdb'
-        $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/etc/puppetlabs/puppet')
-        $puppet_service_name = 'puppetserver'
-        $vardir              = '/opt/puppetlabs/server/data/puppetdb'
-      }
-      'Debian', 'RedHat', 'Suse': {
-        $puppetdb_package    = 'openvoxdb'
-        $terminus_package    = 'openvoxdb-termini'
-        $etcdir              = '/etc/puppetlabs/puppetdb'
-        $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/etc/puppetlabs/puppet')
-        $puppet_service_name = 'puppetserver'
-        $vardir              = '/opt/puppetlabs/server/data/puppetdb'
-      }
-      'FreeBSD': {
-        $puppetdb_package    = "openvoxdb-${puppetdb::params::puppetdb_major_version}"
-        $terminus_package    = "openvoxdb-terminus-${puppetdb::params::puppetdb_major_version}"
-        $etcdir              = '/usr/local/etc/puppetdb'
-        $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/usr/local/etc/puppet')
-        $puppet_service_name = 'puppetserver'
-        $vardir              = '/var/db/puppetdb'
-      }
-      'OpenBSD': {
-        $puppetdb_package    = 'puppetdb'
-        $terminus_package    = 'puppetdb-termini'
-        $etcdir              = '/etc/puppetlabs/puppetdb'
-        $puppet_confdir      = pick($puppetdb::globals::puppet_confdir,'/etc/puppetlabs/puppet')
-        $puppet_service_name = undef
-        $vardir              = '/opt/puppetlabs/server/data/puppetdb'
-      }
-      default: {
-        fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")
-      }
-    }
-    $test_url               = '/pdb/meta/v1/version'
-  }
-
-  $confdir = "${etcdir}/conf.d"
-  $ssl_dir = "${etcdir}/ssl"
-
   case fact('os.family') {
-    'RedHat', 'Suse', 'Archlinux': {
-      $puppetdb_user     = 'puppetdb'
-      $puppetdb_group    = 'puppetdb'
-      $puppetdb_initconf = '/etc/sysconfig/puppetdb'
+    'Archlinux': {
+      $puppetdb_package    = 'puppetdb'
+      $terminus_package    = 'puppetdb-termini'
+      $etcdir              = '/etc/puppetlabs/puppetdb'
+      $puppet_confdir      = '/etc/puppetlabs/puppet'
+      $puppet_service_name = 'puppetserver'
+      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
+      $puppetdb_user       = 'puppetdb'
+      $puppetdb_group      = 'puppetdb'
+      $puppetdb_initconf   = '/etc/sysconfig/puppetdb'
     }
     'Debian': {
-      $puppetdb_user     = 'puppetdb'
-      $puppetdb_group    = 'puppetdb'
-      $puppetdb_initconf = '/etc/default/puppetdb'
-    }
-    'OpenBSD': {
-      $puppetdb_user     = '_puppetdb'
-      $puppetdb_group    = '_puppetdb'
-      $puppetdb_initconf = undef
+      $puppetdb_package    = 'openvoxdb'
+      $terminus_package    = 'openvoxdb-termini'
+      $etcdir              = '/etc/puppetlabs/puppetdb'
+      $puppet_confdir      = '/etc/puppetlabs/puppet'
+      $puppet_service_name = 'puppetserver'
+      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
+      $puppetdb_user       = 'puppetdb'
+      $puppetdb_group      = 'puppetdb'
+      $puppetdb_initconf   = '/etc/default/puppetdb'
     }
     'FreeBSD': {
-      $puppetdb_user     = 'puppetdb'
-      $puppetdb_group    = 'puppetdb'
-      $puppetdb_initconf = undef
+      $puppetdb_package    = "openvoxdb-${puppetdb::params::puppetdb_major_version}"
+      $terminus_package    = "openvoxdb-terminus-${puppetdb::params::puppetdb_major_version}"
+      $etcdir              = '/usr/local/etc/puppetdb'
+      $puppet_confdir      = '/usr/local/etc/puppet'
+      $puppet_service_name = 'puppetserver'
+      $vardir              = '/var/db/puppetdb'
+      $puppetdb_user       = '_puppetdb'
+      $puppetdb_group      = '_puppetdb'
+      $puppetdb_initconf   = undef
+    }
+    'OpenBSD': {
+      $puppetdb_package    = 'puppetdb'
+      $terminus_package    = 'puppetdb-termini'
+      $etcdir              = '/etc/puppetlabs/puppetdb'
+      $puppet_confdir      = '/etc/puppetlabs/puppet'
+      $puppet_service_name = undef
+      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
+      $puppetdb_user       = '_puppetdb'
+      $puppetdb_group      = '_puppetdb'
+      $puppetdb_initconf   = undef
+    }
+    'RedHat', 'Suse': {
+      $puppetdb_package    = 'openvoxdb'
+      $terminus_package    = 'openvoxdb-termini'
+      $etcdir              = '/etc/puppetlabs/puppetdb'
+      $puppet_confdir      = '/etc/puppetlabs/puppet'
+      $puppet_service_name = 'puppetserver'
+      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
+      $puppetdb_user       = 'puppetdb'
+      $puppetdb_group      = 'puppetdb'
+      $puppetdb_initconf   = '/etc/sysconfig/puppetdb'
     }
     default: {
       fail("The fact 'os.family' is set to ${fact('os.family')} which is not supported by the puppetdb module.")
     }
   }
+  $test_url               = '/pdb/meta/v1/version'
+
+  $confdir = "${etcdir}/conf.d"
+  $ssl_dir = "${etcdir}/ssl"
 
   $puppet_conf              = "${puppet_confdir}/puppet.conf"
   $puppetdb_startup_timeout = 120
@@ -225,13 +189,7 @@ class puppetdb::params inherits puppetdb::globals {
   #$certificate_whitelist      = [ $::servername ]
 
   # Get the parameter name for the database connection pool tuning
-  if $puppetdb_version in ['latest','present'] or versioncmp($puppetdb_version, '4.0.0') >= 0 {
-    $database_max_pool_size_setting_name = 'maximum-pool-size'
-  } elsif versioncmp($puppetdb_version, '2.8.0') >= 0 {
-    $database_max_pool_size_setting_name = 'partition-conn-max'
-  } else {
-    $database_max_pool_size_setting_name = undef
-  }
+  $database_max_pool_size_setting_name = 'maximum-pool-size'
 
   # java binary path for PuppetDB. If undef, default will be used.
   $java_bin = undef
