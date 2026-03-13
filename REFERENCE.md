@@ -8,37 +8,37 @@
 
 #### Public Classes
 
-* [`puppetdb`](#puppetdb): manage PuppetDB
-* [`puppetdb::database::postgresql`](#puppetdb--database--postgresql): create the PuppetDB postgresql database
-* [`puppetdb::master::config`](#puppetdb--master--config): manage the puppet configuration on the primary
-* [`puppetdb::server`](#puppetdb--server): manage the PuppetDB server
+* [`openvoxdb`](#openvoxdb): manage PuppetDB
+* [`openvoxdb::database::postgresql`](#openvoxdb--database--postgresql): create the PuppetDB postgresql database
+* [`openvoxdb::master::config`](#openvoxdb--master--config): manage the puppet configuration on the primary
+* [`openvoxdb::server`](#openvoxdb--server): manage the PuppetDB server
 
 #### Private Classes
 
-* `puppetdb::database::ssl_configuration`: configure SSL for the PuppetDB postgresql database
-* `puppetdb::master::puppetdb_conf`: manage the puppetdb.conf file on the puppet primary
-* `puppetdb::master::report_processor`: manage the installation of the report processor on the primary
-* `puppetdb::master::routes`: manages the routes configuration file on the master
-* `puppetdb::master::storeconfigs`: configure the puppet master to enable storeconfigs and to use puppetdb as the storeconfigs backend
-* `puppetdb::params`: default configuration settings
-* `puppetdb::server::command_processing`: manage puppetdb config ini
-* `puppetdb::server::database`: manage puppetdb database ini
-* `puppetdb::server::firewall`: manage puppetdb firewall rules
-* `puppetdb::server::global`: manage puppetdb global setting
-* `puppetdb::server::jetty`: configures puppetdb jetty ini
-* `puppetdb::server::puppetdb`: manage puppetdb ini
-* `puppetdb::server::read_database`: manage puppetdb read_database ini
-* `puppetdb::server::validate_db`: validates the database connection
-* `puppetdb::server::validate_read_db`: validates the read only database connection
+* `openvoxdb::database::ssl_configuration`: configure SSL for the PuppetDB postgresql database
+* `openvoxdb::master::puppetdb_conf`: manage the puppetdb.conf file on the puppet primary
+* `openvoxdb::master::report_processor`: manage the installation of the report processor on the primary
+* `openvoxdb::master::routes`: manages the routes configuration file on the master
+* `openvoxdb::master::storeconfigs`: configure the puppet master to enable storeconfigs and to use puppetdb as the storeconfigs backend
+* `openvoxdb::params`: default configuration settings
+* `openvoxdb::server::command_processing`: manage puppetdb config ini
+* `openvoxdb::server::database`: manage puppetdb database ini
+* `openvoxdb::server::firewall`: manage puppetdb firewall rules
+* `openvoxdb::server::global`: manage puppetdb global setting
+* `openvoxdb::server::jetty`: configures puppetdb jetty ini
+* `openvoxdb::server::puppetdb`: manage puppetdb ini
+* `openvoxdb::server::read_database`: manage puppetdb read_database ini
+* `openvoxdb::server::validate_db`: validates the database connection
+* `openvoxdb::server::validate_read_db`: validates the read only database connection
 
 ### Defined types
 
 #### Private Defined types
 
-* `puppetdb::database::default_read_grant`: grant read permissions to $database_read_only_username by default, for new tables created by $database_username
-* `puppetdb::database::postgresql_ssl_rules`: manage the pg_ident.conf and pg_hba.conf files
-* `puppetdb::database::read_grant`: grant read-only permissions to $database_read_only_username for all objects in $schema of $database_name
-* `puppetdb::database::read_only_user`: manage the creation of a read-only postgres users
+* `openvoxdb::database::default_read_grant`: grant read permissions to $database_read_only_username by default, for new tables created by $database_username
+* `openvoxdb::database::postgresql_ssl_rules`: manage the pg_ident.conf and pg_hba.conf files
+* `openvoxdb::database::read_grant`: grant read-only permissions to $database_read_only_username for all objects in $schema of $database_name
+* `openvoxdb::database::read_only_user`: manage the creation of a read-only postgres users
 
 ### Resource types
 
@@ -46,310 +46,310 @@
 
 ### Functions
 
-* [`puppetdb::create_subsetting_resource_hash`](#puppetdb--create_subsetting_resource_hash)
-* [`puppetdb::flatten_java_args`](#puppetdb--flatten_java_args)
+* [`openvoxdb::create_subsetting_resource_hash`](#openvoxdb--create_subsetting_resource_hash)
+* [`openvoxdb::flatten_java_args`](#openvoxdb--flatten_java_args)
 
 ### Data types
 
-* [`Puppetdb::Ttl`](#Puppetdb--Ttl)
+* [`Openvoxdb::Ttl`](#Openvoxdb--Ttl)
 
 ## Classes
 
-### <a name="puppetdb"></a>`puppetdb`
+### <a name="openvoxdb"></a>`openvoxdb`
 
 manage PuppetDB
 
 #### Parameters
 
-The following parameters are available in the `puppetdb` class:
+The following parameters are available in the `openvoxdb` class:
 
-* [`listen_address`](#-puppetdb--listen_address)
-* [`listen_port`](#-puppetdb--listen_port)
-* [`disable_cleartext`](#-puppetdb--disable_cleartext)
-* [`open_listen_port`](#-puppetdb--open_listen_port)
-* [`ssl_listen_address`](#-puppetdb--ssl_listen_address)
-* [`ssl_listen_port`](#-puppetdb--ssl_listen_port)
-* [`disable_ssl`](#-puppetdb--disable_ssl)
-* [`open_ssl_listen_port`](#-puppetdb--open_ssl_listen_port)
-* [`ssl_protocols`](#-puppetdb--ssl_protocols)
-* [`postgresql_ssl_on`](#-puppetdb--postgresql_ssl_on)
-* [`postgresql_ssl_folder`](#-puppetdb--postgresql_ssl_folder)
-* [`postgresql_ssl_cert_path`](#-puppetdb--postgresql_ssl_cert_path)
-* [`postgresql_ssl_key_path`](#-puppetdb--postgresql_ssl_key_path)
-* [`postgresql_ssl_ca_cert_path`](#-puppetdb--postgresql_ssl_ca_cert_path)
-* [`cipher_suites`](#-puppetdb--cipher_suites)
-* [`migrate`](#-puppetdb--migrate)
-* [`manage_dbserver`](#-puppetdb--manage_dbserver)
-* [`manage_database`](#-puppetdb--manage_database)
-* [`manage_package_repo`](#-puppetdb--manage_package_repo)
-* [`postgres_version`](#-puppetdb--postgres_version)
-* [`database_host`](#-puppetdb--database_host)
-* [`database_port`](#-puppetdb--database_port)
-* [`database_username`](#-puppetdb--database_username)
-* [`database_password`](#-puppetdb--database_password)
-* [`manage_db_password`](#-puppetdb--manage_db_password)
-* [`database_name`](#-puppetdb--database_name)
-* [`jdbc_ssl_properties`](#-puppetdb--jdbc_ssl_properties)
-* [`database_listen_address`](#-puppetdb--database_listen_address)
-* [`database_validate`](#-puppetdb--database_validate)
-* [`node_ttl`](#-puppetdb--node_ttl)
-* [`node_purge_ttl`](#-puppetdb--node_purge_ttl)
-* [`report_ttl`](#-puppetdb--report_ttl)
-* [`facts_blacklist`](#-puppetdb--facts_blacklist)
-* [`gc_interval`](#-puppetdb--gc_interval)
-* [`node_purge_gc_batch_limit`](#-puppetdb--node_purge_gc_batch_limit)
-* [`conn_max_age`](#-puppetdb--conn_max_age)
-* [`conn_lifetime`](#-puppetdb--conn_lifetime)
-* [`puppetdb_package`](#-puppetdb--puppetdb_package)
-* [`puppetdb_service`](#-puppetdb--puppetdb_service)
-* [`puppetdb_service_status`](#-puppetdb--puppetdb_service_status)
-* [`puppetdb_user`](#-puppetdb--puppetdb_user)
-* [`puppetdb_group`](#-puppetdb--puppetdb_group)
-* [`puppetdb_server`](#-puppetdb--puppetdb_server)
-* [`confdir`](#-puppetdb--confdir)
-* [`vardir`](#-puppetdb--vardir)
-* [`java_args`](#-puppetdb--java_args)
-* [`merge_default_java_args`](#-puppetdb--merge_default_java_args)
-* [`max_threads`](#-puppetdb--max_threads)
-* [`read_database_host`](#-puppetdb--read_database_host)
-* [`read_database_port`](#-puppetdb--read_database_port)
-* [`read_database_username`](#-puppetdb--read_database_username)
-* [`read_database_password`](#-puppetdb--read_database_password)
-* [`manage_read_db_password`](#-puppetdb--manage_read_db_password)
-* [`read_database_jdbc_ssl_properties`](#-puppetdb--read_database_jdbc_ssl_properties)
-* [`read_database_validate`](#-puppetdb--read_database_validate)
-* [`read_database_name`](#-puppetdb--read_database_name)
-* [`read_conn_max_age`](#-puppetdb--read_conn_max_age)
-* [`read_conn_lifetime`](#-puppetdb--read_conn_lifetime)
-* [`ssl_dir`](#-puppetdb--ssl_dir)
-* [`ssl_set_cert_paths`](#-puppetdb--ssl_set_cert_paths)
-* [`ssl_cert_path`](#-puppetdb--ssl_cert_path)
-* [`ssl_key_pk8_path`](#-puppetdb--ssl_key_pk8_path)
-* [`ssl_key_path`](#-puppetdb--ssl_key_path)
-* [`ssl_ca_cert_path`](#-puppetdb--ssl_ca_cert_path)
-* [`ssl_deploy_certs`](#-puppetdb--ssl_deploy_certs)
-* [`ssl_key`](#-puppetdb--ssl_key)
-* [`ssl_cert`](#-puppetdb--ssl_cert)
-* [`ssl_ca_cert`](#-puppetdb--ssl_ca_cert)
-* [`manage_firewall`](#-puppetdb--manage_firewall)
-* [`command_threads`](#-puppetdb--command_threads)
-* [`concurrent_writes`](#-puppetdb--concurrent_writes)
-* [`store_usage`](#-puppetdb--store_usage)
-* [`temp_usage`](#-puppetdb--temp_usage)
-* [`disable_update_checking`](#-puppetdb--disable_update_checking)
-* [`certificate_whitelist_file`](#-puppetdb--certificate_whitelist_file)
-* [`certificate_whitelist`](#-puppetdb--certificate_whitelist)
-* [`database_max_pool_size`](#-puppetdb--database_max_pool_size)
-* [`read_database_max_pool_size`](#-puppetdb--read_database_max_pool_size)
-* [`automatic_dlo_cleanup`](#-puppetdb--automatic_dlo_cleanup)
-* [`cleanup_timer_interval`](#-puppetdb--cleanup_timer_interval)
-* [`dlo_max_age`](#-puppetdb--dlo_max_age)
-* [`java_bin`](#-puppetdb--java_bin)
-* [`postgresql_password_encryption`](#-puppetdb--postgresql_password_encryption)
+* [`listen_address`](#-openvoxdb--listen_address)
+* [`listen_port`](#-openvoxdb--listen_port)
+* [`disable_cleartext`](#-openvoxdb--disable_cleartext)
+* [`open_listen_port`](#-openvoxdb--open_listen_port)
+* [`ssl_listen_address`](#-openvoxdb--ssl_listen_address)
+* [`ssl_listen_port`](#-openvoxdb--ssl_listen_port)
+* [`disable_ssl`](#-openvoxdb--disable_ssl)
+* [`open_ssl_listen_port`](#-openvoxdb--open_ssl_listen_port)
+* [`ssl_protocols`](#-openvoxdb--ssl_protocols)
+* [`postgresql_ssl_on`](#-openvoxdb--postgresql_ssl_on)
+* [`postgresql_ssl_folder`](#-openvoxdb--postgresql_ssl_folder)
+* [`postgresql_ssl_cert_path`](#-openvoxdb--postgresql_ssl_cert_path)
+* [`postgresql_ssl_key_path`](#-openvoxdb--postgresql_ssl_key_path)
+* [`postgresql_ssl_ca_cert_path`](#-openvoxdb--postgresql_ssl_ca_cert_path)
+* [`cipher_suites`](#-openvoxdb--cipher_suites)
+* [`migrate`](#-openvoxdb--migrate)
+* [`manage_dbserver`](#-openvoxdb--manage_dbserver)
+* [`manage_database`](#-openvoxdb--manage_database)
+* [`manage_package_repo`](#-openvoxdb--manage_package_repo)
+* [`postgres_version`](#-openvoxdb--postgres_version)
+* [`database_host`](#-openvoxdb--database_host)
+* [`database_port`](#-openvoxdb--database_port)
+* [`database_username`](#-openvoxdb--database_username)
+* [`database_password`](#-openvoxdb--database_password)
+* [`manage_db_password`](#-openvoxdb--manage_db_password)
+* [`database_name`](#-openvoxdb--database_name)
+* [`jdbc_ssl_properties`](#-openvoxdb--jdbc_ssl_properties)
+* [`database_listen_address`](#-openvoxdb--database_listen_address)
+* [`database_validate`](#-openvoxdb--database_validate)
+* [`node_ttl`](#-openvoxdb--node_ttl)
+* [`node_purge_ttl`](#-openvoxdb--node_purge_ttl)
+* [`report_ttl`](#-openvoxdb--report_ttl)
+* [`facts_blacklist`](#-openvoxdb--facts_blacklist)
+* [`gc_interval`](#-openvoxdb--gc_interval)
+* [`node_purge_gc_batch_limit`](#-openvoxdb--node_purge_gc_batch_limit)
+* [`conn_max_age`](#-openvoxdb--conn_max_age)
+* [`conn_lifetime`](#-openvoxdb--conn_lifetime)
+* [`puppetdb_package`](#-openvoxdb--puppetdb_package)
+* [`puppetdb_service`](#-openvoxdb--puppetdb_service)
+* [`puppetdb_service_status`](#-openvoxdb--puppetdb_service_status)
+* [`puppetdb_user`](#-openvoxdb--puppetdb_user)
+* [`puppetdb_group`](#-openvoxdb--puppetdb_group)
+* [`puppetdb_server`](#-openvoxdb--puppetdb_server)
+* [`confdir`](#-openvoxdb--confdir)
+* [`vardir`](#-openvoxdb--vardir)
+* [`java_args`](#-openvoxdb--java_args)
+* [`merge_default_java_args`](#-openvoxdb--merge_default_java_args)
+* [`max_threads`](#-openvoxdb--max_threads)
+* [`read_database_host`](#-openvoxdb--read_database_host)
+* [`read_database_port`](#-openvoxdb--read_database_port)
+* [`read_database_username`](#-openvoxdb--read_database_username)
+* [`read_database_password`](#-openvoxdb--read_database_password)
+* [`manage_read_db_password`](#-openvoxdb--manage_read_db_password)
+* [`read_database_jdbc_ssl_properties`](#-openvoxdb--read_database_jdbc_ssl_properties)
+* [`read_database_validate`](#-openvoxdb--read_database_validate)
+* [`read_database_name`](#-openvoxdb--read_database_name)
+* [`read_conn_max_age`](#-openvoxdb--read_conn_max_age)
+* [`read_conn_lifetime`](#-openvoxdb--read_conn_lifetime)
+* [`ssl_dir`](#-openvoxdb--ssl_dir)
+* [`ssl_set_cert_paths`](#-openvoxdb--ssl_set_cert_paths)
+* [`ssl_cert_path`](#-openvoxdb--ssl_cert_path)
+* [`ssl_key_pk8_path`](#-openvoxdb--ssl_key_pk8_path)
+* [`ssl_key_path`](#-openvoxdb--ssl_key_path)
+* [`ssl_ca_cert_path`](#-openvoxdb--ssl_ca_cert_path)
+* [`ssl_deploy_certs`](#-openvoxdb--ssl_deploy_certs)
+* [`ssl_key`](#-openvoxdb--ssl_key)
+* [`ssl_cert`](#-openvoxdb--ssl_cert)
+* [`ssl_ca_cert`](#-openvoxdb--ssl_ca_cert)
+* [`manage_firewall`](#-openvoxdb--manage_firewall)
+* [`command_threads`](#-openvoxdb--command_threads)
+* [`concurrent_writes`](#-openvoxdb--concurrent_writes)
+* [`store_usage`](#-openvoxdb--store_usage)
+* [`temp_usage`](#-openvoxdb--temp_usage)
+* [`disable_update_checking`](#-openvoxdb--disable_update_checking)
+* [`certificate_whitelist_file`](#-openvoxdb--certificate_whitelist_file)
+* [`certificate_whitelist`](#-openvoxdb--certificate_whitelist)
+* [`database_max_pool_size`](#-openvoxdb--database_max_pool_size)
+* [`read_database_max_pool_size`](#-openvoxdb--read_database_max_pool_size)
+* [`automatic_dlo_cleanup`](#-openvoxdb--automatic_dlo_cleanup)
+* [`cleanup_timer_interval`](#-openvoxdb--cleanup_timer_interval)
+* [`dlo_max_age`](#-openvoxdb--dlo_max_age)
+* [`java_bin`](#-openvoxdb--java_bin)
+* [`postgresql_password_encryption`](#-openvoxdb--postgresql_password_encryption)
 
-##### <a name="-puppetdb--listen_address"></a>`listen_address`
+##### <a name="-openvoxdb--listen_address"></a>`listen_address`
 
 Data type: `Any`
 
 The address that the web server should bind to for HTTP requests. Defaults to
 `localhost`. Set to `0.0.0.0` to listen on all addresses.
 
-Default value: `$puppetdb::params::listen_address`
+Default value: `$openvoxdb::params::listen_address`
 
-##### <a name="-puppetdb--listen_port"></a>`listen_port`
+##### <a name="-openvoxdb--listen_port"></a>`listen_port`
 
 Data type: `Any`
 
 The port on which the puppetdb web server should accept HTTP requests. Defaults
 to `8080`.
 
-Default value: `$puppetdb::params::listen_port`
+Default value: `$openvoxdb::params::listen_port`
 
-##### <a name="-puppetdb--disable_cleartext"></a>`disable_cleartext`
+##### <a name="-openvoxdb--disable_cleartext"></a>`disable_cleartext`
 
 Data type: `Any`
 
 If `true`, the puppetdb web server will only serve HTTPS and not HTTP requests (defaults to false).
 
-Default value: `$puppetdb::params::disable_cleartext`
+Default value: `$openvoxdb::params::disable_cleartext`
 
-##### <a name="-puppetdb--open_listen_port"></a>`open_listen_port`
+##### <a name="-openvoxdb--open_listen_port"></a>`open_listen_port`
 
 Data type: `Any`
 
 If `true`, open the `http_listen_port` on the firewall. Defaults to `false`.
 
-Default value: `$puppetdb::params::open_listen_port`
+Default value: `$openvoxdb::params::open_listen_port`
 
-##### <a name="-puppetdb--ssl_listen_address"></a>`ssl_listen_address`
+##### <a name="-openvoxdb--ssl_listen_address"></a>`ssl_listen_address`
 
 Data type: `Any`
 
 The address that the web server should bind to for HTTPS requests. Defaults to
 `0.0.0.0` to listen on all addresses.
 
-Default value: `$puppetdb::params::ssl_listen_address`
+Default value: `$openvoxdb::params::ssl_listen_address`
 
-##### <a name="-puppetdb--ssl_listen_port"></a>`ssl_listen_port`
+##### <a name="-openvoxdb--ssl_listen_port"></a>`ssl_listen_port`
 
 Data type: `Any`
 
 The port on which the puppetdb web server should accept HTTPS requests. Defaults
 to `8081`.
 
-Default value: `$puppetdb::params::ssl_listen_port`
+Default value: `$openvoxdb::params::ssl_listen_port`
 
-##### <a name="-puppetdb--disable_ssl"></a>`disable_ssl`
+##### <a name="-openvoxdb--disable_ssl"></a>`disable_ssl`
 
 Data type: `Any`
 
 If `true`, the puppetdb web server will only serve HTTP and not HTTPS requests.
 Defaults to `false`.
 
-Default value: `$puppetdb::params::disable_ssl`
+Default value: `$openvoxdb::params::disable_ssl`
 
-##### <a name="-puppetdb--open_ssl_listen_port"></a>`open_ssl_listen_port`
+##### <a name="-openvoxdb--open_ssl_listen_port"></a>`open_ssl_listen_port`
 
 Data type: `Any`
 
 If true, open the `ssl_listen_port` on the firewall. Defaults to `undef`.
 
-Default value: `$puppetdb::params::open_ssl_listen_port`
+Default value: `$openvoxdb::params::open_ssl_listen_port`
 
-##### <a name="-puppetdb--ssl_protocols"></a>`ssl_protocols`
+##### <a name="-openvoxdb--ssl_protocols"></a>`ssl_protocols`
 
 Data type: `Any`
 
 Specify the supported SSL protocols for PuppetDB (e.g. TLSv1, TLSv1.1, TLSv1.2.)
 
-Default value: `$puppetdb::params::ssl_protocols`
+Default value: `$openvoxdb::params::ssl_protocols`
 
-##### <a name="-puppetdb--postgresql_ssl_on"></a>`postgresql_ssl_on`
+##### <a name="-openvoxdb--postgresql_ssl_on"></a>`postgresql_ssl_on`
 
 Data type: `Any`
 
 If `true`, it configures SSL connections between PuppetDB and the PostgreSQL database.
 Defaults to `false`.
 
-Default value: `$puppetdb::params::postgresql_ssl_on`
+Default value: `$openvoxdb::params::postgresql_ssl_on`
 
-##### <a name="-puppetdb--postgresql_ssl_folder"></a>`postgresql_ssl_folder`
+##### <a name="-openvoxdb--postgresql_ssl_folder"></a>`postgresql_ssl_folder`
 
 Data type: `Any`
 
 Path to the Postgresql SSL folder.
 
-Default value: `$puppetdb::params::postgresql_ssl_folder`
+Default value: `$openvoxdb::params::postgresql_ssl_folder`
 
-##### <a name="-puppetdb--postgresql_ssl_cert_path"></a>`postgresql_ssl_cert_path`
+##### <a name="-openvoxdb--postgresql_ssl_cert_path"></a>`postgresql_ssl_cert_path`
 
 Data type: `Any`
 
 Path to the Postgresql SSL certificate.
 
-Default value: `$puppetdb::params::postgresql_ssl_cert_path`
+Default value: `$openvoxdb::params::postgresql_ssl_cert_path`
 
-##### <a name="-puppetdb--postgresql_ssl_key_path"></a>`postgresql_ssl_key_path`
+##### <a name="-openvoxdb--postgresql_ssl_key_path"></a>`postgresql_ssl_key_path`
 
 Data type: `Any`
 
 Path to the Postgresql SSL key.
 
-Default value: `$puppetdb::params::postgresql_ssl_key_path`
+Default value: `$openvoxdb::params::postgresql_ssl_key_path`
 
-##### <a name="-puppetdb--postgresql_ssl_ca_cert_path"></a>`postgresql_ssl_ca_cert_path`
+##### <a name="-openvoxdb--postgresql_ssl_ca_cert_path"></a>`postgresql_ssl_ca_cert_path`
 
 Data type: `Any`
 
 Path to the Postgresql SSL CA.
 
-Default value: `$puppetdb::params::postgresql_ssl_ca_cert_path`
+Default value: `$openvoxdb::params::postgresql_ssl_ca_cert_path`
 
-##### <a name="-puppetdb--cipher_suites"></a>`cipher_suites`
+##### <a name="-openvoxdb--cipher_suites"></a>`cipher_suites`
 
 Data type: `Any`
 
 Configure jetty's supported `cipher-suites` (e.g. `SSL_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384`).
 Defaults to `undef`.
 
-Default value: `$puppetdb::params::cipher_suites`
+Default value: `$openvoxdb::params::cipher_suites`
 
-##### <a name="-puppetdb--migrate"></a>`migrate`
+##### <a name="-openvoxdb--migrate"></a>`migrate`
 
 Data type: `Any`
 
 If `true`, puppetdb will automatically migrate to the latest database format at startup. If `false`, if the database format supplied by this version of PuppetDB doesn't match the version expected (whether newer or older), PuppetDB will exit with an error status. Defaults to `true`.
 
-Default value: `$puppetdb::params::migrate`
+Default value: `$openvoxdb::params::migrate`
 
-##### <a name="-puppetdb--manage_dbserver"></a>`manage_dbserver`
+##### <a name="-openvoxdb--manage_dbserver"></a>`manage_dbserver`
 
 Data type: `Any`
 
 If true, the PostgreSQL server will be managed by this module. Defaults to `true`.
 
-Default value: `$puppetdb::params::manage_dbserver`
+Default value: `$openvoxdb::params::manage_dbserver`
 
-##### <a name="-puppetdb--manage_database"></a>`manage_database`
+##### <a name="-openvoxdb--manage_database"></a>`manage_database`
 
 Data type: `Any`
 
 If true, the PostgreSQL database will be managed by this module. Defaults to `true`.
 
-Default value: `$puppetdb::params::manage_database`
+Default value: `$openvoxdb::params::manage_database`
 
-##### <a name="-puppetdb--manage_package_repo"></a>`manage_package_repo`
+##### <a name="-openvoxdb--manage_package_repo"></a>`manage_package_repo`
 
 Data type: `Any`
 
 If `true`, the official postgresql.org repo will be added and postgres won't
 be installed from the regular repository. Defaults to `true`.
 
-Default value: `$puppetdb::params::manage_pg_repo`
+Default value: `$openvoxdb::params::manage_pg_repo`
 
-##### <a name="-puppetdb--postgres_version"></a>`postgres_version`
+##### <a name="-openvoxdb--postgres_version"></a>`postgres_version`
 
 Data type: `Any`
 
 If the postgresql.org repo is installed, you can install several versions of
 postgres. Defaults to `11` with PuppetDB version 7.0.0 or newer, and `9.6` in older versions.
 
-Default value: `$puppetdb::params::postgres_version`
+Default value: `$openvoxdb::params::postgres_version`
 
-##### <a name="-puppetdb--database_host"></a>`database_host`
+##### <a name="-openvoxdb--database_host"></a>`database_host`
 
 Data type: `Any`
 
 Hostname to use for the database connection. For single case installations this
 should be left as the default. Defaults to `localhost`.
 
-Default value: `$puppetdb::params::database_host`
+Default value: `$openvoxdb::params::database_host`
 
-##### <a name="-puppetdb--database_port"></a>`database_port`
+##### <a name="-openvoxdb--database_port"></a>`database_port`
 
 Data type: `Any`
 
 The port that the database server listens on. Defaults to `5432`.
 
-Default value: `$puppetdb::params::database_port`
+Default value: `$openvoxdb::params::database_port`
 
-##### <a name="-puppetdb--database_username"></a>`database_username`
+##### <a name="-openvoxdb--database_username"></a>`database_username`
 
 Data type: `Any`
 
 The name of the database user to connect as. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_username`
+Default value: `$openvoxdb::params::database_username`
 
-##### <a name="-puppetdb--database_password"></a>`database_password`
+##### <a name="-openvoxdb--database_password"></a>`database_password`
 
 Data type: `Variant[String[1], Sensitive[String[1]]]`
 
 The password for the database user. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_password`
+Default value: `$openvoxdb::params::database_password`
 
-##### <a name="-puppetdb--manage_db_password"></a>`manage_db_password`
+##### <a name="-openvoxdb--manage_db_password"></a>`manage_db_password`
 
 Data type: `Any`
 
@@ -357,17 +357,17 @@ Whether or not the database password in database.ini will be managed by this mod
 Set this to `false` if you want to set the password some other way.
 Defaults to `true`
 
-Default value: `$puppetdb::params::manage_db_password`
+Default value: `$openvoxdb::params::manage_db_password`
 
-##### <a name="-puppetdb--database_name"></a>`database_name`
+##### <a name="-openvoxdb--database_name"></a>`database_name`
 
 Data type: `Any`
 
 The name of the database instance to connect to. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_name`
+Default value: `$openvoxdb::params::database_name`
 
-##### <a name="-puppetdb--jdbc_ssl_properties"></a>`jdbc_ssl_properties`
+##### <a name="-openvoxdb--jdbc_ssl_properties"></a>`jdbc_ssl_properties`
 
 Data type: `Any`
 
@@ -375,9 +375,9 @@ The text to append to the JDBC connection URI. This should begin with a '?'
 character. For example, to use SSL for the PostgreSQL connection, set this
 parameter's value to `?ssl=true`.
 
-Default value: `$puppetdb::params::jdbc_ssl_properties`
+Default value: `$openvoxdb::params::jdbc_ssl_properties`
 
-##### <a name="-puppetdb--database_listen_address"></a>`database_listen_address`
+##### <a name="-openvoxdb--database_listen_address"></a>`database_listen_address`
 
 Data type: `Any`
 
@@ -386,18 +386,18 @@ server should listen for incoming connections. This defaults to `localhost`.
 This parameter maps directly to PostgreSQL's `listen_addresses`
 config option. Use a `*` to allow connections on any accessible address.
 
-Default value: `$puppetdb::params::postgres_listen_addresses`
+Default value: `$openvoxdb::params::postgres_listen_addresses`
 
-##### <a name="-puppetdb--database_validate"></a>`database_validate`
+##### <a name="-openvoxdb--database_validate"></a>`database_validate`
 
 Data type: `Any`
 
 If true, the module will attempt to connect to the database using the specified
 settings and fail if it is not able to do so. Defaults to `true`.
 
-Default value: `$puppetdb::params::database_validate`
+Default value: `$openvoxdb::params::database_validate`
 
-##### <a name="-puppetdb--node_ttl"></a>`node_ttl`
+##### <a name="-openvoxdb--node_ttl"></a>`node_ttl`
 
 Data type: `Any`
 
@@ -406,9 +406,9 @@ automatically deactivated. (defaults to '7d', which is a 7-day period. Set to
 '0d' to disable auto-deactivation).  This option is supported in PuppetDB >=
 1.1.0.
 
-Default value: `$puppetdb::params::node_ttl`
+Default value: `$openvoxdb::params::node_ttl`
 
-##### <a name="-puppetdb--node_purge_ttl"></a>`node_purge_ttl`
+##### <a name="-openvoxdb--node_purge_ttl"></a>`node_purge_ttl`
 
 Data type: `Any`
 
@@ -416,26 +416,26 @@ The length of time a node can be deactivated before it's deleted from the
 database. (defaults to '14d', which is a 14-day period. Set to '0d' to disable
 purging). This option is supported in PuppetDB >= 1.2.0.
 
-Default value: `$puppetdb::params::node_purge_ttl`
+Default value: `$openvoxdb::params::node_purge_ttl`
 
-##### <a name="-puppetdb--report_ttl"></a>`report_ttl`
+##### <a name="-openvoxdb--report_ttl"></a>`report_ttl`
 
 Data type: `Any`
 
 The length of time reports should be stored before being deleted. (defaults to
 `14d`, which is a 14-day period). This option is supported in PuppetDB >= 1.1.0.
 
-Default value: `$puppetdb::params::report_ttl`
+Default value: `$openvoxdb::params::report_ttl`
 
-##### <a name="-puppetdb--facts_blacklist"></a>`facts_blacklist`
+##### <a name="-openvoxdb--facts_blacklist"></a>`facts_blacklist`
 
 Data type: `Optional[Array]`
 
 A list of fact names to be ignored whenever submitted.
 
-Default value: `$puppetdb::params::facts_blacklist`
+Default value: `$openvoxdb::params::facts_blacklist`
 
-##### <a name="-puppetdb--gc_interval"></a>`gc_interval`
+##### <a name="-openvoxdb--gc_interval"></a>`gc_interval`
 
 Data type: `Any`
 
@@ -443,17 +443,17 @@ This controls how often (in minutes) to compact the database. The compaction
 process reclaims space and deletes unnecessary rows. If not supplied, the
 default is every 60 minutes. This option is supported in PuppetDB >= 0.9.
 
-Default value: `$puppetdb::params::gc_interval`
+Default value: `$openvoxdb::params::gc_interval`
 
-##### <a name="-puppetdb--node_purge_gc_batch_limit"></a>`node_purge_gc_batch_limit`
+##### <a name="-openvoxdb--node_purge_gc_batch_limit"></a>`node_purge_gc_batch_limit`
 
 Data type: `Any`
 
 Nodes will be purged in batches of this size, one batch per gc-interval.
 
-Default value: `$puppetdb::params::node_purge_gc_batch_limit`
+Default value: `$openvoxdb::params::node_purge_gc_batch_limit`
 
-##### <a name="-puppetdb--conn_max_age"></a>`conn_max_age`
+##### <a name="-openvoxdb--conn_max_age"></a>`conn_max_age`
 
 Data type: `Any`
 
@@ -462,9 +462,9 @@ it is closed off.
 
 If not supplied, we default to `60` minutes. This option is supported in PuppetDB >= 1.1.
 
-Default value: `$puppetdb::params::conn_max_age`
+Default value: `$openvoxdb::params::conn_max_age`
 
-##### <a name="-puppetdb--conn_lifetime"></a>`conn_lifetime`
+##### <a name="-openvoxdb--conn_lifetime"></a>`conn_lifetime`
 
 Data type: `Any`
 
@@ -475,25 +475,25 @@ use will not be affected until they are returned to the pool.
 If not supplied, we won't terminate connections based on their age alone. This
 option is supported in PuppetDB >= 1.4.
 
-Default value: `$puppetdb::params::conn_lifetime`
+Default value: `$openvoxdb::params::conn_lifetime`
 
-##### <a name="-puppetdb--puppetdb_package"></a>`puppetdb_package`
+##### <a name="-openvoxdb--puppetdb_package"></a>`puppetdb_package`
 
 Data type: `Any`
 
 The PuppetDB package name in the package manager. Defaults to `present`.
 
-Default value: `$puppetdb::params::puppetdb_package`
+Default value: `$openvoxdb::params::puppetdb_package`
 
-##### <a name="-puppetdb--puppetdb_service"></a>`puppetdb_service`
+##### <a name="-openvoxdb--puppetdb_service"></a>`puppetdb_service`
 
 Data type: `Any`
 
 The name of the PuppetDB service. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::puppetdb_service`
+Default value: `$openvoxdb::params::puppetdb_service`
 
-##### <a name="-puppetdb--puppetdb_service_status"></a>`puppetdb_service_status`
+##### <a name="-openvoxdb--puppetdb_service_status"></a>`puppetdb_service_status`
 
 Data type: `Any`
 
@@ -501,49 +501,49 @@ Sets whether the service should be `running ` or `stopped`. When set to `stopped
 service doesn't start on boot either. Valid values are `true`, `running`,
 `false`, and `stopped`.
 
-Default value: `$puppetdb::params::puppetdb_service_status`
+Default value: `$openvoxdb::params::puppetdb_service_status`
 
-##### <a name="-puppetdb--puppetdb_user"></a>`puppetdb_user`
+##### <a name="-openvoxdb--puppetdb_user"></a>`puppetdb_user`
 
 Data type: `Any`
 
 Puppetdb service user
 
-Default value: `$puppetdb::params::puppetdb_user`
+Default value: `$openvoxdb::params::puppetdb_user`
 
-##### <a name="-puppetdb--puppetdb_group"></a>`puppetdb_group`
+##### <a name="-openvoxdb--puppetdb_group"></a>`puppetdb_group`
 
 Data type: `Any`
 
 Puppetdb service group
 
-Default value: `$puppetdb::params::puppetdb_group`
+Default value: `$openvoxdb::params::puppetdb_group`
 
-##### <a name="-puppetdb--puppetdb_server"></a>`puppetdb_server`
+##### <a name="-openvoxdb--puppetdb_server"></a>`puppetdb_server`
 
 Data type: `Any`
 
 Puppetdb server hostname or IP address.
 
-Default value: `$puppetdb::params::puppetdb_server`
+Default value: `$openvoxdb::params::puppetdb_server`
 
-##### <a name="-puppetdb--confdir"></a>`confdir`
+##### <a name="-openvoxdb--confdir"></a>`confdir`
 
 Data type: `Any`
 
 The PuppetDB configuration directory. Defaults to `/etc/puppetdb/conf.d`.
 
-Default value: `$puppetdb::params::confdir`
+Default value: `$openvoxdb::params::confdir`
 
-##### <a name="-puppetdb--vardir"></a>`vardir`
+##### <a name="-openvoxdb--vardir"></a>`vardir`
 
 Data type: `Any`
 
 The parent directory for the MQ's data directory.
 
-Default value: `$puppetdb::params::vardir`
+Default value: `$openvoxdb::params::vardir`
 
-##### <a name="-puppetdb--java_args"></a>`java_args`
+##### <a name="-openvoxdb--java_args"></a>`java_args`
 
 Data type: `Any`
 
@@ -559,9 +559,9 @@ For example, to set `-Xmx512m -Xms256m` options use:
         '-Xms' => '256m',
     }
 
-Default value: `$puppetdb::params::java_args`
+Default value: `$openvoxdb::params::java_args`
 
-##### <a name="-puppetdb--merge_default_java_args"></a>`merge_default_java_args`
+##### <a name="-openvoxdb--merge_default_java_args"></a>`merge_default_java_args`
 
 Data type: `Any`
 
@@ -570,18 +570,18 @@ should override the defaults. This setting is necessary if any of the defaults
 are to be removed. Defaults to true. If `false`, the `java_args` in the PuppetDB
 init config file will reflect only what is passed via the `java_args` param.
 
-Default value: `$puppetdb::params::merge_default_java_args`
+Default value: `$openvoxdb::params::merge_default_java_args`
 
-##### <a name="-puppetdb--max_threads"></a>`max_threads`
+##### <a name="-openvoxdb--max_threads"></a>`max_threads`
 
 Data type: `Any`
 
 Jetty option to explicitly set `max-threads`. Defaults to `undef`, so the
 PuppetDB-Jetty default is used.
 
-Default value: `$puppetdb::params::max_threads`
+Default value: `$openvoxdb::params::max_threads`
 
-##### <a name="-puppetdb--read_database_host"></a>`read_database_host`
+##### <a name="-openvoxdb--read_database_host"></a>`read_database_host`
 
 Data type: `Any`
 
@@ -591,9 +591,9 @@ The hostname or IP address of the read database server. If set to `undef`, and
 `manage_database` is set to `true`, it will use the value of the `database_host`
 parameter. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_host`
+Default value: `$openvoxdb::params::read_database_host`
 
-##### <a name="-puppetdb--read_database_port"></a>`read_database_port`
+##### <a name="-openvoxdb--read_database_port"></a>`read_database_port`
 
 Data type: `Any`
 
@@ -601,27 +601,27 @@ The port that the read database server listens on. If `read_database_host`
 is set to `undef`, and `manage_database` is set to `true`, it will use the value of
 the `database_port` parameter. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_port`
+Default value: `$openvoxdb::params::read_database_port`
 
-##### <a name="-puppetdb--read_database_username"></a>`read_database_username`
+##### <a name="-openvoxdb--read_database_username"></a>`read_database_username`
 
 Data type: `Any`
 
 The name of the read database user to connect as. Defaults to `puppetdb-read`. This
 option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_username`
+Default value: `$openvoxdb::params::read_database_username`
 
-##### <a name="-puppetdb--read_database_password"></a>`read_database_password`
+##### <a name="-openvoxdb--read_database_password"></a>`read_database_password`
 
 Data type: `Variant[String[1], Sensitive[String[1]]]`
 
 The password for the read database user. Defaults to `puppetdb-read`. This option is
 supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_password`
+Default value: `$openvoxdb::params::read_database_password`
 
-##### <a name="-puppetdb--manage_read_db_password"></a>`manage_read_db_password`
+##### <a name="-openvoxdb--manage_read_db_password"></a>`manage_read_db_password`
 
 Data type: `Any`
 
@@ -629,9 +629,9 @@ Whether or not the database password in read-database.ini will be managed by thi
 Set this to `false` if you want to set the password some other way.
 Defaults to `true`
 
-Default value: `$puppetdb::params::manage_read_db_password`
+Default value: `$openvoxdb::params::manage_read_db_password`
 
-##### <a name="-puppetdb--read_database_jdbc_ssl_properties"></a>`read_database_jdbc_ssl_properties`
+##### <a name="-openvoxdb--read_database_jdbc_ssl_properties"></a>`read_database_jdbc_ssl_properties`
 
 Data type: `Any`
 
@@ -639,18 +639,18 @@ The text to append to the JDBC connection URI. This should begin with a '?'
 character. For example, to use SSL for the PostgreSQL connection, set this
 parameter's value to `?ssl=true`.
 
-Default value: `$puppetdb::params::read_database_jdbc_ssl_properties`
+Default value: `$openvoxdb::params::read_database_jdbc_ssl_properties`
 
-##### <a name="-puppetdb--read_database_validate"></a>`read_database_validate`
+##### <a name="-openvoxdb--read_database_validate"></a>`read_database_validate`
 
 Data type: `Any`
 
 If true, the module will attempt to connect to the database using the specified
 settings and fail if it is not able to do so. Defaults to `true`.
 
-Default value: `$puppetdb::params::read_database_validate`
+Default value: `$openvoxdb::params::read_database_validate`
 
-##### <a name="-puppetdb--read_database_name"></a>`read_database_name`
+##### <a name="-openvoxdb--read_database_name"></a>`read_database_name`
 
 Data type: `Any`
 
@@ -658,9 +658,9 @@ The name of the read database instance to connect to. If `read_database_host`
 is set to `undef`, and `manage_database` is set to `true`, it will use the value of
 the `database_name` parameter. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_name`
+Default value: `$openvoxdb::params::read_database_name`
 
-##### <a name="-puppetdb--read_conn_max_age"></a>`read_conn_max_age`
+##### <a name="-openvoxdb--read_conn_max_age"></a>`read_conn_max_age`
 
 Data type: `Any`
 
@@ -669,9 +669,9 @@ unused before it is closed off.
 
 If not supplied, we default to 60 minutes. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_conn_max_age`
+Default value: `$openvoxdb::params::read_conn_max_age`
 
-##### <a name="-puppetdb--read_conn_lifetime"></a>`read_conn_lifetime`
+##### <a name="-openvoxdb--read_conn_lifetime"></a>`read_conn_lifetime`
 
 Data type: `Any`
 
@@ -682,181 +682,181 @@ currently in use will not be affected until they are returned to the pool.
 If not supplied, we won't terminate connections based on their age alone. This
 option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_conn_lifetime`
+Default value: `$openvoxdb::params::read_conn_lifetime`
 
-##### <a name="-puppetdb--ssl_dir"></a>`ssl_dir`
+##### <a name="-openvoxdb--ssl_dir"></a>`ssl_dir`
 
 Data type: `Any`
 
 Base directory for PuppetDB SSL configuration. Defaults to `/etc/puppetdb/ssl`
 or `/etc/puppetlabs/puppetdb/ssl` for FOSS and PE respectively.
 
-Default value: `$puppetdb::params::ssl_dir`
+Default value: `$openvoxdb::params::ssl_dir`
 
-##### <a name="-puppetdb--ssl_set_cert_paths"></a>`ssl_set_cert_paths`
+##### <a name="-openvoxdb--ssl_set_cert_paths"></a>`ssl_set_cert_paths`
 
 Data type: `Any`
 
 A switch to enable or disable the management of SSL certificates in your
 `jetty.ini` configuration file.
 
-Default value: `$puppetdb::params::ssl_set_cert_paths`
+Default value: `$openvoxdb::params::ssl_set_cert_paths`
 
-##### <a name="-puppetdb--ssl_cert_path"></a>`ssl_cert_path`
+##### <a name="-openvoxdb--ssl_cert_path"></a>`ssl_cert_path`
 
 Data type: `Any`
 
 Path to your SSL certificate for populating `jetty.ini`.
 
-Default value: `$puppetdb::params::ssl_cert_path`
+Default value: `$openvoxdb::params::ssl_cert_path`
 
-##### <a name="-puppetdb--ssl_key_pk8_path"></a>`ssl_key_pk8_path`
+##### <a name="-openvoxdb--ssl_key_pk8_path"></a>`ssl_key_pk8_path`
 
 Data type: `Any`
 
 Path to the SSL pk8 key for populating `jetty.ini`, will be generated from
 the SSL key as needed automatically.
 
-Default value: `$puppetdb::params::ssl_key_pk8_path`
+Default value: `$openvoxdb::params::ssl_key_pk8_path`
 
-##### <a name="-puppetdb--ssl_key_path"></a>`ssl_key_path`
+##### <a name="-openvoxdb--ssl_key_path"></a>`ssl_key_path`
 
 Data type: `Any`
 
 Path to your SSL key for populating `jetty.ini`.
 
-Default value: `$puppetdb::params::ssl_key_path`
+Default value: `$openvoxdb::params::ssl_key_path`
 
-##### <a name="-puppetdb--ssl_ca_cert_path"></a>`ssl_ca_cert_path`
+##### <a name="-openvoxdb--ssl_ca_cert_path"></a>`ssl_ca_cert_path`
 
 Data type: `Any`
 
 Path to your SSL CA for populating `jetty.ini`.
 
-Default value: `$puppetdb::params::ssl_ca_cert_path`
+Default value: `$openvoxdb::params::ssl_ca_cert_path`
 
-##### <a name="-puppetdb--ssl_deploy_certs"></a>`ssl_deploy_certs`
+##### <a name="-openvoxdb--ssl_deploy_certs"></a>`ssl_deploy_certs`
 
 Data type: `Any`
 
 A boolean switch to enable or disable the management of SSL keys in your
 `ssl_dir`. Default is `false`.
 
-Default value: `$puppetdb::params::ssl_deploy_certs`
+Default value: `$openvoxdb::params::ssl_deploy_certs`
 
-##### <a name="-puppetdb--ssl_key"></a>`ssl_key`
+##### <a name="-openvoxdb--ssl_key"></a>`ssl_key`
 
 Data type: `Any`
 
 Contents of your SSL key, as a string.
 
-Default value: `$puppetdb::params::ssl_key`
+Default value: `$openvoxdb::params::ssl_key`
 
-##### <a name="-puppetdb--ssl_cert"></a>`ssl_cert`
+##### <a name="-openvoxdb--ssl_cert"></a>`ssl_cert`
 
 Data type: `Any`
 
 Contents of your SSL certificate, as a string.
 
-Default value: `$puppetdb::params::ssl_cert`
+Default value: `$openvoxdb::params::ssl_cert`
 
-##### <a name="-puppetdb--ssl_ca_cert"></a>`ssl_ca_cert`
+##### <a name="-openvoxdb--ssl_ca_cert"></a>`ssl_ca_cert`
 
 Data type: `Any`
 
 Contents of your SSL CA certificate, as a string.
 
-Default value: `$puppetdb::params::ssl_ca_cert`
+Default value: `$openvoxdb::params::ssl_ca_cert`
 
-##### <a name="-puppetdb--manage_firewall"></a>`manage_firewall`
+##### <a name="-openvoxdb--manage_firewall"></a>`manage_firewall`
 
 Data type: `Any`
 
 If `true`, puppet will manage your iptables rules for PuppetDB via the
 [puppetlabs-firewall](https://forge.puppetlabs.com/puppetlabs/firewall) class.
 
-Default value: `$puppetdb::params::manage_firewall`
+Default value: `$openvoxdb::params::manage_firewall`
 
-##### <a name="-puppetdb--command_threads"></a>`command_threads`
+##### <a name="-openvoxdb--command_threads"></a>`command_threads`
 
 Data type: `Any`
 
 The number of command processing threads to use. Defaults to `undef`, using the
 PuppetDB built-in default.
 
-Default value: `$puppetdb::params::command_threads`
+Default value: `$openvoxdb::params::command_threads`
 
-##### <a name="-puppetdb--concurrent_writes"></a>`concurrent_writes`
+##### <a name="-openvoxdb--concurrent_writes"></a>`concurrent_writes`
 
 Data type: `Any`
 
 The number of threads allowed to write to disk at any one time. Defaults to
 `undef`, which uses the PuppetDB built-in default.
 
-Default value: `$puppetdb::params::concurrent_writes`
+Default value: `$openvoxdb::params::concurrent_writes`
 
-##### <a name="-puppetdb--store_usage"></a>`store_usage`
+##### <a name="-openvoxdb--store_usage"></a>`store_usage`
 
 Data type: `Any`
 
 The amount of disk space (in MB) to allow for persistent message storage.
 Defaults to `undef`, using the PuppetDB built-in default.
 
-Default value: `$puppetdb::params::store_usage`
+Default value: `$openvoxdb::params::store_usage`
 
-##### <a name="-puppetdb--temp_usage"></a>`temp_usage`
+##### <a name="-openvoxdb--temp_usage"></a>`temp_usage`
 
 Data type: `Any`
 
 The amount of disk space (in MB) to allow for temporary message storage.
 Defaults to `undef`, using the PuppetDB built-in default.
 
-Default value: `$puppetdb::params::temp_usage`
+Default value: `$openvoxdb::params::temp_usage`
 
-##### <a name="-puppetdb--disable_update_checking"></a>`disable_update_checking`
+##### <a name="-openvoxdb--disable_update_checking"></a>`disable_update_checking`
 
 Data type: `Any`
 
 Setting this to true disables checking for updated versions of PuppetDB and sending basic analytics data to Puppet.
 Defaults to `undef`, using the PuppetDB built-in default.
 
-Default value: `$puppetdb::params::disable_update_checking`
+Default value: `$openvoxdb::params::disable_update_checking`
 
-##### <a name="-puppetdb--certificate_whitelist_file"></a>`certificate_whitelist_file`
+##### <a name="-openvoxdb--certificate_whitelist_file"></a>`certificate_whitelist_file`
 
 Data type: `Any`
 
 The name of the certificate whitelist file to set up and configure in PuppetDB. Defaults to `/etc/puppetdb/certificate-whitelist` or `/etc/puppetlabs/puppetdb/certificate-whitelist` for FOSS and PE respectively.
 
-Default value: `$puppetdb::params::certificate_whitelist_file`
+Default value: `$openvoxdb::params::certificate_whitelist_file`
 
-##### <a name="-puppetdb--certificate_whitelist"></a>`certificate_whitelist`
+##### <a name="-openvoxdb--certificate_whitelist"></a>`certificate_whitelist`
 
 Data type: `Any`
 
 Array of the X.509 certificate Common Names of clients allowed to connect to PuppetDB. Defaults to empty. Be aware that this permits full access to all Puppet clients to download anything contained in PuppetDB, including the full catalogs of all nodes, which possibly contain sensitive information. Set to `[ $::servername ]` to allow access only from your (single) Puppet master, which is enough for normal operation. Set to a list of Puppet masters if you have multiple.
 
-Default value: `$puppetdb::params::certificate_whitelist`
+Default value: `$openvoxdb::params::certificate_whitelist`
 
-##### <a name="-puppetdb--database_max_pool_size"></a>`database_max_pool_size`
-
-Data type: `Any`
-
-When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
-Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
-
-Default value: `$puppetdb::params::database_max_pool_size`
-
-##### <a name="-puppetdb--read_database_max_pool_size"></a>`read_database_max_pool_size`
+##### <a name="-openvoxdb--database_max_pool_size"></a>`database_max_pool_size`
 
 Data type: `Any`
 
 When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
 Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
 
-Default value: `$puppetdb::params::read_database_max_pool_size`
+Default value: `$openvoxdb::params::database_max_pool_size`
 
-##### <a name="-puppetdb--automatic_dlo_cleanup"></a>`automatic_dlo_cleanup`
+##### <a name="-openvoxdb--read_database_max_pool_size"></a>`read_database_max_pool_size`
+
+Data type: `Any`
+
+When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
+Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
+
+Default value: `$openvoxdb::params::read_database_max_pool_size`
+
+##### <a name="-openvoxdb--automatic_dlo_cleanup"></a>`automatic_dlo_cleanup`
 
 Data type: `Boolean`
 
@@ -865,9 +865,9 @@ Those are reports of failed requests. They spill up the disk. This parameter is
 a boolean and defaults to false. You can enable automatic cleanup of DLO
 reports by setting this to true.
 
-Default value: `$puppetdb::params::automatic_dlo_cleanup`
+Default value: `$openvoxdb::params::automatic_dlo_cleanup`
 
-##### <a name="-puppetdb--cleanup_timer_interval"></a>`cleanup_timer_interval`
+##### <a name="-openvoxdb--cleanup_timer_interval"></a>`cleanup_timer_interval`
 
 Data type: `String[1]`
 
@@ -880,63 +880,63 @@ method. On non-systemd systems, the cron runs daily and the `$puppetdb_user` nee
 to be able to run cron jobs. On systemd systems you need the [camptocamp/systemd](https://forge.puppet.com/camptocamp/systemd)
 module, which is an optional dependency and not automatically installed!
 
-Default value: `$puppetdb::params::cleanup_timer_interval`
+Default value: `$openvoxdb::params::cleanup_timer_interval`
 
-##### <a name="-puppetdb--dlo_max_age"></a>`dlo_max_age`
+##### <a name="-openvoxdb--dlo_max_age"></a>`dlo_max_age`
 
 Data type: `Integer[1]`
 
 This is a positive integer. It describes the amount of days you want to keep
 the DLO reports. The default value is 90 days.
 
-Default value: `$puppetdb::params::dlo_max_age`
+Default value: `$openvoxdb::params::dlo_max_age`
 
-##### <a name="-puppetdb--java_bin"></a>`java_bin`
+##### <a name="-openvoxdb--java_bin"></a>`java_bin`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 java binary path for PuppetDB. If undef, default will be used.
 
-Default value: `$puppetdb::params::java_bin`
+Default value: `$openvoxdb::params::java_bin`
 
-##### <a name="-puppetdb--postgresql_password_encryption"></a>`postgresql_password_encryption`
+##### <a name="-openvoxdb--postgresql_password_encryption"></a>`postgresql_password_encryption`
 
 Data type: `Postgresql::Pg_password_encryption`
 
 PostgreSQL password authentication method, either `md5` or `scram-sha-256`
 
-Default value: `$puppetdb::params::password_encryption`
+Default value: `$openvoxdb::params::password_encryption`
 
-### <a name="puppetdb--database--postgresql"></a>`puppetdb::database::postgresql`
+### <a name="openvoxdb--database--postgresql"></a>`openvoxdb::database::postgresql`
 
 create the PuppetDB postgresql database
 
 #### Parameters
 
-The following parameters are available in the `puppetdb::database::postgresql` class:
+The following parameters are available in the `openvoxdb::database::postgresql` class:
 
-* [`listen_addresses`](#-puppetdb--database--postgresql--listen_addresses)
-* [`puppetdb_server`](#-puppetdb--database--postgresql--puppetdb_server)
-* [`database_name`](#-puppetdb--database--postgresql--database_name)
-* [`database_locale`](#-puppetdb--database--postgresql--database_locale)
-* [`database_username`](#-puppetdb--database--postgresql--database_username)
-* [`database_password`](#-puppetdb--database--postgresql--database_password)
-* [`database_port`](#-puppetdb--database--postgresql--database_port)
-* [`manage_database`](#-puppetdb--database--postgresql--manage_database)
-* [`manage_server`](#-puppetdb--database--postgresql--manage_server)
-* [`manage_package_repo`](#-puppetdb--database--postgresql--manage_package_repo)
-* [`postgres_version`](#-puppetdb--database--postgresql--postgres_version)
-* [`postgresql_ssl_on`](#-puppetdb--database--postgresql--postgresql_ssl_on)
-* [`postgresql_ssl_cert_path`](#-puppetdb--database--postgresql--postgresql_ssl_cert_path)
-* [`postgresql_ssl_key_path`](#-puppetdb--database--postgresql--postgresql_ssl_key_path)
-* [`postgresql_ssl_ca_cert_path`](#-puppetdb--database--postgresql--postgresql_ssl_ca_cert_path)
-* [`read_database_username`](#-puppetdb--database--postgresql--read_database_username)
-* [`read_database_password`](#-puppetdb--database--postgresql--read_database_password)
-* [`read_database_host`](#-puppetdb--database--postgresql--read_database_host)
-* [`password_sensitive`](#-puppetdb--database--postgresql--password_sensitive)
-* [`password_encryption`](#-puppetdb--database--postgresql--password_encryption)
+* [`listen_addresses`](#-openvoxdb--database--postgresql--listen_addresses)
+* [`puppetdb_server`](#-openvoxdb--database--postgresql--puppetdb_server)
+* [`database_name`](#-openvoxdb--database--postgresql--database_name)
+* [`database_locale`](#-openvoxdb--database--postgresql--database_locale)
+* [`database_username`](#-openvoxdb--database--postgresql--database_username)
+* [`database_password`](#-openvoxdb--database--postgresql--database_password)
+* [`database_port`](#-openvoxdb--database--postgresql--database_port)
+* [`manage_database`](#-openvoxdb--database--postgresql--manage_database)
+* [`manage_server`](#-openvoxdb--database--postgresql--manage_server)
+* [`manage_package_repo`](#-openvoxdb--database--postgresql--manage_package_repo)
+* [`postgres_version`](#-openvoxdb--database--postgresql--postgres_version)
+* [`postgresql_ssl_on`](#-openvoxdb--database--postgresql--postgresql_ssl_on)
+* [`postgresql_ssl_cert_path`](#-openvoxdb--database--postgresql--postgresql_ssl_cert_path)
+* [`postgresql_ssl_key_path`](#-openvoxdb--database--postgresql--postgresql_ssl_key_path)
+* [`postgresql_ssl_ca_cert_path`](#-openvoxdb--database--postgresql--postgresql_ssl_ca_cert_path)
+* [`read_database_username`](#-openvoxdb--database--postgresql--read_database_username)
+* [`read_database_password`](#-openvoxdb--database--postgresql--read_database_password)
+* [`read_database_host`](#-openvoxdb--database--postgresql--read_database_host)
+* [`password_sensitive`](#-openvoxdb--database--postgresql--password_sensitive)
+* [`password_encryption`](#-openvoxdb--database--postgresql--password_encryption)
 
-##### <a name="-puppetdb--database--postgresql--listen_addresses"></a>`listen_addresses`
+##### <a name="-openvoxdb--database--postgresql--listen_addresses"></a>`listen_addresses`
 
 Data type: `Any`
 
@@ -945,65 +945,65 @@ which the postgres server should listen for incoming connections. This defaults
 to `localhost`. This parameter maps directly to PostgreSQL's `listen_addresses`
 config option. Use a `*` to allow connections on any accessible address.
 
-Default value: `$puppetdb::params::database_host`
+Default value: `$openvoxdb::params::database_host`
 
-##### <a name="-puppetdb--database--postgresql--puppetdb_server"></a>`puppetdb_server`
+##### <a name="-openvoxdb--database--postgresql--puppetdb_server"></a>`puppetdb_server`
 
 Data type: `Any`
 
 Hostname or IP address to configure for SSL rules.
 
-Default value: `$puppetdb::params::puppetdb_server`
+Default value: `$openvoxdb::params::puppetdb_server`
 
-##### <a name="-puppetdb--database--postgresql--database_name"></a>`database_name`
+##### <a name="-openvoxdb--database--postgresql--database_name"></a>`database_name`
 
 Data type: `Any`
 
 Sets the name of the database. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_name`
+Default value: `$openvoxdb::params::database_name`
 
-##### <a name="-puppetdb--database--postgresql--database_locale"></a>`database_locale`
+##### <a name="-openvoxdb--database--postgresql--database_locale"></a>`database_locale`
 
 Data type: `Any`
 
 Sets the locale of the database. Defaults to `C.UTF-8`.
 
-Default value: `$puppetdb::params::database_locale`
+Default value: `$openvoxdb::params::database_locale`
 
-##### <a name="-puppetdb--database--postgresql--database_username"></a>`database_username`
+##### <a name="-openvoxdb--database--postgresql--database_username"></a>`database_username`
 
 Data type: `Any`
 
 Creates a user for access the database. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_username`
+Default value: `$openvoxdb::params::database_username`
 
-##### <a name="-puppetdb--database--postgresql--database_password"></a>`database_password`
+##### <a name="-openvoxdb--database--postgresql--database_password"></a>`database_password`
 
 Data type: `Variant[String[1], Sensitive[String[1]]]`
 
 Sets the password for the database user above. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_password`
+Default value: `$openvoxdb::params::database_password`
 
-##### <a name="-puppetdb--database--postgresql--database_port"></a>`database_port`
+##### <a name="-openvoxdb--database--postgresql--database_port"></a>`database_port`
 
 Data type: `Any`
 
 The port that the database server listens on. Defaults to `5432`.
 
-Default value: `$puppetdb::params::database_port`
+Default value: `$openvoxdb::params::database_port`
 
-##### <a name="-puppetdb--database--postgresql--manage_database"></a>`manage_database`
+##### <a name="-openvoxdb--database--postgresql--manage_database"></a>`manage_database`
 
 Data type: `Any`
 
 If true, the PostgreSQL database will be managed by this module. Defaults to `true`.
 
-Default value: `$puppetdb::params::manage_database`
+Default value: `$openvoxdb::params::manage_database`
 
-##### <a name="-puppetdb--database--postgresql--manage_server"></a>`manage_server`
+##### <a name="-openvoxdb--database--postgresql--manage_server"></a>`manage_server`
 
 Data type: `Any`
 
@@ -1011,78 +1011,78 @@ Conditionally manages the PostgreSQL server via `postgresql::server`. Defaults
 to `true`. If set to `false`, this class will create the database and user via
 `postgresql::server::db` but not attempt to install or manage the server itself.
 
-Default value: `$puppetdb::params::manage_dbserver`
+Default value: `$openvoxdb::params::manage_dbserver`
 
-##### <a name="-puppetdb--database--postgresql--manage_package_repo"></a>`manage_package_repo`
+##### <a name="-openvoxdb--database--postgresql--manage_package_repo"></a>`manage_package_repo`
 
 Data type: `Any`
 
 If `true`, the official postgresql.org repo will be added and postgres won't
 be installed from the regular repository. Defaults to `true`.
 
-Default value: `$puppetdb::params::manage_pg_repo`
+Default value: `$openvoxdb::params::manage_pg_repo`
 
-##### <a name="-puppetdb--database--postgresql--postgres_version"></a>`postgres_version`
+##### <a name="-openvoxdb--database--postgresql--postgres_version"></a>`postgres_version`
 
 Data type: `Any`
 
 If the postgresql.org repo is installed, you can install several versions of
 postgres. Defaults to `11` with PuppetDB version 7.0.0 or newer, and `9.6` in older versions.
 
-Default value: `$puppetdb::params::postgres_version`
+Default value: `$openvoxdb::params::postgres_version`
 
-##### <a name="-puppetdb--database--postgresql--postgresql_ssl_on"></a>`postgresql_ssl_on`
+##### <a name="-openvoxdb--database--postgresql--postgresql_ssl_on"></a>`postgresql_ssl_on`
 
 Data type: `Any`
 
 If `true`, it configures SSL connections between PuppetDB and the PostgreSQL database.
 Defaults to `false`.
 
-Default value: `$puppetdb::params::postgresql_ssl_on`
+Default value: `$openvoxdb::params::postgresql_ssl_on`
 
-##### <a name="-puppetdb--database--postgresql--postgresql_ssl_cert_path"></a>`postgresql_ssl_cert_path`
+##### <a name="-openvoxdb--database--postgresql--postgresql_ssl_cert_path"></a>`postgresql_ssl_cert_path`
 
 Data type: `Any`
 
 Path to the Postgresql SSL certificate.
 
-Default value: `$puppetdb::params::postgresql_ssl_cert_path`
+Default value: `$openvoxdb::params::postgresql_ssl_cert_path`
 
-##### <a name="-puppetdb--database--postgresql--postgresql_ssl_key_path"></a>`postgresql_ssl_key_path`
+##### <a name="-openvoxdb--database--postgresql--postgresql_ssl_key_path"></a>`postgresql_ssl_key_path`
 
 Data type: `Any`
 
 Path to the Postgresql SSL key.
 
-Default value: `$puppetdb::params::postgresql_ssl_key_path`
+Default value: `$openvoxdb::params::postgresql_ssl_key_path`
 
-##### <a name="-puppetdb--database--postgresql--postgresql_ssl_ca_cert_path"></a>`postgresql_ssl_ca_cert_path`
+##### <a name="-openvoxdb--database--postgresql--postgresql_ssl_ca_cert_path"></a>`postgresql_ssl_ca_cert_path`
 
 Data type: `Any`
 
 Path to the Postgresql SSL CA.
 
-Default value: `$puppetdb::params::postgresql_ssl_ca_cert_path`
+Default value: `$openvoxdb::params::postgresql_ssl_ca_cert_path`
 
-##### <a name="-puppetdb--database--postgresql--read_database_username"></a>`read_database_username`
+##### <a name="-openvoxdb--database--postgresql--read_database_username"></a>`read_database_username`
 
 Data type: `Any`
 
 The name of the read database user to connect as. Defaults to `puppetdb-read`. This
 option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_username`
+Default value: `$openvoxdb::params::read_database_username`
 
-##### <a name="-puppetdb--database--postgresql--read_database_password"></a>`read_database_password`
+##### <a name="-openvoxdb--database--postgresql--read_database_password"></a>`read_database_password`
 
 Data type: `Variant[String[1], Sensitive[String[1]]]`
 
 The password for the read database user. Defaults to `puppetdb-read`. This option is
 supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_password`
+Default value: `$openvoxdb::params::read_database_password`
 
-##### <a name="-puppetdb--database--postgresql--read_database_host"></a>`read_database_host`
+##### <a name="-openvoxdb--database--postgresql--read_database_host"></a>`read_database_host`
 
 Data type: `Any`
 
@@ -1092,9 +1092,9 @@ The hostname or IP address of the read database server. If set to `undef`, and
 `manage_database` is set to `true`, it will use the value of the `database_host`
 parameter. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_host`
+Default value: `$openvoxdb::params::read_database_host`
 
-##### <a name="-puppetdb--database--postgresql--password_sensitive"></a>`password_sensitive`
+##### <a name="-openvoxdb--database--postgresql--password_sensitive"></a>`password_sensitive`
 
 Data type: `Boolean`
 
@@ -1102,44 +1102,44 @@ Whether password should be of Datatype Sensitive[String]
 
 Default value: `false`
 
-##### <a name="-puppetdb--database--postgresql--password_encryption"></a>`password_encryption`
+##### <a name="-openvoxdb--database--postgresql--password_encryption"></a>`password_encryption`
 
 Data type: `Postgresql::Pg_password_encryption`
 
 PostgreSQL password authentication method, either `md5` or `scram-sha-256`
 
-Default value: `$puppetdb::params::password_encryption`
+Default value: `$openvoxdb::params::password_encryption`
 
-### <a name="puppetdb--master--config"></a>`puppetdb::master::config`
+### <a name="openvoxdb--master--config"></a>`openvoxdb::master::config`
 
 manage the puppet configuration on the primary
 
 #### Parameters
 
-The following parameters are available in the `puppetdb::master::config` class:
+The following parameters are available in the `openvoxdb::master::config` class:
 
-* [`puppetdb_server`](#-puppetdb--master--config--puppetdb_server)
-* [`puppetdb_port`](#-puppetdb--master--config--puppetdb_port)
-* [`puppetdb_disable_ssl`](#-puppetdb--master--config--puppetdb_disable_ssl)
-* [`puppetdb_soft_write_failure`](#-puppetdb--master--config--puppetdb_soft_write_failure)
-* [`manage_routes`](#-puppetdb--master--config--manage_routes)
-* [`manage_storeconfigs`](#-puppetdb--master--config--manage_storeconfigs)
-* [`manage_report_processor`](#-puppetdb--master--config--manage_report_processor)
-* [`manage_config`](#-puppetdb--master--config--manage_config)
-* [`create_puppet_service_resource`](#-puppetdb--master--config--create_puppet_service_resource)
-* [`strict_validation`](#-puppetdb--master--config--strict_validation)
-* [`enable_reports`](#-puppetdb--master--config--enable_reports)
-* [`enable_storeconfigs`](#-puppetdb--master--config--enable_storeconfigs)
-* [`puppet_confdir`](#-puppetdb--master--config--puppet_confdir)
-* [`puppet_conf`](#-puppetdb--master--config--puppet_conf)
-* [`masterless`](#-puppetdb--master--config--masterless)
-* [`terminus_package`](#-puppetdb--master--config--terminus_package)
-* [`puppet_service_name`](#-puppetdb--master--config--puppet_service_name)
-* [`puppetdb_startup_timeout`](#-puppetdb--master--config--puppetdb_startup_timeout)
-* [`test_url`](#-puppetdb--master--config--test_url)
-* [`restart_puppet`](#-puppetdb--master--config--restart_puppet)
+* [`puppetdb_server`](#-openvoxdb--master--config--puppetdb_server)
+* [`puppetdb_port`](#-openvoxdb--master--config--puppetdb_port)
+* [`puppetdb_disable_ssl`](#-openvoxdb--master--config--puppetdb_disable_ssl)
+* [`puppetdb_soft_write_failure`](#-openvoxdb--master--config--puppetdb_soft_write_failure)
+* [`manage_routes`](#-openvoxdb--master--config--manage_routes)
+* [`manage_storeconfigs`](#-openvoxdb--master--config--manage_storeconfigs)
+* [`manage_report_processor`](#-openvoxdb--master--config--manage_report_processor)
+* [`manage_config`](#-openvoxdb--master--config--manage_config)
+* [`create_puppet_service_resource`](#-openvoxdb--master--config--create_puppet_service_resource)
+* [`strict_validation`](#-openvoxdb--master--config--strict_validation)
+* [`enable_reports`](#-openvoxdb--master--config--enable_reports)
+* [`enable_storeconfigs`](#-openvoxdb--master--config--enable_storeconfigs)
+* [`puppet_confdir`](#-openvoxdb--master--config--puppet_confdir)
+* [`puppet_conf`](#-openvoxdb--master--config--puppet_conf)
+* [`masterless`](#-openvoxdb--master--config--masterless)
+* [`terminus_package`](#-openvoxdb--master--config--terminus_package)
+* [`puppet_service_name`](#-openvoxdb--master--config--puppet_service_name)
+* [`puppetdb_startup_timeout`](#-openvoxdb--master--config--puppetdb_startup_timeout)
+* [`test_url`](#-openvoxdb--master--config--test_url)
+* [`restart_puppet`](#-openvoxdb--master--config--restart_puppet)
 
-##### <a name="-puppetdb--master--config--puppetdb_server"></a>`puppetdb_server`
+##### <a name="-openvoxdb--master--config--puppetdb_server"></a>`puppetdb_server`
 
 Data type: `Any`
 
@@ -1148,7 +1148,7 @@ current node, i.e. `$::fqdn`.
 
 Default value: `fact('networking.fqdn')`
 
-##### <a name="-puppetdb--master--config--puppetdb_port"></a>`puppetdb_port`
+##### <a name="-openvoxdb--master--config--puppetdb_port"></a>`puppetdb_port`
 
 Data type: `Any`
 
@@ -1158,14 +1158,14 @@ Default value:
 
 ```puppet
 defined(Class['puppetdb']) ? {
-    true    => $puppetdb::disable_ssl ? {
+    true    => $openvoxdb::disable_ssl ? {
       true => 8080,
       default => 8081,
     },
     default => 8081
 ```
 
-##### <a name="-puppetdb--master--config--puppetdb_disable_ssl"></a>`puppetdb_disable_ssl`
+##### <a name="-openvoxdb--master--config--puppetdb_disable_ssl"></a>`puppetdb_disable_ssl`
 
 Data type: `Any`
 
@@ -1178,11 +1178,11 @@ Default value:
 
 ```puppet
 defined(Class['puppetdb']) ? {
-    true    => $puppetdb::disable_ssl,
+    true    => $openvoxdb::disable_ssl,
     default => false
 ```
 
-##### <a name="-puppetdb--master--config--puppetdb_soft_write_failure"></a>`puppetdb_soft_write_failure`
+##### <a name="-openvoxdb--master--config--puppetdb_soft_write_failure"></a>`puppetdb_soft_write_failure`
 
 Data type: `Any`
 
@@ -1191,7 +1191,7 @@ submission Defaults to `false`.
 
 Default value: `false`
 
-##### <a name="-puppetdb--master--config--manage_routes"></a>`manage_routes`
+##### <a name="-openvoxdb--master--config--manage_routes"></a>`manage_routes`
 
 Data type: `Any`
 
@@ -1200,7 +1200,7 @@ configure it to use PuppetDB. Defaults to `true`.
 
 Default value: `true`
 
-##### <a name="-puppetdb--master--config--manage_storeconfigs"></a>`manage_storeconfigs`
+##### <a name="-openvoxdb--master--config--manage_storeconfigs"></a>`manage_storeconfigs`
 
 Data type: `Any`
 
@@ -1209,7 +1209,7 @@ Defaults to `true`.
 
 Default value: `true`
 
-##### <a name="-puppetdb--master--config--manage_report_processor"></a>`manage_report_processor`
+##### <a name="-openvoxdb--master--config--manage_report_processor"></a>`manage_report_processor`
 
 Data type: `Any`
 
@@ -1218,7 +1218,7 @@ enable or disable the PuppetDB report processor. Defaults to `false`.
 
 Default value: `false`
 
-##### <a name="-puppetdb--master--config--manage_config"></a>`manage_config`
+##### <a name="-openvoxdb--master--config--manage_config"></a>`manage_config`
 
 Data type: `Any`
 
@@ -1228,7 +1228,7 @@ configuration file will be used to retrieve server and port values.
 
 Default value: `true`
 
-##### <a name="-puppetdb--master--config--create_puppet_service_resource"></a>`create_puppet_service_resource`
+##### <a name="-openvoxdb--master--config--create_puppet_service_resource"></a>`create_puppet_service_resource`
 
 Data type: `Any`
 
@@ -1240,7 +1240,7 @@ resource by this module, avoiding potential duplicate resource errors.
 
 Default value: `true`
 
-##### <a name="-puppetdb--master--config--strict_validation"></a>`strict_validation`
+##### <a name="-openvoxdb--master--config--strict_validation"></a>`strict_validation`
 
 Data type: `Any`
 
@@ -1249,7 +1249,7 @@ preconfigure PuppetDB without checking.
 
 Default value: `true`
 
-##### <a name="-puppetdb--master--config--enable_reports"></a>`enable_reports`
+##### <a name="-openvoxdb--master--config--enable_reports"></a>`enable_reports`
 
 Data type: `Any`
 
@@ -1259,7 +1259,7 @@ or disabled (`false`) in the puppet.conf file.
 
 Default value: `false`
 
-##### <a name="-puppetdb--master--config--enable_storeconfigs"></a>`enable_storeconfigs`
+##### <a name="-openvoxdb--master--config--enable_storeconfigs"></a>`enable_storeconfigs`
 
 Data type: `Any`
 
@@ -1269,32 +1269,32 @@ or disabled (`false`) in the puppet.conf file.
 
 Default value: `true`
 
-##### <a name="-puppetdb--master--config--puppet_confdir"></a>`puppet_confdir`
+##### <a name="-openvoxdb--master--config--puppet_confdir"></a>`puppet_confdir`
 
 Data type: `Any`
 
 Puppet's config directory. Defaults to `/etc/puppetlabs/puppet`.
 
-Default value: `$puppetdb::params::puppet_confdir`
+Default value: `$openvoxdb::params::puppet_confdir`
 
-##### <a name="-puppetdb--master--config--puppet_conf"></a>`puppet_conf`
+##### <a name="-openvoxdb--master--config--puppet_conf"></a>`puppet_conf`
 
 Data type: `Any`
 
 Puppet's config file. Defaults to `${puppet_confdir}/puppet.conf`.
 
-Default value: `$puppetdb::params::puppet_conf`
+Default value: `$openvoxdb::params::puppet_conf`
 
-##### <a name="-puppetdb--master--config--masterless"></a>`masterless`
+##### <a name="-openvoxdb--master--config--masterless"></a>`masterless`
 
 Data type: `Any`
 
 A boolean switch to enable or disable the masterless setup of PuppetDB. Defaults
 to `false`.
 
-Default value: `$puppetdb::params::masterless`
+Default value: `$openvoxdb::params::masterless`
 
-##### <a name="-puppetdb--master--config--terminus_package"></a>`terminus_package`
+##### <a name="-openvoxdb--master--config--terminus_package"></a>`terminus_package`
 
 Data type: `Any`
 
@@ -1302,9 +1302,9 @@ Name of the package to use that represents the PuppetDB terminus code. Defaults
 to `puppetdb-termini`, when `puppetdb_version` is set to `<= 2.3.x` the default
 changes to `puppetdb-terminus`.
 
-Default value: `$puppetdb::params::terminus_package`
+Default value: `$openvoxdb::params::terminus_package`
 
-##### <a name="-puppetdb--master--config--puppet_service_name"></a>`puppet_service_name`
+##### <a name="-openvoxdb--master--config--puppet_service_name"></a>`puppet_service_name`
 
 Data type: `Any`
 
@@ -1312,9 +1312,9 @@ Name of the service that represents Puppet. You can change this to `apache2` or
 `httpd` depending on your operating system, if you plan on having Puppet run
 using Apache/Passenger for example.
 
-Default value: `$puppetdb::params::puppet_service_name`
+Default value: `$openvoxdb::params::puppet_service_name`
 
-##### <a name="-puppetdb--master--config--puppetdb_startup_timeout"></a>`puppetdb_startup_timeout`
+##### <a name="-openvoxdb--master--config--puppetdb_startup_timeout"></a>`puppetdb_startup_timeout`
 
 Data type: `Any`
 
@@ -1322,17 +1322,17 @@ The maximum amount of time that the module should wait for PuppetDB to start up.
 This is most important during the initial install of PuppetDB (defaults to 15
 seconds).
 
-Default value: `$puppetdb::params::puppetdb_startup_timeout`
+Default value: `$openvoxdb::params::puppetdb_startup_timeout`
 
-##### <a name="-puppetdb--master--config--test_url"></a>`test_url`
+##### <a name="-openvoxdb--master--config--test_url"></a>`test_url`
 
 Data type: `Any`
 
 The URL to use for testing if the PuppetDB instance is running.
 
-Default value: `$puppetdb::params::test_url`
+Default value: `$openvoxdb::params::test_url`
 
-##### <a name="-puppetdb--master--config--restart_puppet"></a>`restart_puppet`
+##### <a name="-openvoxdb--master--config--restart_puppet"></a>`restart_puppet`
 
 Data type: `Any`
 
@@ -1343,233 +1343,233 @@ files (other than `puppet.conf`).
 
 Default value: `true`
 
-### <a name="puppetdb--server"></a>`puppetdb::server`
+### <a name="openvoxdb--server"></a>`openvoxdb::server`
 
 manage the PuppetDB server
 
 #### Parameters
 
-The following parameters are available in the `puppetdb::server` class:
+The following parameters are available in the `openvoxdb::server` class:
 
-* [`listen_address`](#-puppetdb--server--listen_address)
-* [`listen_port`](#-puppetdb--server--listen_port)
-* [`disable_cleartext`](#-puppetdb--server--disable_cleartext)
-* [`open_listen_port`](#-puppetdb--server--open_listen_port)
-* [`ssl_listen_address`](#-puppetdb--server--ssl_listen_address)
-* [`ssl_listen_port`](#-puppetdb--server--ssl_listen_port)
-* [`disable_ssl`](#-puppetdb--server--disable_ssl)
-* [`open_ssl_listen_port`](#-puppetdb--server--open_ssl_listen_port)
-* [`ssl_protocols`](#-puppetdb--server--ssl_protocols)
-* [`postgresql_ssl_on`](#-puppetdb--server--postgresql_ssl_on)
-* [`cipher_suites`](#-puppetdb--server--cipher_suites)
-* [`migrate`](#-puppetdb--server--migrate)
-* [`manage_database`](#-puppetdb--server--manage_database)
-* [`database_host`](#-puppetdb--server--database_host)
-* [`database_port`](#-puppetdb--server--database_port)
-* [`database_username`](#-puppetdb--server--database_username)
-* [`database_password`](#-puppetdb--server--database_password)
-* [`manage_db_password`](#-puppetdb--server--manage_db_password)
-* [`database_name`](#-puppetdb--server--database_name)
-* [`jdbc_ssl_properties`](#-puppetdb--server--jdbc_ssl_properties)
-* [`database_validate`](#-puppetdb--server--database_validate)
-* [`node_ttl`](#-puppetdb--server--node_ttl)
-* [`node_purge_ttl`](#-puppetdb--server--node_purge_ttl)
-* [`report_ttl`](#-puppetdb--server--report_ttl)
-* [`facts_blacklist`](#-puppetdb--server--facts_blacklist)
-* [`gc_interval`](#-puppetdb--server--gc_interval)
-* [`node_purge_gc_batch_limit`](#-puppetdb--server--node_purge_gc_batch_limit)
-* [`conn_max_age`](#-puppetdb--server--conn_max_age)
-* [`conn_lifetime`](#-puppetdb--server--conn_lifetime)
-* [`puppetdb_package`](#-puppetdb--server--puppetdb_package)
-* [`puppetdb_service`](#-puppetdb--server--puppetdb_service)
-* [`puppetdb_service_status`](#-puppetdb--server--puppetdb_service_status)
-* [`puppetdb_user`](#-puppetdb--server--puppetdb_user)
-* [`puppetdb_group`](#-puppetdb--server--puppetdb_group)
-* [`confdir`](#-puppetdb--server--confdir)
-* [`vardir`](#-puppetdb--server--vardir)
-* [`java_args`](#-puppetdb--server--java_args)
-* [`merge_default_java_args`](#-puppetdb--server--merge_default_java_args)
-* [`max_threads`](#-puppetdb--server--max_threads)
-* [`read_database_host`](#-puppetdb--server--read_database_host)
-* [`read_database_port`](#-puppetdb--server--read_database_port)
-* [`read_database_username`](#-puppetdb--server--read_database_username)
-* [`read_database_password`](#-puppetdb--server--read_database_password)
-* [`manage_read_db_password`](#-puppetdb--server--manage_read_db_password)
-* [`read_database_jdbc_ssl_properties`](#-puppetdb--server--read_database_jdbc_ssl_properties)
-* [`read_database_validate`](#-puppetdb--server--read_database_validate)
-* [`read_database_name`](#-puppetdb--server--read_database_name)
-* [`read_conn_max_age`](#-puppetdb--server--read_conn_max_age)
-* [`read_conn_lifetime`](#-puppetdb--server--read_conn_lifetime)
-* [`ssl_dir`](#-puppetdb--server--ssl_dir)
-* [`ssl_set_cert_paths`](#-puppetdb--server--ssl_set_cert_paths)
-* [`ssl_cert_path`](#-puppetdb--server--ssl_cert_path)
-* [`ssl_key_pk8_path`](#-puppetdb--server--ssl_key_pk8_path)
-* [`ssl_key_path`](#-puppetdb--server--ssl_key_path)
-* [`ssl_ca_cert_path`](#-puppetdb--server--ssl_ca_cert_path)
-* [`ssl_deploy_certs`](#-puppetdb--server--ssl_deploy_certs)
-* [`ssl_key`](#-puppetdb--server--ssl_key)
-* [`ssl_cert`](#-puppetdb--server--ssl_cert)
-* [`ssl_ca_cert`](#-puppetdb--server--ssl_ca_cert)
-* [`manage_firewall`](#-puppetdb--server--manage_firewall)
-* [`command_threads`](#-puppetdb--server--command_threads)
-* [`concurrent_writes`](#-puppetdb--server--concurrent_writes)
-* [`store_usage`](#-puppetdb--server--store_usage)
-* [`temp_usage`](#-puppetdb--server--temp_usage)
-* [`disable_update_checking`](#-puppetdb--server--disable_update_checking)
-* [`certificate_whitelist_file`](#-puppetdb--server--certificate_whitelist_file)
-* [`certificate_whitelist`](#-puppetdb--server--certificate_whitelist)
-* [`database_max_pool_size`](#-puppetdb--server--database_max_pool_size)
-* [`read_database_max_pool_size`](#-puppetdb--server--read_database_max_pool_size)
-* [`automatic_dlo_cleanup`](#-puppetdb--server--automatic_dlo_cleanup)
-* [`cleanup_timer_interval`](#-puppetdb--server--cleanup_timer_interval)
-* [`dlo_max_age`](#-puppetdb--server--dlo_max_age)
-* [`java_bin`](#-puppetdb--server--java_bin)
+* [`listen_address`](#-openvoxdb--server--listen_address)
+* [`listen_port`](#-openvoxdb--server--listen_port)
+* [`disable_cleartext`](#-openvoxdb--server--disable_cleartext)
+* [`open_listen_port`](#-openvoxdb--server--open_listen_port)
+* [`ssl_listen_address`](#-openvoxdb--server--ssl_listen_address)
+* [`ssl_listen_port`](#-openvoxdb--server--ssl_listen_port)
+* [`disable_ssl`](#-openvoxdb--server--disable_ssl)
+* [`open_ssl_listen_port`](#-openvoxdb--server--open_ssl_listen_port)
+* [`ssl_protocols`](#-openvoxdb--server--ssl_protocols)
+* [`postgresql_ssl_on`](#-openvoxdb--server--postgresql_ssl_on)
+* [`cipher_suites`](#-openvoxdb--server--cipher_suites)
+* [`migrate`](#-openvoxdb--server--migrate)
+* [`manage_database`](#-openvoxdb--server--manage_database)
+* [`database_host`](#-openvoxdb--server--database_host)
+* [`database_port`](#-openvoxdb--server--database_port)
+* [`database_username`](#-openvoxdb--server--database_username)
+* [`database_password`](#-openvoxdb--server--database_password)
+* [`manage_db_password`](#-openvoxdb--server--manage_db_password)
+* [`database_name`](#-openvoxdb--server--database_name)
+* [`jdbc_ssl_properties`](#-openvoxdb--server--jdbc_ssl_properties)
+* [`database_validate`](#-openvoxdb--server--database_validate)
+* [`node_ttl`](#-openvoxdb--server--node_ttl)
+* [`node_purge_ttl`](#-openvoxdb--server--node_purge_ttl)
+* [`report_ttl`](#-openvoxdb--server--report_ttl)
+* [`facts_blacklist`](#-openvoxdb--server--facts_blacklist)
+* [`gc_interval`](#-openvoxdb--server--gc_interval)
+* [`node_purge_gc_batch_limit`](#-openvoxdb--server--node_purge_gc_batch_limit)
+* [`conn_max_age`](#-openvoxdb--server--conn_max_age)
+* [`conn_lifetime`](#-openvoxdb--server--conn_lifetime)
+* [`puppetdb_package`](#-openvoxdb--server--puppetdb_package)
+* [`puppetdb_service`](#-openvoxdb--server--puppetdb_service)
+* [`puppetdb_service_status`](#-openvoxdb--server--puppetdb_service_status)
+* [`puppetdb_user`](#-openvoxdb--server--puppetdb_user)
+* [`puppetdb_group`](#-openvoxdb--server--puppetdb_group)
+* [`confdir`](#-openvoxdb--server--confdir)
+* [`vardir`](#-openvoxdb--server--vardir)
+* [`java_args`](#-openvoxdb--server--java_args)
+* [`merge_default_java_args`](#-openvoxdb--server--merge_default_java_args)
+* [`max_threads`](#-openvoxdb--server--max_threads)
+* [`read_database_host`](#-openvoxdb--server--read_database_host)
+* [`read_database_port`](#-openvoxdb--server--read_database_port)
+* [`read_database_username`](#-openvoxdb--server--read_database_username)
+* [`read_database_password`](#-openvoxdb--server--read_database_password)
+* [`manage_read_db_password`](#-openvoxdb--server--manage_read_db_password)
+* [`read_database_jdbc_ssl_properties`](#-openvoxdb--server--read_database_jdbc_ssl_properties)
+* [`read_database_validate`](#-openvoxdb--server--read_database_validate)
+* [`read_database_name`](#-openvoxdb--server--read_database_name)
+* [`read_conn_max_age`](#-openvoxdb--server--read_conn_max_age)
+* [`read_conn_lifetime`](#-openvoxdb--server--read_conn_lifetime)
+* [`ssl_dir`](#-openvoxdb--server--ssl_dir)
+* [`ssl_set_cert_paths`](#-openvoxdb--server--ssl_set_cert_paths)
+* [`ssl_cert_path`](#-openvoxdb--server--ssl_cert_path)
+* [`ssl_key_pk8_path`](#-openvoxdb--server--ssl_key_pk8_path)
+* [`ssl_key_path`](#-openvoxdb--server--ssl_key_path)
+* [`ssl_ca_cert_path`](#-openvoxdb--server--ssl_ca_cert_path)
+* [`ssl_deploy_certs`](#-openvoxdb--server--ssl_deploy_certs)
+* [`ssl_key`](#-openvoxdb--server--ssl_key)
+* [`ssl_cert`](#-openvoxdb--server--ssl_cert)
+* [`ssl_ca_cert`](#-openvoxdb--server--ssl_ca_cert)
+* [`manage_firewall`](#-openvoxdb--server--manage_firewall)
+* [`command_threads`](#-openvoxdb--server--command_threads)
+* [`concurrent_writes`](#-openvoxdb--server--concurrent_writes)
+* [`store_usage`](#-openvoxdb--server--store_usage)
+* [`temp_usage`](#-openvoxdb--server--temp_usage)
+* [`disable_update_checking`](#-openvoxdb--server--disable_update_checking)
+* [`certificate_whitelist_file`](#-openvoxdb--server--certificate_whitelist_file)
+* [`certificate_whitelist`](#-openvoxdb--server--certificate_whitelist)
+* [`database_max_pool_size`](#-openvoxdb--server--database_max_pool_size)
+* [`read_database_max_pool_size`](#-openvoxdb--server--read_database_max_pool_size)
+* [`automatic_dlo_cleanup`](#-openvoxdb--server--automatic_dlo_cleanup)
+* [`cleanup_timer_interval`](#-openvoxdb--server--cleanup_timer_interval)
+* [`dlo_max_age`](#-openvoxdb--server--dlo_max_age)
+* [`java_bin`](#-openvoxdb--server--java_bin)
 
-##### <a name="-puppetdb--server--listen_address"></a>`listen_address`
+##### <a name="-openvoxdb--server--listen_address"></a>`listen_address`
 
 Data type: `Any`
 
 The address that the web server should bind to for HTTP requests. Defaults to
 `localhost`. Set to `0.0.0.0` to listen on all addresses.
 
-Default value: `$puppetdb::params::listen_address`
+Default value: `$openvoxdb::params::listen_address`
 
-##### <a name="-puppetdb--server--listen_port"></a>`listen_port`
+##### <a name="-openvoxdb--server--listen_port"></a>`listen_port`
 
 Data type: `Any`
 
 The port on which the puppetdb web server should accept HTTP requests. Defaults
 to `8080`.
 
-Default value: `$puppetdb::params::listen_port`
+Default value: `$openvoxdb::params::listen_port`
 
-##### <a name="-puppetdb--server--disable_cleartext"></a>`disable_cleartext`
+##### <a name="-openvoxdb--server--disable_cleartext"></a>`disable_cleartext`
 
 Data type: `Any`
 
 If `true`, the puppetdb web server will only serve HTTPS and not HTTP requests (defaults to false).
 
-Default value: `$puppetdb::params::disable_cleartext`
+Default value: `$openvoxdb::params::disable_cleartext`
 
-##### <a name="-puppetdb--server--open_listen_port"></a>`open_listen_port`
+##### <a name="-openvoxdb--server--open_listen_port"></a>`open_listen_port`
 
 Data type: `Any`
 
 If `true`, open the `http_listen_port` on the firewall. Defaults to `false`.
 
-Default value: `$puppetdb::params::open_listen_port`
+Default value: `$openvoxdb::params::open_listen_port`
 
-##### <a name="-puppetdb--server--ssl_listen_address"></a>`ssl_listen_address`
+##### <a name="-openvoxdb--server--ssl_listen_address"></a>`ssl_listen_address`
 
 Data type: `Any`
 
 The address that the web server should bind to for HTTPS requests. Defaults to
 `0.0.0.0` to listen on all addresses.
 
-Default value: `$puppetdb::params::ssl_listen_address`
+Default value: `$openvoxdb::params::ssl_listen_address`
 
-##### <a name="-puppetdb--server--ssl_listen_port"></a>`ssl_listen_port`
+##### <a name="-openvoxdb--server--ssl_listen_port"></a>`ssl_listen_port`
 
 Data type: `Any`
 
 The port on which the puppetdb web server should accept HTTPS requests. Defaults
 to `8081`.
 
-Default value: `$puppetdb::params::ssl_listen_port`
+Default value: `$openvoxdb::params::ssl_listen_port`
 
-##### <a name="-puppetdb--server--disable_ssl"></a>`disable_ssl`
+##### <a name="-openvoxdb--server--disable_ssl"></a>`disable_ssl`
 
 Data type: `Any`
 
 If `true`, the puppetdb web server will only serve HTTP and not HTTPS requests.
 Defaults to `false`.
 
-Default value: `$puppetdb::params::disable_ssl`
+Default value: `$openvoxdb::params::disable_ssl`
 
-##### <a name="-puppetdb--server--open_ssl_listen_port"></a>`open_ssl_listen_port`
+##### <a name="-openvoxdb--server--open_ssl_listen_port"></a>`open_ssl_listen_port`
 
 Data type: `Any`
 
 If true, open the `ssl_listen_port` on the firewall. Defaults to `undef`.
 
-Default value: `$puppetdb::params::open_ssl_listen_port`
+Default value: `$openvoxdb::params::open_ssl_listen_port`
 
-##### <a name="-puppetdb--server--ssl_protocols"></a>`ssl_protocols`
+##### <a name="-openvoxdb--server--ssl_protocols"></a>`ssl_protocols`
 
 Data type: `Any`
 
 Specify the supported SSL protocols for PuppetDB (e.g. TLSv1, TLSv1.1, TLSv1.2.)
 
-Default value: `$puppetdb::params::ssl_protocols`
+Default value: `$openvoxdb::params::ssl_protocols`
 
-##### <a name="-puppetdb--server--postgresql_ssl_on"></a>`postgresql_ssl_on`
+##### <a name="-openvoxdb--server--postgresql_ssl_on"></a>`postgresql_ssl_on`
 
 Data type: `Any`
 
 If `true`, it configures SSL connections between PuppetDB and the PostgreSQL database.
 Defaults to `false`.
 
-Default value: `$puppetdb::params::postgresql_ssl_on`
+Default value: `$openvoxdb::params::postgresql_ssl_on`
 
-##### <a name="-puppetdb--server--cipher_suites"></a>`cipher_suites`
+##### <a name="-openvoxdb--server--cipher_suites"></a>`cipher_suites`
 
 Data type: `Any`
 
 Configure jetty's supported `cipher-suites` (e.g. `SSL_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384`).
 Defaults to `undef`.
 
-Default value: `$puppetdb::params::cipher_suites`
+Default value: `$openvoxdb::params::cipher_suites`
 
-##### <a name="-puppetdb--server--migrate"></a>`migrate`
+##### <a name="-openvoxdb--server--migrate"></a>`migrate`
 
 Data type: `Any`
 
 If `true`, puppetdb will automatically migrate to the latest database format at startup. If `false`, if the database format supplied by this version of PuppetDB doesn't match the version expected (whether newer or older), PuppetDB will exit with an error status. Defaults to `true`.
 
-Default value: `$puppetdb::params::migrate`
+Default value: `$openvoxdb::params::migrate`
 
-##### <a name="-puppetdb--server--manage_database"></a>`manage_database`
+##### <a name="-openvoxdb--server--manage_database"></a>`manage_database`
 
 Data type: `Any`
 
 If true, the PostgreSQL database will be managed by this module. Defaults to `true`.
 
-Default value: `$puppetdb::params::manage_database`
+Default value: `$openvoxdb::params::manage_database`
 
-##### <a name="-puppetdb--server--database_host"></a>`database_host`
+##### <a name="-openvoxdb--server--database_host"></a>`database_host`
 
 Data type: `Any`
 
 Hostname to use for the database connection. For single case installations this
 should be left as the default. Defaults to `localhost`.
 
-Default value: `$puppetdb::params::database_host`
+Default value: `$openvoxdb::params::database_host`
 
-##### <a name="-puppetdb--server--database_port"></a>`database_port`
+##### <a name="-openvoxdb--server--database_port"></a>`database_port`
 
 Data type: `Any`
 
 The port that the database server listens on. Defaults to `5432`.
 
-Default value: `$puppetdb::params::database_port`
+Default value: `$openvoxdb::params::database_port`
 
-##### <a name="-puppetdb--server--database_username"></a>`database_username`
+##### <a name="-openvoxdb--server--database_username"></a>`database_username`
 
 Data type: `Any`
 
 The name of the database user to connect as. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_username`
+Default value: `$openvoxdb::params::database_username`
 
-##### <a name="-puppetdb--server--database_password"></a>`database_password`
+##### <a name="-openvoxdb--server--database_password"></a>`database_password`
 
 Data type: `Variant[String[1], Sensitive[String[1]]]`
 
 The password for the database user. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_password`
+Default value: `$openvoxdb::params::database_password`
 
-##### <a name="-puppetdb--server--manage_db_password"></a>`manage_db_password`
+##### <a name="-openvoxdb--server--manage_db_password"></a>`manage_db_password`
 
 Data type: `Any`
 
@@ -1577,17 +1577,17 @@ Whether or not the database password in database.ini will be managed by this mod
 Set this to `false` if you want to set the password some other way.
 Defaults to `true`
 
-Default value: `$puppetdb::params::manage_db_password`
+Default value: `$openvoxdb::params::manage_db_password`
 
-##### <a name="-puppetdb--server--database_name"></a>`database_name`
+##### <a name="-openvoxdb--server--database_name"></a>`database_name`
 
 Data type: `Any`
 
 The name of the database instance to connect to. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::database_name`
+Default value: `$openvoxdb::params::database_name`
 
-##### <a name="-puppetdb--server--jdbc_ssl_properties"></a>`jdbc_ssl_properties`
+##### <a name="-openvoxdb--server--jdbc_ssl_properties"></a>`jdbc_ssl_properties`
 
 Data type: `Any`
 
@@ -1595,18 +1595,18 @@ The text to append to the JDBC connection URI. This should begin with a '?'
 character. For example, to use SSL for the PostgreSQL connection, set this
 parameter's value to `?ssl=true`.
 
-Default value: `$puppetdb::params::jdbc_ssl_properties`
+Default value: `$openvoxdb::params::jdbc_ssl_properties`
 
-##### <a name="-puppetdb--server--database_validate"></a>`database_validate`
+##### <a name="-openvoxdb--server--database_validate"></a>`database_validate`
 
 Data type: `Any`
 
 If true, the module will attempt to connect to the database using the specified
 settings and fail if it is not able to do so. Defaults to `true`.
 
-Default value: `$puppetdb::params::database_validate`
+Default value: `$openvoxdb::params::database_validate`
 
-##### <a name="-puppetdb--server--node_ttl"></a>`node_ttl`
+##### <a name="-openvoxdb--server--node_ttl"></a>`node_ttl`
 
 Data type: `Any`
 
@@ -1615,9 +1615,9 @@ automatically deactivated. (defaults to '7d', which is a 7-day period. Set to
 '0d' to disable auto-deactivation).  This option is supported in PuppetDB >=
 1.1.0.
 
-Default value: `$puppetdb::params::node_ttl`
+Default value: `$openvoxdb::params::node_ttl`
 
-##### <a name="-puppetdb--server--node_purge_ttl"></a>`node_purge_ttl`
+##### <a name="-openvoxdb--server--node_purge_ttl"></a>`node_purge_ttl`
 
 Data type: `Any`
 
@@ -1625,26 +1625,26 @@ The length of time a node can be deactivated before it's deleted from the
 database. (defaults to '14d', which is a 14-day period. Set to '0d' to disable
 purging). This option is supported in PuppetDB >= 1.2.0.
 
-Default value: `$puppetdb::params::node_purge_ttl`
+Default value: `$openvoxdb::params::node_purge_ttl`
 
-##### <a name="-puppetdb--server--report_ttl"></a>`report_ttl`
+##### <a name="-openvoxdb--server--report_ttl"></a>`report_ttl`
 
 Data type: `Any`
 
 The length of time reports should be stored before being deleted. (defaults to
 `14d`, which is a 14-day period). This option is supported in PuppetDB >= 1.1.0.
 
-Default value: `$puppetdb::params::report_ttl`
+Default value: `$openvoxdb::params::report_ttl`
 
-##### <a name="-puppetdb--server--facts_blacklist"></a>`facts_blacklist`
+##### <a name="-openvoxdb--server--facts_blacklist"></a>`facts_blacklist`
 
 Data type: `Optional[Array]`
 
 A list of fact names to be ignored whenever submitted.
 
-Default value: `$puppetdb::params::facts_blacklist`
+Default value: `$openvoxdb::params::facts_blacklist`
 
-##### <a name="-puppetdb--server--gc_interval"></a>`gc_interval`
+##### <a name="-openvoxdb--server--gc_interval"></a>`gc_interval`
 
 Data type: `Any`
 
@@ -1652,17 +1652,17 @@ This controls how often (in minutes) to compact the database. The compaction
 process reclaims space and deletes unnecessary rows. If not supplied, the
 default is every 60 minutes. This option is supported in PuppetDB >= 0.9.
 
-Default value: `$puppetdb::params::gc_interval`
+Default value: `$openvoxdb::params::gc_interval`
 
-##### <a name="-puppetdb--server--node_purge_gc_batch_limit"></a>`node_purge_gc_batch_limit`
+##### <a name="-openvoxdb--server--node_purge_gc_batch_limit"></a>`node_purge_gc_batch_limit`
 
 Data type: `Any`
 
 Nodes will be purged in batches of this size, one batch per gc-interval.
 
-Default value: `$puppetdb::params::node_purge_gc_batch_limit`
+Default value: `$openvoxdb::params::node_purge_gc_batch_limit`
 
-##### <a name="-puppetdb--server--conn_max_age"></a>`conn_max_age`
+##### <a name="-openvoxdb--server--conn_max_age"></a>`conn_max_age`
 
 Data type: `Any`
 
@@ -1671,9 +1671,9 @@ it is closed off.
 
 If not supplied, we default to `60` minutes. This option is supported in PuppetDB >= 1.1.
 
-Default value: `$puppetdb::params::conn_max_age`
+Default value: `$openvoxdb::params::conn_max_age`
 
-##### <a name="-puppetdb--server--conn_lifetime"></a>`conn_lifetime`
+##### <a name="-openvoxdb--server--conn_lifetime"></a>`conn_lifetime`
 
 Data type: `Any`
 
@@ -1684,25 +1684,25 @@ use will not be affected until they are returned to the pool.
 If not supplied, we won't terminate connections based on their age alone. This
 option is supported in PuppetDB >= 1.4.
 
-Default value: `$puppetdb::params::conn_lifetime`
+Default value: `$openvoxdb::params::conn_lifetime`
 
-##### <a name="-puppetdb--server--puppetdb_package"></a>`puppetdb_package`
+##### <a name="-openvoxdb--server--puppetdb_package"></a>`puppetdb_package`
 
 Data type: `Any`
 
 The PuppetDB package name in the package manager. Defaults to `present`.
 
-Default value: `$puppetdb::params::puppetdb_package`
+Default value: `$openvoxdb::params::puppetdb_package`
 
-##### <a name="-puppetdb--server--puppetdb_service"></a>`puppetdb_service`
+##### <a name="-openvoxdb--server--puppetdb_service"></a>`puppetdb_service`
 
 Data type: `Any`
 
 The name of the PuppetDB service. Defaults to `puppetdb`.
 
-Default value: `$puppetdb::params::puppetdb_service`
+Default value: `$openvoxdb::params::puppetdb_service`
 
-##### <a name="-puppetdb--server--puppetdb_service_status"></a>`puppetdb_service_status`
+##### <a name="-openvoxdb--server--puppetdb_service_status"></a>`puppetdb_service_status`
 
 Data type: `Any`
 
@@ -1710,41 +1710,41 @@ Sets whether the service should be `running ` or `stopped`. When set to `stopped
 service doesn't start on boot either. Valid values are `true`, `running`,
 `false`, and `stopped`.
 
-Default value: `$puppetdb::params::puppetdb_service_status`
+Default value: `$openvoxdb::params::puppetdb_service_status`
 
-##### <a name="-puppetdb--server--puppetdb_user"></a>`puppetdb_user`
+##### <a name="-openvoxdb--server--puppetdb_user"></a>`puppetdb_user`
 
 Data type: `Any`
 
 Puppetdb service user
 
-Default value: `$puppetdb::params::puppetdb_user`
+Default value: `$openvoxdb::params::puppetdb_user`
 
-##### <a name="-puppetdb--server--puppetdb_group"></a>`puppetdb_group`
+##### <a name="-openvoxdb--server--puppetdb_group"></a>`puppetdb_group`
 
 Data type: `Any`
 
 Puppetdb service group
 
-Default value: `$puppetdb::params::puppetdb_group`
+Default value: `$openvoxdb::params::puppetdb_group`
 
-##### <a name="-puppetdb--server--confdir"></a>`confdir`
+##### <a name="-openvoxdb--server--confdir"></a>`confdir`
 
 Data type: `Any`
 
 The PuppetDB configuration directory. Defaults to `/etc/puppetdb/conf.d`.
 
-Default value: `$puppetdb::params::confdir`
+Default value: `$openvoxdb::params::confdir`
 
-##### <a name="-puppetdb--server--vardir"></a>`vardir`
+##### <a name="-openvoxdb--server--vardir"></a>`vardir`
 
 Data type: `Any`
 
 The parent directory for the MQ's data directory.
 
-Default value: `$puppetdb::params::vardir`
+Default value: `$openvoxdb::params::vardir`
 
-##### <a name="-puppetdb--server--java_args"></a>`java_args`
+##### <a name="-openvoxdb--server--java_args"></a>`java_args`
 
 Data type: `Any`
 
@@ -1760,9 +1760,9 @@ For example, to set `-Xmx512m -Xms256m` options use:
         '-Xms' => '256m',
     }
 
-Default value: `$puppetdb::params::java_args`
+Default value: `$openvoxdb::params::java_args`
 
-##### <a name="-puppetdb--server--merge_default_java_args"></a>`merge_default_java_args`
+##### <a name="-openvoxdb--server--merge_default_java_args"></a>`merge_default_java_args`
 
 Data type: `Any`
 
@@ -1771,18 +1771,18 @@ should override the defaults. This setting is necessary if any of the defaults
 are to be removed. Defaults to true. If `false`, the `java_args` in the PuppetDB
 init config file will reflect only what is passed via the `java_args` param.
 
-Default value: `$puppetdb::params::merge_default_java_args`
+Default value: `$openvoxdb::params::merge_default_java_args`
 
-##### <a name="-puppetdb--server--max_threads"></a>`max_threads`
+##### <a name="-openvoxdb--server--max_threads"></a>`max_threads`
 
 Data type: `Any`
 
 Jetty option to explicitly set `max-threads`. Defaults to `undef`, so the
 PuppetDB-Jetty default is used.
 
-Default value: `$puppetdb::params::max_threads`
+Default value: `$openvoxdb::params::max_threads`
 
-##### <a name="-puppetdb--server--read_database_host"></a>`read_database_host`
+##### <a name="-openvoxdb--server--read_database_host"></a>`read_database_host`
 
 Data type: `Any`
 
@@ -1792,9 +1792,9 @@ The hostname or IP address of the read database server. If set to `undef`, and
 `manage_database` is set to `true`, it will use the value of the `database_host`
 parameter. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_host`
+Default value: `$openvoxdb::params::read_database_host`
 
-##### <a name="-puppetdb--server--read_database_port"></a>`read_database_port`
+##### <a name="-openvoxdb--server--read_database_port"></a>`read_database_port`
 
 Data type: `Any`
 
@@ -1802,27 +1802,27 @@ The port that the read database server listens on. If `read_database_host`
 is set to `undef`, and `manage_database` is set to `true`, it will use the value of
 the `database_port` parameter. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_port`
+Default value: `$openvoxdb::params::read_database_port`
 
-##### <a name="-puppetdb--server--read_database_username"></a>`read_database_username`
+##### <a name="-openvoxdb--server--read_database_username"></a>`read_database_username`
 
 Data type: `Any`
 
 The name of the read database user to connect as. Defaults to `puppetdb-read`. This
 option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_username`
+Default value: `$openvoxdb::params::read_database_username`
 
-##### <a name="-puppetdb--server--read_database_password"></a>`read_database_password`
+##### <a name="-openvoxdb--server--read_database_password"></a>`read_database_password`
 
 Data type: `Variant[String[1], Sensitive[String[1]]]`
 
 The password for the read database user. Defaults to `puppetdb-read`. This option is
 supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_password`
+Default value: `$openvoxdb::params::read_database_password`
 
-##### <a name="-puppetdb--server--manage_read_db_password"></a>`manage_read_db_password`
+##### <a name="-openvoxdb--server--manage_read_db_password"></a>`manage_read_db_password`
 
 Data type: `Any`
 
@@ -1830,9 +1830,9 @@ Whether or not the database password in read-database.ini will be managed by thi
 Set this to `false` if you want to set the password some other way.
 Defaults to `true`
 
-Default value: `$puppetdb::params::manage_read_db_password`
+Default value: `$openvoxdb::params::manage_read_db_password`
 
-##### <a name="-puppetdb--server--read_database_jdbc_ssl_properties"></a>`read_database_jdbc_ssl_properties`
+##### <a name="-openvoxdb--server--read_database_jdbc_ssl_properties"></a>`read_database_jdbc_ssl_properties`
 
 Data type: `Any`
 
@@ -1840,18 +1840,18 @@ The text to append to the JDBC connection URI. This should begin with a '?'
 character. For example, to use SSL for the PostgreSQL connection, set this
 parameter's value to `?ssl=true`.
 
-Default value: `$puppetdb::params::read_database_jdbc_ssl_properties`
+Default value: `$openvoxdb::params::read_database_jdbc_ssl_properties`
 
-##### <a name="-puppetdb--server--read_database_validate"></a>`read_database_validate`
+##### <a name="-openvoxdb--server--read_database_validate"></a>`read_database_validate`
 
 Data type: `Any`
 
 If true, the module will attempt to connect to the database using the specified
 settings and fail if it is not able to do so. Defaults to `true`.
 
-Default value: `$puppetdb::params::read_database_validate`
+Default value: `$openvoxdb::params::read_database_validate`
 
-##### <a name="-puppetdb--server--read_database_name"></a>`read_database_name`
+##### <a name="-openvoxdb--server--read_database_name"></a>`read_database_name`
 
 Data type: `Any`
 
@@ -1859,9 +1859,9 @@ The name of the read database instance to connect to. If `read_database_host`
 is set to `undef`, and `manage_database` is set to `true`, it will use the value of
 the `database_name` parameter. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_database_name`
+Default value: `$openvoxdb::params::read_database_name`
 
-##### <a name="-puppetdb--server--read_conn_max_age"></a>`read_conn_max_age`
+##### <a name="-openvoxdb--server--read_conn_max_age"></a>`read_conn_max_age`
 
 Data type: `Any`
 
@@ -1870,9 +1870,9 @@ unused before it is closed off.
 
 If not supplied, we default to 60 minutes. This option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_conn_max_age`
+Default value: `$openvoxdb::params::read_conn_max_age`
 
-##### <a name="-puppetdb--server--read_conn_lifetime"></a>`read_conn_lifetime`
+##### <a name="-openvoxdb--server--read_conn_lifetime"></a>`read_conn_lifetime`
 
 Data type: `Any`
 
@@ -1883,181 +1883,181 @@ currently in use will not be affected until they are returned to the pool.
 If not supplied, we won't terminate connections based on their age alone. This
 option is supported in PuppetDB >= 1.6.
 
-Default value: `$puppetdb::params::read_conn_lifetime`
+Default value: `$openvoxdb::params::read_conn_lifetime`
 
-##### <a name="-puppetdb--server--ssl_dir"></a>`ssl_dir`
+##### <a name="-openvoxdb--server--ssl_dir"></a>`ssl_dir`
 
 Data type: `Stdlib::Absolutepath`
 
 Base directory for PuppetDB SSL configuration. Defaults to `/etc/puppetdb/ssl`
 or `/etc/puppetlabs/puppetdb/ssl` for FOSS and PE respectively.
 
-Default value: `$puppetdb::params::ssl_dir`
+Default value: `$openvoxdb::params::ssl_dir`
 
-##### <a name="-puppetdb--server--ssl_set_cert_paths"></a>`ssl_set_cert_paths`
+##### <a name="-openvoxdb--server--ssl_set_cert_paths"></a>`ssl_set_cert_paths`
 
 Data type: `Boolean`
 
 A switch to enable or disable the management of SSL certificates in your
 `jetty.ini` configuration file.
 
-Default value: `$puppetdb::params::ssl_set_cert_paths`
+Default value: `$openvoxdb::params::ssl_set_cert_paths`
 
-##### <a name="-puppetdb--server--ssl_cert_path"></a>`ssl_cert_path`
+##### <a name="-openvoxdb--server--ssl_cert_path"></a>`ssl_cert_path`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to your SSL certificate for populating `jetty.ini`.
 
-Default value: `$puppetdb::params::ssl_cert_path`
+Default value: `$openvoxdb::params::ssl_cert_path`
 
-##### <a name="-puppetdb--server--ssl_key_pk8_path"></a>`ssl_key_pk8_path`
+##### <a name="-openvoxdb--server--ssl_key_pk8_path"></a>`ssl_key_pk8_path`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to the SSL pk8 key for populating `jetty.ini`, will be generated from
 the SSL key as needed automatically.
 
-Default value: `$puppetdb::params::ssl_key_pk8_path`
+Default value: `$openvoxdb::params::ssl_key_pk8_path`
 
-##### <a name="-puppetdb--server--ssl_key_path"></a>`ssl_key_path`
+##### <a name="-openvoxdb--server--ssl_key_path"></a>`ssl_key_path`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to your SSL key for populating `jetty.ini`.
 
-Default value: `$puppetdb::params::ssl_key_path`
+Default value: `$openvoxdb::params::ssl_key_path`
 
-##### <a name="-puppetdb--server--ssl_ca_cert_path"></a>`ssl_ca_cert_path`
+##### <a name="-openvoxdb--server--ssl_ca_cert_path"></a>`ssl_ca_cert_path`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to your SSL CA for populating `jetty.ini`.
 
-Default value: `$puppetdb::params::ssl_ca_cert_path`
+Default value: `$openvoxdb::params::ssl_ca_cert_path`
 
-##### <a name="-puppetdb--server--ssl_deploy_certs"></a>`ssl_deploy_certs`
+##### <a name="-openvoxdb--server--ssl_deploy_certs"></a>`ssl_deploy_certs`
 
 Data type: `Boolean`
 
 A boolean switch to enable or disable the management of SSL keys in your
 `ssl_dir`. Default is `false`.
 
-Default value: `$puppetdb::params::ssl_deploy_certs`
+Default value: `$openvoxdb::params::ssl_deploy_certs`
 
-##### <a name="-puppetdb--server--ssl_key"></a>`ssl_key`
+##### <a name="-openvoxdb--server--ssl_key"></a>`ssl_key`
 
 Data type: `Any`
 
 Contents of your SSL key, as a string.
 
-Default value: `$puppetdb::params::ssl_key`
+Default value: `$openvoxdb::params::ssl_key`
 
-##### <a name="-puppetdb--server--ssl_cert"></a>`ssl_cert`
+##### <a name="-openvoxdb--server--ssl_cert"></a>`ssl_cert`
 
 Data type: `Any`
 
 Contents of your SSL certificate, as a string.
 
-Default value: `$puppetdb::params::ssl_cert`
+Default value: `$openvoxdb::params::ssl_cert`
 
-##### <a name="-puppetdb--server--ssl_ca_cert"></a>`ssl_ca_cert`
+##### <a name="-openvoxdb--server--ssl_ca_cert"></a>`ssl_ca_cert`
 
 Data type: `Any`
 
 Contents of your SSL CA certificate, as a string.
 
-Default value: `$puppetdb::params::ssl_ca_cert`
+Default value: `$openvoxdb::params::ssl_ca_cert`
 
-##### <a name="-puppetdb--server--manage_firewall"></a>`manage_firewall`
+##### <a name="-openvoxdb--server--manage_firewall"></a>`manage_firewall`
 
 Data type: `Any`
 
 If `true`, puppet will manage your iptables rules for PuppetDB via the
 [puppetlabs-firewall](https://forge.puppetlabs.com/puppetlabs/firewall) class.
 
-Default value: `$puppetdb::params::manage_firewall`
+Default value: `$openvoxdb::params::manage_firewall`
 
-##### <a name="-puppetdb--server--command_threads"></a>`command_threads`
+##### <a name="-openvoxdb--server--command_threads"></a>`command_threads`
 
 Data type: `Any`
 
 The number of command processing threads to use. Defaults to `undef`, using the
 PuppetDB built-in default.
 
-Default value: `$puppetdb::params::command_threads`
+Default value: `$openvoxdb::params::command_threads`
 
-##### <a name="-puppetdb--server--concurrent_writes"></a>`concurrent_writes`
+##### <a name="-openvoxdb--server--concurrent_writes"></a>`concurrent_writes`
 
 Data type: `Any`
 
 The number of threads allowed to write to disk at any one time. Defaults to
 `undef`, which uses the PuppetDB built-in default.
 
-Default value: `$puppetdb::params::concurrent_writes`
+Default value: `$openvoxdb::params::concurrent_writes`
 
-##### <a name="-puppetdb--server--store_usage"></a>`store_usage`
+##### <a name="-openvoxdb--server--store_usage"></a>`store_usage`
 
 Data type: `Any`
 
 The amount of disk space (in MB) to allow for persistent message storage.
 Defaults to `undef`, using the PuppetDB built-in default.
 
-Default value: `$puppetdb::params::store_usage`
+Default value: `$openvoxdb::params::store_usage`
 
-##### <a name="-puppetdb--server--temp_usage"></a>`temp_usage`
+##### <a name="-openvoxdb--server--temp_usage"></a>`temp_usage`
 
 Data type: `Any`
 
 The amount of disk space (in MB) to allow for temporary message storage.
 Defaults to `undef`, using the PuppetDB built-in default.
 
-Default value: `$puppetdb::params::temp_usage`
+Default value: `$openvoxdb::params::temp_usage`
 
-##### <a name="-puppetdb--server--disable_update_checking"></a>`disable_update_checking`
+##### <a name="-openvoxdb--server--disable_update_checking"></a>`disable_update_checking`
 
 Data type: `Any`
 
 Setting this to true disables checking for updated versions of PuppetDB and sending basic analytics data to Puppet.
 Defaults to `undef`, using the PuppetDB built-in default.
 
-Default value: `$puppetdb::params::disable_update_checking`
+Default value: `$openvoxdb::params::disable_update_checking`
 
-##### <a name="-puppetdb--server--certificate_whitelist_file"></a>`certificate_whitelist_file`
+##### <a name="-openvoxdb--server--certificate_whitelist_file"></a>`certificate_whitelist_file`
 
 Data type: `Any`
 
 The name of the certificate whitelist file to set up and configure in PuppetDB. Defaults to `/etc/puppetdb/certificate-whitelist` or `/etc/puppetlabs/puppetdb/certificate-whitelist` for FOSS and PE respectively.
 
-Default value: `$puppetdb::params::certificate_whitelist_file`
+Default value: `$openvoxdb::params::certificate_whitelist_file`
 
-##### <a name="-puppetdb--server--certificate_whitelist"></a>`certificate_whitelist`
+##### <a name="-openvoxdb--server--certificate_whitelist"></a>`certificate_whitelist`
 
 Data type: `Any`
 
 Array of the X.509 certificate Common Names of clients allowed to connect to PuppetDB. Defaults to empty. Be aware that this permits full access to all Puppet clients to download anything contained in PuppetDB, including the full catalogs of all nodes, which possibly contain sensitive information. Set to `[ $::servername ]` to allow access only from your (single) Puppet master, which is enough for normal operation. Set to a list of Puppet masters if you have multiple.
 
-Default value: `$puppetdb::params::certificate_whitelist`
+Default value: `$openvoxdb::params::certificate_whitelist`
 
-##### <a name="-puppetdb--server--database_max_pool_size"></a>`database_max_pool_size`
-
-Data type: `Any`
-
-When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
-Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
-
-Default value: `$puppetdb::params::database_max_pool_size`
-
-##### <a name="-puppetdb--server--read_database_max_pool_size"></a>`read_database_max_pool_size`
+##### <a name="-openvoxdb--server--database_max_pool_size"></a>`database_max_pool_size`
 
 Data type: `Any`
 
 When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
 Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
 
-Default value: `$puppetdb::params::read_database_max_pool_size`
+Default value: `$openvoxdb::params::database_max_pool_size`
 
-##### <a name="-puppetdb--server--automatic_dlo_cleanup"></a>`automatic_dlo_cleanup`
+##### <a name="-openvoxdb--server--read_database_max_pool_size"></a>`read_database_max_pool_size`
+
+Data type: `Any`
+
+When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
+Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
+
+Default value: `$openvoxdb::params::read_database_max_pool_size`
+
+##### <a name="-openvoxdb--server--automatic_dlo_cleanup"></a>`automatic_dlo_cleanup`
 
 Data type: `Boolean`
 
@@ -2066,9 +2066,9 @@ Those are reports of failed requests. They spill up the disk. This parameter is
 a boolean and defaults to false. You can enable automatic cleanup of DLO
 reports by setting this to true.
 
-Default value: `$puppetdb::params::automatic_dlo_cleanup`
+Default value: `$openvoxdb::params::automatic_dlo_cleanup`
 
-##### <a name="-puppetdb--server--cleanup_timer_interval"></a>`cleanup_timer_interval`
+##### <a name="-openvoxdb--server--cleanup_timer_interval"></a>`cleanup_timer_interval`
 
 Data type: `String[1]`
 
@@ -2081,24 +2081,24 @@ method. On non-systemd systems, the cron runs daily and the `$puppetdb_user` nee
 to be able to run cron jobs. On systemd systems you need the [camptocamp/systemd](https://forge.puppet.com/camptocamp/systemd)
 module, which is an optional dependency and not automatically installed!
 
-Default value: `$puppetdb::params::cleanup_timer_interval`
+Default value: `$openvoxdb::params::cleanup_timer_interval`
 
-##### <a name="-puppetdb--server--dlo_max_age"></a>`dlo_max_age`
+##### <a name="-openvoxdb--server--dlo_max_age"></a>`dlo_max_age`
 
 Data type: `Integer[1]`
 
 This is a positive integer. It describes the amount of days you want to keep
 the DLO reports. The default value is 90 days.
 
-Default value: `$puppetdb::params::dlo_max_age`
+Default value: `$openvoxdb::params::dlo_max_age`
 
-##### <a name="-puppetdb--server--java_bin"></a>`java_bin`
+##### <a name="-openvoxdb--server--java_bin"></a>`java_bin`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 java binary path for PuppetDB. If undef, default will be used.
 
-Default value: `$puppetdb::params::java_bin`
+Default value: `$openvoxdb::params::java_bin`
 
 ## Resource types
 
@@ -2172,15 +2172,15 @@ Default value: `true`
 
 ## Functions
 
-### <a name="puppetdb--create_subsetting_resource_hash"></a>`puppetdb::create_subsetting_resource_hash`
+### <a name="openvoxdb--create_subsetting_resource_hash"></a>`openvoxdb::create_subsetting_resource_hash`
 
 Type: Ruby 4.x API
 
-The puppetdb::create_subsetting_resource_hash function.
+The openvoxdb::create_subsetting_resource_hash function.
 
-#### `puppetdb::create_subsetting_resource_hash(Hash $java_args, Any $params)`
+#### `openvoxdb::create_subsetting_resource_hash(Hash $java_args, Any $params)`
 
-The puppetdb::create_subsetting_resource_hash function.
+The openvoxdb::create_subsetting_resource_hash function.
 
 Returns: `Any`
 
@@ -2196,15 +2196,15 @@ Data type: `Any`
 
 
 
-### <a name="puppetdb--flatten_java_args"></a>`puppetdb::flatten_java_args`
+### <a name="openvoxdb--flatten_java_args"></a>`openvoxdb::flatten_java_args`
 
 Type: Ruby 4.x API
 
-The puppetdb::flatten_java_args function.
+The openvoxdb::flatten_java_args function.
 
-#### `puppetdb::flatten_java_args(Optional[Hash] $java_args)`
+#### `openvoxdb::flatten_java_args(Optional[Hash] $java_args)`
 
-The puppetdb::flatten_java_args function.
+The openvoxdb::flatten_java_args function.
 
 Returns: `String`
 
@@ -2216,9 +2216,9 @@ Data type: `Optional[Hash]`
 
 ## Data types
 
-### <a name="Puppetdb--Ttl"></a>`Puppetdb::Ttl`
+### <a name="Openvoxdb--Ttl"></a>`Openvoxdb::Ttl`
 
-The Puppetdb::Ttl data type.
+The Openvoxdb::Ttl data type.
 
 Alias of `Pattern[/^\d+(d|h|m|s|ms)$/]`
 

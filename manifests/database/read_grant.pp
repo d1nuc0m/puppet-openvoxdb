@@ -1,7 +1,7 @@
 # @summary grant read-only permissions to $database_read_only_username for all objects in $schema of $database_name
 #
 # @api private
-define puppetdb::database::read_grant (
+define openvoxdb::database::read_grant (
   String $database_name,
   String $schema,
   String $database_read_only_username,

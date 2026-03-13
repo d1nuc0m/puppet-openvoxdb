@@ -18,7 +18,7 @@ invalid = {
   'invalid data type': defaults.merge({ database_port: '5433' }),
 }
 
-describe 'puppetdb::database::read_grant' do
+describe 'openvoxdb::database::read_grant' do
   let(:facts) { on_supported_os.take(1).first[1] }
   let(:pre_condition) { 'include postgresql::server' }
   let(:name) { title }
@@ -26,7 +26,7 @@ describe 'puppetdb::database::read_grant' do
 
   valid.each do |name, params|
     context "for valid #{name}" do
-      include_examples 'puppetdb::database::read_grant' do
+      include_examples 'openvoxdb::database::read_grant' do
         let(:title) { name.to_s }
         let(:params) { params }
       end
@@ -35,7 +35,7 @@ describe 'puppetdb::database::read_grant' do
 
   invalid.each do |name, params|
     context "for invalid #{name}" do
-      include_examples 'puppetdb::database::read_grant', Puppet::Error do
+      include_examples 'openvoxdb::database::read_grant', Puppet::Error do
         let(:title) { name.to_s }
         let(:params) { params }
       end

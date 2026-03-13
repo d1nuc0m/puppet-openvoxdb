@@ -17,14 +17,14 @@ shared_examples 'puppetdb' do
       postgresql::server::config_entry { 'min_wal_size': value => '80MB' }
       postgresql::server::config_entry { 'max_wal_size': value => '1GB' }
 
-      class { 'puppetdb':
+      class { 'openvoxdb':
         postgres_version            => #{postgres_version},
         manage_firewall             => #{manage_firewall},
         database_max_pool_size      => '2',
         read_database_max_pool_size => '2',
         #{puppetdb_params}
       }
-      -> class { 'puppetdb::master::config':
+      -> class { 'openvoxdb::master::config':
         #{puppetdb_master_config_params}
       }
     PP

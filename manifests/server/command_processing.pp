@@ -1,13 +1,13 @@
 # @summary manage puppetdb config ini
 #
 # @api private
-class puppetdb::server::command_processing (
-  $command_threads   = $puppetdb::params::command_threads,
-  $concurrent_writes = $puppetdb::params::concurrent_writes,
-  $store_usage       = $puppetdb::params::store_usage,
-  $temp_usage        = $puppetdb::params::temp_usage,
-  $confdir           = $puppetdb::params::confdir,
-) inherits puppetdb::params {
+class openvoxdb::server::command_processing (
+  $command_threads   = $openvoxdb::params::command_threads,
+  $concurrent_writes = $openvoxdb::params::concurrent_writes,
+  $store_usage       = $openvoxdb::params::store_usage,
+  $temp_usage        = $openvoxdb::params::temp_usage,
+  $confdir           = $openvoxdb::params::confdir,
+) inherits openvoxdb::params {
   $config_ini = "${confdir}/config.ini"
 
   # Set the defaults

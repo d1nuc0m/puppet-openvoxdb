@@ -1,7 +1,7 @@
 # @summary default configuration settings
 #
 # @api private
-class puppetdb::params {
+class openvoxdb::params {
   $listen_address            = 'localhost'
   $listen_port               = '8080'
   $disable_cleartext         = false
@@ -105,8 +105,8 @@ class puppetdb::params {
       $puppetdb_initconf   = '/etc/default/puppetdb'
     }
     'FreeBSD': {
-      $puppetdb_package    = "openvoxdb-${puppetdb::params::puppetdb_major_version}"
-      $terminus_package    = "openvoxdb-terminus-${puppetdb::params::puppetdb_major_version}"
+      $puppetdb_package    = "openvoxdb-${openvoxdb::params::puppetdb_major_version}"
+      $terminus_package    = "openvoxdb-terminus-${openvoxdb::params::puppetdb_major_version}"
       $etcdir              = '/usr/local/etc/puppetdb'
       $puppet_confdir      = '/usr/local/etc/puppet'
       $puppet_service_name = 'puppetserver'

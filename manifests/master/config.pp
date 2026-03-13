@@ -89,20 +89,20 @@
 #   must restart the service manually in order to pick up changes to the config
 #   files (other than `puppet.conf`).
 #
-class puppetdb::master::config (
+class openvoxdb::master::config (
   $puppetdb_server             = fact('networking.fqdn'),
   $puppetdb_port               = defined(Class['puppetdb']) ? {
-    true    => $puppetdb::disable_ssl ? {
+    true    => $openvoxdb::disable_ssl ? {
       true => 8080,
       default => 8081,
     },
     default => 8081,
   },
   $puppetdb_disable_ssl        = defined(Class['puppetdb']) ? {
-    true    => $puppetdb::disable_ssl,
+    true    => $openvoxdb::disable_ssl,
     default => false,
   },
-  $masterless                  = $puppetdb::params::masterless,
+  $masterless                  = $openvoxdb::params::masterless,
   $puppetdb_soft_write_failure = false,
   $manage_routes               = true,
   $manage_storeconfigs         = true,
@@ -112,14 +112,14 @@ class puppetdb::master::config (
   $create_puppet_service_resource = true,
   $strict_validation           = true,
   $enable_reports              = false,
-  $puppet_confdir              = $puppetdb::params::puppet_confdir,
-  $puppet_conf                 = $puppetdb::params::puppet_conf,
-  $terminus_package            = $puppetdb::params::terminus_package,
-  $puppet_service_name         = $puppetdb::params::puppet_service_name,
-  $puppetdb_startup_timeout    = $puppetdb::params::puppetdb_startup_timeout,
-  $test_url                    = $puppetdb::params::test_url,
+  $puppet_confdir              = $openvoxdb::params::puppet_confdir,
+  $puppet_conf                 = $openvoxdb::params::puppet_conf,
+  $terminus_package            = $openvoxdb::params::terminus_package,
+  $puppet_service_name         = $openvoxdb::params::puppet_service_name,
+  $puppetdb_startup_timeout    = $openvoxdb::params::puppetdb_startup_timeout,
+  $test_url                    = $openvoxdb::params::test_url,
   $restart_puppet              = true,
-) inherits puppetdb::params {
+) inherits openvoxdb::params {
   # **WARNING**: Ugly hack to work around a yum bug with metadata parsing. This
   # should not be copied, replicated or even looked at. In short, never rename
   # your packages...
@@ -139,8 +139,8 @@ class puppetdb::master::config (
   # and some of the new terminus files temporarily. If this exec fails all you
   # need to do is reinstall whatever 2.3 version of the terminus was already
   # installed to revert the change.
-  if !($puppetdb::params::puppetdb_version in ['present','absent'])
-  and versioncmp($puppetdb::params::puppetdb_version, '3.0.0') >= 0
+  if !($openvoxdb::params::puppetdb_version in ['present','absent'])
+  and versioncmp($openvoxdb::params::puppetdb_version, '3.0.0') >= 0
   and $facts['os']['family'] in ['RedHat','Suse'] {
     exec { 'Remove puppetdb-terminus metadata for upgrade':
       command => 'rpm -e --justdb puppetdb-terminus',
@@ -151,7 +151,7 @@ class puppetdb::master::config (
   }
 
   package { $terminus_package:
-    ensure => $puppetdb::params::puppetdb_version,
+    ensure => $openvoxdb::params::puppetdb_version,
   }
 
   if ($strict_validation) {
@@ -184,7 +184,7 @@ class puppetdb::master::config (
     # conditional dependency.  Basically, we're saying that "if the PuppetDB
     # service is being managed in this same catalog, it needs to come before
     # this validator."
-    Service<|title == $puppetdb::params::puppetdb_service|> -> Puppetdb_conn_validator['puppetdb_conn']
+    Service<|title == $openvoxdb::params::puppetdb_service|> -> Puppetdb_conn_validator['puppetdb_conn']
   }
 
   # Conditionally manage the `routes.yaml` file.  Restart the puppet service
@@ -195,7 +195,7 @@ class puppetdb::master::config (
       default => Package[$terminus_package],
     }
 
-    class { 'puppetdb::master::routes':
+    class { 'openvoxdb::master::routes':
       puppet_confdir => $puppet_confdir,
       masterless     => $masterless,
       require        => $routes_require,
@@ -211,7 +211,7 @@ class puppetdb::master::config (
       default => Package[$terminus_package],
     }
 
-    class { 'puppetdb::master::storeconfigs':
+    class { 'openvoxdb::master::storeconfigs':
       puppet_conf => $puppet_conf,
       masterless  => $masterless,
       enable      => $enable_storeconfigs,
@@ -228,7 +228,7 @@ class puppetdb::master::config (
       default => Package[$terminus_package],
     }
 
-    class { 'puppetdb::master::report_processor':
+    class { 'openvoxdb::master::report_processor':
       puppet_conf => $puppet_conf,
       masterless  => $masterless,
       enable      => $enable_reports,
@@ -244,12 +244,12 @@ class puppetdb::master::config (
       default => Package[$terminus_package],
     }
 
-    class { 'puppetdb::master::puppetdb_conf':
+    class { 'openvoxdb::master::puppetdb_conf':
       server             => $puppetdb_server,
       port               => $puppetdb_port,
       soft_write_failure => $puppetdb_soft_write_failure,
       puppet_confdir     => $puppet_confdir,
-      legacy_terminus    => $puppetdb::params::terminus_package == 'puppetdb-terminus',
+      legacy_terminus    => $openvoxdb::params::terminus_package == 'puppetdb-terminus',
       require            => $puppetdb_conf_require,
     }
   }
@@ -269,15 +269,15 @@ class puppetdb::master::config (
     }
 
     if ($manage_config) {
-      Class['puppetdb::master::puppetdb_conf'] ~> Service[$puppet_service_name]
+      Class['openvoxdb::master::puppetdb_conf'] ~> Service[$puppet_service_name]
     }
 
     if ($manage_routes) {
-      Class['puppetdb::master::routes'] ~> Service[$puppet_service_name]
+      Class['openvoxdb::master::routes'] ~> Service[$puppet_service_name]
     }
 
     if ($manage_report_processor) {
-      Class['puppetdb::master::report_processor'] ~> Service[$puppet_service_name]
+      Class['openvoxdb::master::report_processor'] ~> Service[$puppet_service_name]
     }
   }
 }

@@ -17,7 +17,7 @@
 #   The hash method for postgresql password, since PostgreSQL 14 default is `scram-sha-256`.
 #
 # @api private
-define puppetdb::database::read_only_user (
+define openvoxdb::database::read_only_user (
   String $read_database_username,
   String $database_name,
   String $database_owner,
@@ -38,7 +38,7 @@ define puppetdb::database::read_only_user (
     port      => $database_port,
   }
 
-  -> puppetdb::database::default_read_grant {
+  -> openvoxdb::database::default_read_grant {
     "${database_name} grant read permission on new objects from ${database_owner} to ${read_database_username}":
       database_username           => $database_owner,
       database_read_only_username => $read_database_username,
@@ -47,7 +47,7 @@ define puppetdb::database::read_only_user (
       schema                      => 'public',
   }
 
-  -> puppetdb::database::read_grant {
+  -> openvoxdb::database::read_grant {
     "${database_name} grant read-only permission on existing objects to ${read_database_username}":
       database_read_only_username => $read_database_username,
       database_name               => $database_name,

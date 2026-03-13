@@ -1,11 +1,11 @@
 # @summary manage the installation of the report processor on the primary
 #
 # @api private
-class puppetdb::master::report_processor (
-  $puppet_conf = $puppetdb::params::puppet_conf,
-  $masterless  = $puppetdb::params::masterless,
+class openvoxdb::master::report_processor (
+  $puppet_conf = $openvoxdb::params::puppet_conf,
+  $masterless  = $openvoxdb::params::masterless,
   $enable      = false
-) inherits puppetdb::params {
+) inherits openvoxdb::params {
   if $masterless {
     $puppet_conf_section = 'main'
   } else {

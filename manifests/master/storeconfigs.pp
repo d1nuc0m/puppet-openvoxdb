@@ -1,11 +1,11 @@
 # @summary configure the puppet master to enable storeconfigs and to use puppetdb as the storeconfigs backend
 #
 # @api private
-class puppetdb::master::storeconfigs (
-  $puppet_conf = $puppetdb::params::puppet_conf,
-  $masterless  = $puppetdb::params::masterless,
+class openvoxdb::master::storeconfigs (
+  $puppet_conf = $openvoxdb::params::puppet_conf,
+  $masterless  = $openvoxdb::params::masterless,
   $enable      = true,
-) inherits puppetdb::params {
+) inherits openvoxdb::params {
   if $masterless {
     $puppet_conf_section = 'main'
   } else {

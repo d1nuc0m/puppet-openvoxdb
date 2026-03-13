@@ -1,7 +1,7 @@
 # @summary manage the pg_ident.conf and pg_hba.conf files
 #
 # @api private
-define puppetdb::database::postgresql_ssl_rules (
+define openvoxdb::database::postgresql_ssl_rules (
   String $database_name,
   String $database_username,
   String[2,3] $postgres_version,

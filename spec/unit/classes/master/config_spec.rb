@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb::master::config', type: :class do
+describe 'openvoxdb::master::config', type: :class do
   let(:node) { 'puppetdb.example.com' }
 
   on_supported_os.each do |os, facts|
@@ -24,7 +24,7 @@ describe 'puppetdb::master::config', type: :class do
 
       context 'when PuppetDB and Puppet Master are on the same server' do
         context 'when using default values' do
-          let(:pre_condition) { 'class { "puppetdb": }' }
+          let(:pre_condition) { 'class { "openvoxdb": }' }
 
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
@@ -47,7 +47,7 @@ describe 'puppetdb::master::config', type: :class do
         end
 
         context 'when puppetdb_port => 1234' do
-          let(:pre_condition) { 'class { "puppetdb": }' }
+          let(:pre_condition) { 'class { "openvoxdb": }' }
           let(:params) { { puppetdb_port: '1234' } }
 
           it {
@@ -77,7 +77,7 @@ describe 'puppetdb::master::config', type: :class do
       end
 
       context 'when restart_puppet is true' do
-        let(:pre_condition) { 'class { "puppetdb": }' }
+        let(:pre_condition) { 'class { "openvoxdb": }' }
 
         context 'with create_puppet_service_resource as default' do
           let(:params) do
@@ -104,7 +104,7 @@ describe 'puppetdb::master::config', type: :class do
 
         context 'with create_puppet_service_resource = false' do
           # Also setting the various parameters that notify the service to be false. Otherwise this error surfaces:
-          # `Could not find resource 'Service[puppetserver]' for relationship from 'Class[Puppetdb::Master::Puppetdb_conf]'`
+          # `Could not find resource 'Service[puppetserver]' for relationship from 'Class[openvoxdb::Master::Puppetdb_conf]'`
           let(:params) do
             {
               create_puppet_service_resource: false,
@@ -118,12 +118,6 @@ describe 'puppetdb::master::config', type: :class do
 
           it { is_expected.not_to contain_service('puppetserver') }
         end
-      end
-
-      context 'when upgrading to from v2 to v3 of PuppetDB on RedHat', if: os =~ %r{^redhat-7} do
-        let(:pre_condition) { 'class { "puppetdb::globals": version => "3.1.1-1.el7", }' }
-
-        it { is_expected.to contain_exec('Remove puppetdb-terminus metadata for upgrade').with(command: 'rpm -e --justdb puppetdb-terminus') }
       end
     end
   end

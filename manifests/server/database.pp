@@ -1,32 +1,32 @@
 # @summary manage puppetdb database ini
 #
 # @api private
-class puppetdb::server::database (
-  $database_host             = $puppetdb::params::database_host,
-  $database_port             = $puppetdb::params::database_port,
-  $database_username         = $puppetdb::params::database_username,
-  Variant[String[1], Sensitive[String[1]]] $database_password = $puppetdb::params::database_password,
-  $database_name             = $puppetdb::params::database_name,
-  $manage_db_password        = $puppetdb::params::manage_db_password,
-  $jdbc_ssl_properties       = $puppetdb::params::jdbc_ssl_properties,
-  $database_validate         = $puppetdb::params::database_validate,
-  $node_ttl                  = $puppetdb::params::node_ttl,
-  $node_purge_ttl            = $puppetdb::params::node_purge_ttl,
-  $report_ttl                = $puppetdb::params::report_ttl,
-  $facts_blacklist           = $puppetdb::params::facts_blacklist,
-  $gc_interval               = $puppetdb::params::gc_interval,
-  $node_purge_gc_batch_limit = $puppetdb::params::node_purge_gc_batch_limit,
-  $conn_max_age              = $puppetdb::params::conn_max_age,
-  $conn_lifetime             = $puppetdb::params::conn_lifetime,
-  $confdir                   = $puppetdb::params::confdir,
-  $puppetdb_group            = $puppetdb::params::puppetdb_group,
-  $database_max_pool_size    = $puppetdb::params::database_max_pool_size,
-  $migrate                   = $puppetdb::params::migrate,
-  $postgresql_ssl_on         = $puppetdb::params::postgresql_ssl_on,
-  $ssl_cert_path             = $puppetdb::params::ssl_cert_path,
-  $ssl_key_pk8_path          = $puppetdb::params::ssl_key_pk8_path,
-  $ssl_ca_cert_path          = $puppetdb::params::ssl_ca_cert_path
-) inherits puppetdb::params {
+class openvoxdb::server::database (
+  $database_host             = $openvoxdb::params::database_host,
+  $database_port             = $openvoxdb::params::database_port,
+  $database_username         = $openvoxdb::params::database_username,
+  Variant[String[1], Sensitive[String[1]]] $database_password = $openvoxdb::params::database_password,
+  $database_name             = $openvoxdb::params::database_name,
+  $manage_db_password        = $openvoxdb::params::manage_db_password,
+  $jdbc_ssl_properties       = $openvoxdb::params::jdbc_ssl_properties,
+  $database_validate         = $openvoxdb::params::database_validate,
+  $node_ttl                  = $openvoxdb::params::node_ttl,
+  $node_purge_ttl            = $openvoxdb::params::node_purge_ttl,
+  $report_ttl                = $openvoxdb::params::report_ttl,
+  $facts_blacklist           = $openvoxdb::params::facts_blacklist,
+  $gc_interval               = $openvoxdb::params::gc_interval,
+  $node_purge_gc_batch_limit = $openvoxdb::params::node_purge_gc_batch_limit,
+  $conn_max_age              = $openvoxdb::params::conn_max_age,
+  $conn_lifetime             = $openvoxdb::params::conn_lifetime,
+  $confdir                   = $openvoxdb::params::confdir,
+  $puppetdb_group            = $openvoxdb::params::puppetdb_group,
+  $database_max_pool_size    = $openvoxdb::params::database_max_pool_size,
+  $migrate                   = $openvoxdb::params::migrate,
+  $postgresql_ssl_on         = $openvoxdb::params::postgresql_ssl_on,
+  $ssl_cert_path             = $openvoxdb::params::ssl_cert_path,
+  $ssl_key_pk8_path          = $openvoxdb::params::ssl_key_pk8_path,
+  $ssl_ca_cert_path          = $openvoxdb::params::ssl_ca_cert_path
+) inherits openvoxdb::params {
   if str2bool($database_validate) {
     # Validate the database connection.  If we can't connect, we want to fail
     # and skip the rest of the configuration, so that we don't leave puppetdb
@@ -36,7 +36,7 @@ class puppetdb::server::database (
     # Because of a limitation in the postgres module this will break with
     # a duplicate declaration if read and write database host+name are the
     # same.
-    class { 'puppetdb::server::validate_db':
+    class { 'openvoxdb::server::validate_db':
       database_host     => $database_host,
       database_port     => $database_port,
       database_username => $database_username,
@@ -57,7 +57,7 @@ class puppetdb::server::database (
   $file_require = File[$database_ini]
   $ini_setting_require = str2bool($database_validate) ? {
     false   => $file_require,
-    default => [$file_require, Class['puppetdb::server::validate_db']],
+    default => [$file_require, Class['openvoxdb::server::validate_db']],
   }
   # Set the defaults
   Ini_setting {
@@ -154,15 +154,15 @@ class puppetdb::server::database (
     value   => $migrate,
   }
 
-  if $puppetdb::params::database_max_pool_size_setting_name != undef {
+  if $openvoxdb::params::database_max_pool_size_setting_name != undef {
     if $database_max_pool_size == 'absent' {
       ini_setting { 'puppetdb_database_max_pool_size':
         ensure  => absent,
-        setting => $puppetdb::params::database_max_pool_size_setting_name,
+        setting => $openvoxdb::params::database_max_pool_size_setting_name,
       }
     } elsif $database_max_pool_size != undef {
       ini_setting { 'puppetdb_database_max_pool_size':
-        setting => $puppetdb::params::database_max_pool_size_setting_name,
+        setting => $openvoxdb::params::database_max_pool_size_setting_name,
         value   => $database_max_pool_size,
       }
     }

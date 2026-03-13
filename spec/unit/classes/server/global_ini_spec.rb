@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb::server::global', type: :class do
+describe 'openvoxdb::server::global', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
   describe 'when using default values' do

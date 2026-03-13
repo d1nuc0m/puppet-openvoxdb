@@ -1,11 +1,11 @@
 # @summary manages the routes configuration file on the master
 #
 # @api private
-class puppetdb::master::routes (
-  $puppet_confdir = $puppetdb::params::puppet_confdir,
-  $masterless     = $puppetdb::params::masterless,
+class openvoxdb::master::routes (
+  $puppet_confdir = $openvoxdb::params::puppet_confdir,
+  $masterless     = $openvoxdb::params::masterless,
   $routes         = undef,
-) inherits puppetdb::params {
+) inherits openvoxdb::params {
   if $masterless {
     $routes_real = {
       'apply' => {
@@ -45,7 +45,7 @@ class puppetdb::master::routes (
   #  this.
   file { "${puppet_confdir}/routes.yaml":
     ensure  => file,
-    content => template('puppetdb/routes.yaml.erb'),
+    content => template('openvoxdb/routes.yaml.erb'),
     mode    => '0644',
   }
 }

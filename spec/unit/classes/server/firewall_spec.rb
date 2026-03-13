@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe 'puppetdb::server::firewall', type: :class do
+describe 'openvoxdb::server::firewall', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
   context 'defaults' do
-    include_examples 'puppetdb::server::firewall'
+    include_examples 'openvoxdb::server::firewall'
   end
 
   context 'custom ports and open firewall' do
@@ -17,6 +17,6 @@ describe 'puppetdb::server::firewall', type: :class do
       }
     end
 
-    include_examples 'puppetdb::server::firewall'
+    include_examples 'openvoxdb::server::firewall'
   end
 end

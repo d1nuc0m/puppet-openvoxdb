@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'puppetdb::server::read_database', type: :class do
+describe 'openvoxdb::server::read_database', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
-  it { is_expected.to contain_class('puppetdb::server::read_database') }
+  it { is_expected.to contain_class('openvoxdb::server::read_database') }
 
   describe 'when using default values' do
     it { is_expected.to contain_file('/etc/puppetlabs/puppetdb/conf.d/read_database.ini').with('ensure' => 'absent') }
