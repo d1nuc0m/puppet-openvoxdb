@@ -1,13 +1,13 @@
 # @summary manage puppetdb ini
 #
 # @api private
-class puppetdb::server::puppetdb (
-  $certificate_whitelist_file = $puppetdb::params::certificate_whitelist_file,
-  $certificate_whitelist      = $puppetdb::params::certificate_whitelist,
-  $disable_update_checking    = $puppetdb::params::disable_update_checking,
-  $confdir                    = $puppetdb::params::confdir,
-  $puppetdb_group             = $puppetdb::params::puppetdb_group,
-) inherits puppetdb::params {
+class openvoxdb::server::puppetdb (
+  $certificate_whitelist_file = $openvoxdb::params::certificate_whitelist_file,
+  $certificate_whitelist      = $openvoxdb::params::certificate_whitelist,
+  $disable_update_checking    = $openvoxdb::params::disable_update_checking,
+  $confdir                    = $openvoxdb::params::confdir,
+  $puppetdb_group             = $openvoxdb::params::puppetdb_group,
+) inherits openvoxdb::params {
   $puppetdb_ini = "${confdir}/puppetdb.ini"
 
   file { $puppetdb_ini:
@@ -40,7 +40,7 @@ class puppetdb::server::puppetdb (
 
   file { $certificate_whitelist_file:
     ensure  => $certificate_whitelist_setting_ensure,
-    content => template('puppetdb/certificate-whitelist.erb'),
+    content => template('openvoxdb/certificate-whitelist.erb'),
     mode    => '0644',
     owner   => 0,
     group   => 0,

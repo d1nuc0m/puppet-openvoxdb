@@ -1,12 +1,12 @@
 # @summary manage puppetdb firewall rules
 #
 # @api private
-class puppetdb::server::firewall (
-  $http_port      = $puppetdb::params::listen_port,
-  $open_http_port = $puppetdb::params::open_listen_port,
-  $ssl_port       = $puppetdb::params::ssl_listen_port,
-  $open_ssl_port  = $puppetdb::params::open_ssl_listen_port,
-) inherits puppetdb::params {
+class openvoxdb::server::firewall (
+  $http_port      = $openvoxdb::params::listen_port,
+  $open_http_port = $openvoxdb::params::open_listen_port,
+  $ssl_port       = $openvoxdb::params::ssl_listen_port,
+  $open_ssl_port  = $openvoxdb::params::open_ssl_listen_port,
+) inherits openvoxdb::params {
   include firewall
 
   if ($open_http_port) {

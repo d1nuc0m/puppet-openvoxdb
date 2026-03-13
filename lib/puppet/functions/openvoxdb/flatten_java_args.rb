@@ -1,4 +1,4 @@
-Puppet::Functions.create_function(:'puppetdb::flatten_java_args') do
+Puppet::Functions.create_function(:'openvoxdb::flatten_java_args') do
   dispatch :flatten_java_args do
     optional_param 'Hash', :java_args
     return_type 'String'

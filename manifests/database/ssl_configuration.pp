@@ -1,18 +1,18 @@
 # @summary configure SSL for the PuppetDB postgresql database
 #
 # @api private
-class puppetdb::database::ssl_configuration (
-  $database_name               = $puppetdb::params::database_name,
-  $database_username           = $puppetdb::params::database_username,
-  $read_database_username      = $puppetdb::params::read_database_username,
-  $read_database_host          = $puppetdb::params::read_database_host,
-  $puppetdb_server             = $puppetdb::params::puppetdb_server,
-  $postgresql_ssl_key_path     = $puppetdb::params::postgresql_ssl_key_path,
-  $postgresql_ssl_cert_path    = $puppetdb::params::postgresql_ssl_cert_path,
-  $postgresql_ssl_ca_cert_path = $puppetdb::params::postgresql_ssl_ca_cert_path,
-  $postgres_version            = $puppetdb::params::postgres_version,
+class openvoxdb::database::ssl_configuration (
+  $database_name               = $openvoxdb::params::database_name,
+  $database_username           = $openvoxdb::params::database_username,
+  $read_database_username      = $openvoxdb::params::read_database_username,
+  $read_database_host          = $openvoxdb::params::read_database_host,
+  $puppetdb_server             = $openvoxdb::params::puppetdb_server,
+  $postgresql_ssl_key_path     = $openvoxdb::params::postgresql_ssl_key_path,
+  $postgresql_ssl_cert_path    = $openvoxdb::params::postgresql_ssl_cert_path,
+  $postgresql_ssl_ca_cert_path = $openvoxdb::params::postgresql_ssl_ca_cert_path,
+  $postgres_version            = $openvoxdb::params::postgres_version,
   $create_read_user_rule       = false,
-) inherits puppetdb::params {
+) inherits openvoxdb::params {
   File {
     ensure  => present,
     owner   => 'postgres',
@@ -54,7 +54,7 @@ class puppetdb::database::ssl_configuration (
     require => [File['postgres private key'], File['postgres public key']],
   }
 
-  puppetdb::database::postgresql_ssl_rules { "Configure postgresql ssl rules for ${database_username}":
+  openvoxdb::database::postgresql_ssl_rules { "Configure postgresql ssl rules for ${database_username}":
     database_name     => $database_name,
     database_username => $database_username,
     postgres_version  => $postgres_version,
@@ -62,7 +62,7 @@ class puppetdb::database::ssl_configuration (
   }
 
   if $create_read_user_rule {
-    puppetdb::database::postgresql_ssl_rules { "Configure postgresql ssl rules for ${read_database_username}":
+    openvoxdb::database::postgresql_ssl_rules { "Configure postgresql ssl rules for ${read_database_username}":
       database_name     => $database_name,
       database_username => $read_database_username,
       postgres_version  => $postgres_version,

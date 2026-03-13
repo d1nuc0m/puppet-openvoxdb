@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'puppetdb::server::jetty', type: :class do
+describe 'openvoxdb::server::jetty', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
-  it { is_expected.to contain_class('puppetdb::server::jetty') }
+  it { is_expected.to contain_class('openvoxdb::server::jetty') }
 
   describe 'when disabling ssl' do
     let(:params) do
@@ -94,7 +94,7 @@ describe 'puppetdb::server::jetty', type: :class do
 
       it 'fails' do
         expect do
-          is_expected.to contain_class('puppetdb::server::jetty')
+          is_expected.to contain_class('openvoxdb::server::jetty')
         end.to raise_error(Puppet::Error)
       end
     end

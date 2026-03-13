@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'puppetdb::database::default_read_grant' do
+describe 'openvoxdb::database::default_read_grant' do
   defaults = {
     database_name:               'puppetdb',
     schema:                      'public',
@@ -32,7 +32,7 @@ describe 'puppetdb::database::default_read_grant' do
   context 'with valid parameters' do
     valid.each do |name, params|
       context name do
-        include_examples 'puppetdb::database::default_read_grant' do
+        include_examples 'openvoxdb::database::default_read_grant' do
           let(:title) { name.to_s }
           let(:params) { params }
         end
@@ -43,7 +43,7 @@ describe 'puppetdb::database::default_read_grant' do
   context 'with invalid parameters' do
     invalid.each do |name, params|
       context name do
-        include_examples 'puppetdb::database::default_read_grant', Puppet::Error do
+        include_examples 'openvoxdb::database::default_read_grant', Puppet::Error do
           let(:title) { name.to_s }
           let(:params) { params }
         end

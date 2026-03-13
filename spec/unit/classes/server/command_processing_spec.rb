@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe 'puppetdb::server::command_processing', type: :class do
+describe 'openvoxdb::server::command_processing', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
-  let(:pre_condition) { 'include puppetdb::server::global' }
+  let(:pre_condition) { 'include openvoxdb::server::global' }
 
-  it { is_expected.to contain_class('puppetdb::server::command_processing') }
+  it { is_expected.to contain_class('openvoxdb::server::command_processing') }
 
   describe 'when using default values' do
     it {

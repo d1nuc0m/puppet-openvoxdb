@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'puppetdb::server::database', type: :class do
+describe 'openvoxdb::server::database', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
-  it { is_expected.to contain_class('puppetdb::server::database') }
+  it { is_expected.to contain_class('openvoxdb::server::database') }
 
   describe 'when using facts_blacklist' do
     let(:params) do

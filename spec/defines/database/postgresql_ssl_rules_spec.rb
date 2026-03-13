@@ -36,7 +36,7 @@ invalid = {
   'no params': {},
 }
 
-describe 'puppetdb::database::postgresql_ssl_rules' do
+describe 'openvoxdb::database::postgresql_ssl_rules' do
   let(:facts) { on_supported_os.take(1).first[1] }
   let(:pre_condition) { 'include postgresql::server' }
   let(:name) { title }
@@ -44,7 +44,7 @@ describe 'puppetdb::database::postgresql_ssl_rules' do
 
   valid.each do |name, params|
     context "for valid #{name}" do
-      include_examples 'puppetdb::database::postgresql_ssl_rules' do
+      include_examples 'openvoxdb::database::postgresql_ssl_rules' do
         let(:title) { name.to_s }
         let(:params) { params }
       end
@@ -53,7 +53,7 @@ describe 'puppetdb::database::postgresql_ssl_rules' do
 
   valid_12plus.each do |name, params|
     context "for valid_12plus #{name}" do
-      include_examples 'puppetdb::database::postgresql_ssl_rules' do
+      include_examples 'openvoxdb::database::postgresql_ssl_rules' do
         let(:title) { name.to_s }
         let(:params) { params }
       end
@@ -62,7 +62,7 @@ describe 'puppetdb::database::postgresql_ssl_rules' do
 
   invalid.each do |name, params|
     context "for invalid #{name}" do
-      include_examples 'puppetdb::database::postgresql_ssl_rules', Puppet::Error do
+      include_examples 'openvoxdb::database::postgresql_ssl_rules', Puppet::Error do
         let(:title) { name.to_s }
         let(:params) { params }
       end

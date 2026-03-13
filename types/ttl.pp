@@ -1,1 +1,1 @@
-type Puppetdb::Ttl = Pattern[/^\d+(d|h|m|s|ms)$/]
+type Openvoxdb::Ttl = Pattern[/^\d+(d|h|m|s|ms)$/]

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb::server', type: :class do
+describe 'openvoxdb::server', type: :class do
   let :node do
     'test.domain.local'
   end
@@ -28,13 +28,13 @@ describe 'puppetdb::server', type: :class do
       let(:facts) { facts }
 
       describe 'when using default values' do
-        it { is_expected.to contain_class('puppetdb::server') }
-        it { is_expected.to contain_class('puppetdb::server::global') }
-        it { is_expected.to contain_class('puppetdb::server::command_processing') }
-        it { is_expected.to contain_class('puppetdb::server::database') }
-        it { is_expected.to contain_class('puppetdb::server::read_database') }
-        it { is_expected.to contain_class('puppetdb::server::jetty') }
-        it { is_expected.to contain_class('puppetdb::server::puppetdb') }
+        it { is_expected.to contain_class('openvoxdb::server') }
+        it { is_expected.to contain_class('openvoxdb::server::global') }
+        it { is_expected.to contain_class('openvoxdb::server::command_processing') }
+        it { is_expected.to contain_class('openvoxdb::server::database') }
+        it { is_expected.to contain_class('openvoxdb::server::read_database') }
+        it { is_expected.to contain_class('openvoxdb::server::jetty') }
+        it { is_expected.to contain_class('openvoxdb::server::puppetdb') }
 
         it {
           is_expected.to contain_package(package_name).
@@ -179,8 +179,8 @@ describe 'puppetdb::server', type: :class do
         end
 
         describe 'ini_setting entries for the password will not exist' do
-          it { is_expected.to contain_class('puppetdb::server::database').with('manage_db_password' => false) }
-          it { is_expected.to contain_class('puppetdb::server::read_database').with('manage_db_password' => false) }
+          it { is_expected.to contain_class('openvoxdb::server::database').with('manage_db_password' => false) }
+          it { is_expected.to contain_class('openvoxdb::server::read_database').with('manage_db_password' => false) }
 
           it { is_expected.not_to contain_ini__setting('puppetdb_psdatabase_password') }
           it { is_expected.not_to contain_ini__setting('puppetdb_read_database_password') }
@@ -197,11 +197,11 @@ describe 'puppetdb::server', type: :class do
         let(:key_pk8_path) { '/etc/puppetlabs/puppetdb/ssl/private.pk8' }
 
         context 'ini_setting entries for the ssl configuration will exist' do
-          it { is_expected.to contain_class('puppetdb::server::database').with('postgresql_ssl_on' => true) }
-          it { is_expected.to contain_class('puppetdb::server::database').with(ssl_key_pk8_path: key_pk8_path) }
+          it { is_expected.to contain_class('openvoxdb::server::database').with('postgresql_ssl_on' => true) }
+          it { is_expected.to contain_class('openvoxdb::server::database').with(ssl_key_pk8_path: key_pk8_path) }
 
-          it { is_expected.to contain_class('puppetdb::server::read_database').with('postgresql_ssl_on' => true) }
-          it { is_expected.to contain_class('puppetdb::server::read_database').with(ssl_key_pk8_path: key_pk8_path) }
+          it { is_expected.to contain_class('openvoxdb::server::read_database').with('postgresql_ssl_on' => true) }
+          it { is_expected.to contain_class('openvoxdb::server::read_database').with(ssl_key_pk8_path: key_pk8_path) }
         end
 
         context 'private key file is converted from .pem to .pk8 format' do

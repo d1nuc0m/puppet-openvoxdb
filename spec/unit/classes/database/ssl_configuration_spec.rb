@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb::database::ssl_configuration', type: :class do
+describe 'openvoxdb::database::ssl_configuration', type: :class do
   context 'on a supported platform' do
     let(:facts) { on_supported_os.take(1).first[1] }
 
@@ -23,7 +23,7 @@ describe 'puppetdb::database::ssl_configuration', type: :class do
       "class { 'postgresql::server': datadir => '/var/lib/data'} "
     end
 
-    it { is_expected.to contain_class('puppetdb::database::ssl_configuration') }
+    it { is_expected.to contain_class('openvoxdb::database::ssl_configuration') }
     it { is_expected.to compile.with_all_deps }
 
     it 'has server.key file' do
@@ -93,19 +93,19 @@ describe 'puppetdb::database::ssl_configuration', type: :class do
       end
 
       context 'when the puppetdb_server is not set' do
-        include_examples 'puppetdb::database::postgresql_ssl_rules'
+        include_examples 'openvoxdb::database::postgresql_ssl_rules'
       end
 
       context 'when the puppetdb_server is set' do
         let(:params) { super().merge({ puppetdb_server: 'puppetdb_fqdn' }) }
 
-        include_examples 'puppetdb::database::postgresql_ssl_rules'
+        include_examples 'openvoxdb::database::postgresql_ssl_rules'
       end
 
       context 'when the create_read_user_rule is true' do
         let(:params) { super().merge({ create_read_user_rule: true }) }
 
-        it_behaves_like 'puppetdb::database::postgresql_ssl_rules' do
+        it_behaves_like 'openvoxdb::database::postgresql_ssl_rules' do
           let(:args) { super().merge({ database_username: params[:read_database_username] }) }
         end
       end

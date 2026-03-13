@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-describe 'puppetdb::database::postgresql', type: :class do
+describe 'openvoxdb::database::postgresql', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
   context 'on a supported platform' do
-    it { is_expected.to contain_class('puppetdb::database::postgresql') }
+    it { is_expected.to contain_class('openvoxdb::database::postgresql') }
 
     it { is_expected.to contain_class('postgresql::server::contrib') }
 
@@ -23,12 +23,12 @@ describe 'puppetdb::database::postgresql', type: :class do
         }
       end
 
-      it { is_expected.to contain_class('puppetdb::database::ssl_configuration') }
+      it { is_expected.to contain_class('openvoxdb::database::ssl_configuration') }
 
       context 'when params disable create_read_user_rule' do
         let(:params) { super().merge({ manage_database: false }) }
 
-        it { is_expected.not_to contain_puppetdb__database__postgresql_ssl_rules('Configure postgresql ssl rules for puppetdb-read') }
+        it { is_expected.not_to contain_openvoxdb__database__postgresql_ssl_rules('Configure postgresql ssl rules for puppetdb-read') }
       end
     end
 
@@ -39,7 +39,7 @@ describe 'puppetdb::database::postgresql', type: :class do
         }
       end
 
-      it { is_expected.not_to contain_class('puppetdb::database::ssl_configuration') }
+      it { is_expected.not_to contain_class('openvoxdb::database::ssl_configuration') }
     end
 
     context 'manage database with defaults' do
@@ -83,7 +83,7 @@ describe 'puppetdb::database::postgresql', type: :class do
       it {
         is_expected.to contain_postgresql_psql("grant all permissions to #{params[:database_username]}").
           that_requires('Postgresql_psql[revoke all access on public schema]').
-          that_comes_before("Puppetdb::Database::Read_only_user[#{params[:read_database_username]}]").
+          that_comes_before("Openvoxdb::Database::Read_only_user[#{params[:read_database_username]}]").
           with(
             db:      params[:database_name],
             port:    params[:database_port].to_i,
@@ -94,7 +94,7 @@ describe 'puppetdb::database::postgresql', type: :class do
           )
       }
 
-      it_behaves_like 'puppetdb::database::read_only_user' do
+      it_behaves_like 'openvoxdb::database::read_only_user' do
         let(:name) { 'puppetdb-read' }
         let(:args) do
           {
@@ -109,7 +109,7 @@ describe 'puppetdb::database::postgresql', type: :class do
 
       it {
         is_expected.to contain_postgresql_psql("grant #{params[:read_database_username]} role to #{params[:database_username]}").
-          that_requires("Puppetdb::Database::Read_only_user[#{params[:read_database_username]}]").
+          that_requires("Openvoxdb::Database::Read_only_user[#{params[:read_database_username]}]").
           with(
             db:      params[:database_name],
             port:    params[:database_port].to_i,

@@ -1,12 +1,12 @@
 {
-  "name": "puppetlabs-puppetdb",
-  "version": "8.1.0",
-  "author": "puppetlabs",
-  "summary": "Installs PostgreSQL and PuppetDB, sets up the connection to Puppet master.",
+  "name": "puppet-openvoxdb",
+  "version": "9.0.0-rc0",
+  "author": "Vox Pupuli",
+  "summary": "Installs PostgreSQL and OpenVoxDB, sets up the connection to OpenVox Server.",
   "license": "Apache-2.0",
-  "source": "https://github.com/puppetlabs/puppetlabs-puppetdb.git",
-  "project_page": "http://github.com/puppetlabs/puppetlabs-puppetdb",
-  "issues_url": "https://tickets.puppetlabs.com/browse/PDB",
+  "source": "https://github.com/voxpupuli/puppet-openvoxdb.git",
+  "project_page": "https://github.com/voxpupuli/puppet-openvoxdb",
+  "issues_url": "https://github.com/voxpupuli/puppet-openvoxdb/issues",
   "dependencies": [
     {
       "name": "puppetlabs/inifile",

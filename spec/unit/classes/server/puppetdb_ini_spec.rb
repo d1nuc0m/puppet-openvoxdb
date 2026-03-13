@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'puppetdb::server::puppetdb', type: :class do
+describe 'openvoxdb::server::puppetdb', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
-  it { is_expected.to contain_class('puppetdb::server::puppetdb') }
+  it { is_expected.to contain_class('openvoxdb::server::puppetdb') }
 
   describe 'when using default values' do
     it {

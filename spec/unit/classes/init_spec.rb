@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb', type: :class do
+describe 'openvoxdb', type: :class do
   ttl_args = %w[node_ttl node_purge_ttl report_ttl]
 
   on_supported_os.each do |os, facts|
@@ -9,11 +9,11 @@ describe 'puppetdb', type: :class do
         facts.merge(selinux: false, service_provider: 'systemd')
       end
 
-      describe 'when using default values for puppetdb class' do
+      describe 'when using default values for openvoxdb class' do
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('puppetdb') }
-        it { is_expected.to contain_class('puppetdb::server') }
-        it { is_expected.to contain_class('puppetdb::database::postgresql') }
+        it { is_expected.to contain_class('openvoxdb') }
+        it { is_expected.to contain_class('openvoxdb::server') }
+        it { is_expected.to contain_class('openvoxdb::database::postgresql') }
         it { is_expected.to contain_postgresql__server__db('puppetdb') }
       end
 
@@ -60,8 +60,8 @@ describe 'puppetdb', type: :class do
         end
 
         describe 'ini_setting entries for the password will not exist' do
-          it { is_expected.to contain_class('puppetdb::server').with('manage_db_password' => false) }
-          it { is_expected.to contain_class('puppetdb::server').with('manage_read_db_password' => false) }
+          it { is_expected.to contain_class('openvoxdb::server').with('manage_db_password' => false) }
+          it { is_expected.to contain_class('openvoxdb::server').with('manage_read_db_password' => false) }
 
           it { is_expected.not_to contain_ini__setting('puppetdb_psdatabase_password') }
           it { is_expected.not_to contain_ini__setting('puppetdb_read_database_password') }
@@ -92,10 +92,10 @@ describe 'puppetdb', type: :class do
           }
         end
 
-        it { is_expected.to contain_class('puppetdb::server').with('postgresql_ssl_on' => true) }
+        it { is_expected.to contain_class('openvoxdb::server').with('postgresql_ssl_on' => true) }
 
         it {
-          is_expected.to contain_class('puppetdb::database::postgresql').
+          is_expected.to contain_class('openvoxdb::database::postgresql').
             with(
               'postgresql_ssl_on' => true,
               'puppetdb_server' => 'puppetdb_host'

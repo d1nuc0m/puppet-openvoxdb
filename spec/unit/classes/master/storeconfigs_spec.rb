@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'puppetdb::master::storeconfigs', type: :class do
+describe 'openvoxdb::master::storeconfigs', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
   let(:params) do
     {

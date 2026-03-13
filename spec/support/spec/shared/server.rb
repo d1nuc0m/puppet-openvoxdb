@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples 'puppetdb::server::firewall' do
+shared_examples 'openvoxdb::server::firewall' do
   let(:defaults) do
     {
       http_port: '8080',
@@ -12,7 +12,7 @@ shared_examples 'puppetdb::server::firewall' do
 
   let(:with) { defined?(params) ? defaults.merge(params) : defaults }
 
-  it { is_expected.to contain_class('puppetdb::server::firewall').with(with) }
+  it { is_expected.to contain_class('openvoxdb::server::firewall').with(with) }
   it { is_expected.to contain_class('firewall') }
 
   it {
