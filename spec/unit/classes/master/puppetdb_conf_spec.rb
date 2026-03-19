@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb::master::puppetdb_conf', type: :class do
+describe 'openvoxdb::master::puppetdb_conf', type: :class do
   let :node do
     'puppetdb.example.com'
   end
@@ -13,7 +13,7 @@ describe 'puppetdb::master::puppetdb_conf', type: :class do
                     selinux: false)
       end
 
-      let(:pre_condition) { 'class { "puppetdb": }' }
+      let(:pre_condition) { 'class { "openvoxdb": }' }
 
       it {
         is_expected.to contain_ini_setting('soft_write_failure').

@@ -1,13 +1,13 @@
 require 'facter'
 
-describe 'puppetdb_version' do
+describe 'openvoxdb_version' do
   before do
     Facter.clear
   end
 
   context 'when puppetdb is available' do
     before do
-      allow(Facter::Util::Resolution).to receive(:which).with('puppetdb').and_return('/usr/bin/puppetdb')
+      allow(Facter::Util::Resolution).to receive(:which).with('openvoxdb').and_return('/usr/bin/puppetdb')
     end
 
     context 'on a default system' do
@@ -16,24 +16,24 @@ describe 'puppetdb_version' do
           with('puppetdb --version').
           and_return('puppetdb version: 7.19.0')
 
-        expect(Facter.fact(:puppetdb_version).value).to eq('7.19.0')
+        expect(Facter.fact(:openvoxdb_version).value).to eq('7.19.0')
       end
 
       it 'returns nil if the command execution fails' do
         allow(Facter::Core::Execution).to receive(:execute).with('puppetdb --version').and_raise(Facter::Core::Execution::ExecutionFailure)
 
-        expect(Facter.fact(:puppetdb_version).value).to be_nil
+        expect(Facter.fact(:openvoxdb_version).value).to be_nil
       end
     end
   end
 
   context 'when puppetdb is not available' do
     before do
-      allow(Facter::Util::Resolution).to receive(:which).with('puppetdb').and_return(nil)
+      allow(Facter::Util::Resolution).to receive(:which).with('openvoxdb').and_return(nil)
     end
 
     it 'returns nil' do
-      expect(Facter.fact(:puppetdb_version).value).to be_nil
+      expect(Facter.fact(:openvoxdb_version).value).to be_nil
     end
   end
 end

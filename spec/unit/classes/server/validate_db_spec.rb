@@ -7,12 +7,12 @@ require 'spec_helper'
 #        although the class is included, the resource is never added to
 #        the catalog, masking the unknown resource error, because
 #        jdbc_ssl_properties returns '' instead of false.
-describe 'puppetdb::server::validate_db', type: :class do
+describe 'openvoxdb::server::validate_db', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
 
   context 'with default params' do
     it {
-      is_expected.to contain_class('puppetdb::server::validate_db').
+      is_expected.to contain_class('openvoxdb::server::validate_db').
         with(
           database_host: 'localhost',
           database_port: '5432',

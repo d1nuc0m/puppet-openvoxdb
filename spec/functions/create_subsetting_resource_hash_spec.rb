@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb::create_subsetting_resource_hash' do
+describe 'openvoxdb::create_subsetting_resource_hash' do
   it { is_expected.not_to eq(nil) }
   it { is_expected.to run.with_params.and_raise_error(ArgumentError) }
   it { is_expected.to run.with_params('test' => 1).and_raise_error(ArgumentError) }

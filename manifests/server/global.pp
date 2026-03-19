@@ -1,11 +1,11 @@
 # @summary manage puppetdb global setting
 #
 # @api private
-class puppetdb::server::global (
-  $vardir         = $puppetdb::params::vardir,
-  $confdir        = $puppetdb::params::confdir,
-  $puppetdb_group = $puppetdb::params::puppetdb_group,
-) inherits puppetdb::params {
+class openvoxdb::server::global (
+  $vardir         = $openvoxdb::params::vardir,
+  $confdir        = $openvoxdb::params::confdir,
+  $puppetdb_group = $openvoxdb::params::puppetdb_group,
+) inherits openvoxdb::params {
   $config_ini = "${confdir}/config.ini"
 
   file { $config_ini:

@@ -310,81 +310,81 @@
 # @param java_bin
 #   java binary path for PuppetDB. If undef, default will be used.
 #
-class puppetdb::server (
-  $listen_address                          = $puppetdb::params::listen_address,
-  $listen_port                             = $puppetdb::params::listen_port,
-  $disable_cleartext                       = $puppetdb::params::disable_cleartext,
-  $open_listen_port                        = $puppetdb::params::open_listen_port,
-  $ssl_listen_address                      = $puppetdb::params::ssl_listen_address,
-  $ssl_listen_port                         = $puppetdb::params::ssl_listen_port,
-  $disable_ssl                             = $puppetdb::params::disable_ssl,
-  $open_ssl_listen_port                    = $puppetdb::params::open_ssl_listen_port,
-  Stdlib::Absolutepath $ssl_dir            = $puppetdb::params::ssl_dir,
-  Boolean $ssl_set_cert_paths              = $puppetdb::params::ssl_set_cert_paths,
-  Stdlib::Absolutepath $ssl_cert_path      = $puppetdb::params::ssl_cert_path,
-  Stdlib::Absolutepath $ssl_key_path       = $puppetdb::params::ssl_key_path,
-  Stdlib::Absolutepath $ssl_key_pk8_path   = $puppetdb::params::ssl_key_pk8_path,
-  Stdlib::Absolutepath $ssl_ca_cert_path   = $puppetdb::params::ssl_ca_cert_path,
-  Boolean $ssl_deploy_certs                = $puppetdb::params::ssl_deploy_certs,
-  $ssl_key                                 = $puppetdb::params::ssl_key,
-  $ssl_cert                                = $puppetdb::params::ssl_cert,
-  $ssl_ca_cert                             = $puppetdb::params::ssl_ca_cert,
-  $ssl_protocols                           = $puppetdb::params::ssl_protocols,
-  $postgresql_ssl_on                       = $puppetdb::params::postgresql_ssl_on,
-  $cipher_suites                           = $puppetdb::params::cipher_suites,
-  $migrate                                 = $puppetdb::params::migrate,
-  $database_host                           = $puppetdb::params::database_host,
-  $database_port                           = $puppetdb::params::database_port,
-  $database_username                       = $puppetdb::params::database_username,
-  Variant[String[1], Sensitive[String[1]]] $database_password = $puppetdb::params::database_password,
-  $database_name                           = $puppetdb::params::database_name,
-  $manage_db_password                      = $puppetdb::params::manage_db_password,
-  $jdbc_ssl_properties                     = $puppetdb::params::jdbc_ssl_properties,
-  $database_validate                       = $puppetdb::params::database_validate,
-  $node_ttl                                = $puppetdb::params::node_ttl,
-  $node_purge_ttl                          = $puppetdb::params::node_purge_ttl,
-  $report_ttl                              = $puppetdb::params::report_ttl,
-  Optional[Array] $facts_blacklist         = $puppetdb::params::facts_blacklist,
-  $gc_interval                             = $puppetdb::params::gc_interval,
-  $node_purge_gc_batch_limit               = $puppetdb::params::node_purge_gc_batch_limit,
-  $conn_max_age                            = $puppetdb::params::conn_max_age,
-  $conn_lifetime                           = $puppetdb::params::conn_lifetime,
-  $puppetdb_package                        = $puppetdb::params::puppetdb_package,
-  $puppetdb_service                        = $puppetdb::params::puppetdb_service,
-  $puppetdb_service_status                 = $puppetdb::params::puppetdb_service_status,
-  $puppetdb_user                           = $puppetdb::params::puppetdb_user,
-  $puppetdb_group                          = $puppetdb::params::puppetdb_group,
-  $read_database_host                      = $puppetdb::params::read_database_host,
-  $read_database_port                      = $puppetdb::params::read_database_port,
-  $read_database_username                  = $puppetdb::params::read_database_username,
-  Variant[String[1], Sensitive[String[1]]] $read_database_password = $puppetdb::params::read_database_password,
-  $read_database_name                      = $puppetdb::params::read_database_name,
-  $manage_read_db_password                 = $puppetdb::params::manage_read_db_password,
-  $read_database_jdbc_ssl_properties       = $puppetdb::params::read_database_jdbc_ssl_properties,
-  $read_database_validate                  = $puppetdb::params::read_database_validate,
-  $read_conn_max_age                       = $puppetdb::params::read_conn_max_age,
-  $read_conn_lifetime                      = $puppetdb::params::read_conn_lifetime,
-  $confdir                                 = $puppetdb::params::confdir,
-  $vardir                                  = $puppetdb::params::vardir,
-  $manage_firewall                         = $puppetdb::params::manage_firewall,
-  $manage_database                         = $puppetdb::params::manage_database,
-  $java_args                               = $puppetdb::params::java_args,
-  $merge_default_java_args                 = $puppetdb::params::merge_default_java_args,
-  $max_threads                             = $puppetdb::params::max_threads,
-  $command_threads                         = $puppetdb::params::command_threads,
-  $concurrent_writes                       = $puppetdb::params::concurrent_writes,
-  $store_usage                             = $puppetdb::params::store_usage,
-  $temp_usage                              = $puppetdb::params::temp_usage,
-  $disable_update_checking                 = $puppetdb::params::disable_update_checking,
-  $certificate_whitelist_file              = $puppetdb::params::certificate_whitelist_file,
-  $certificate_whitelist                   = $puppetdb::params::certificate_whitelist,
-  $database_max_pool_size                  = $puppetdb::params::database_max_pool_size,
-  $read_database_max_pool_size             = $puppetdb::params::read_database_max_pool_size,
-  Boolean $automatic_dlo_cleanup           = $puppetdb::params::automatic_dlo_cleanup,
-  String[1] $cleanup_timer_interval        = $puppetdb::params::cleanup_timer_interval,
-  Integer[1] $dlo_max_age                  = $puppetdb::params::dlo_max_age,
-  Optional[Stdlib::Absolutepath] $java_bin = $puppetdb::params::java_bin,
-) inherits puppetdb::params {
+class openvoxdb::server (
+  $listen_address                          = $openvoxdb::params::listen_address,
+  $listen_port                             = $openvoxdb::params::listen_port,
+  $disable_cleartext                       = $openvoxdb::params::disable_cleartext,
+  $open_listen_port                        = $openvoxdb::params::open_listen_port,
+  $ssl_listen_address                      = $openvoxdb::params::ssl_listen_address,
+  $ssl_listen_port                         = $openvoxdb::params::ssl_listen_port,
+  $disable_ssl                             = $openvoxdb::params::disable_ssl,
+  $open_ssl_listen_port                    = $openvoxdb::params::open_ssl_listen_port,
+  Stdlib::Absolutepath $ssl_dir            = $openvoxdb::params::ssl_dir,
+  Boolean $ssl_set_cert_paths              = $openvoxdb::params::ssl_set_cert_paths,
+  Stdlib::Absolutepath $ssl_cert_path      = $openvoxdb::params::ssl_cert_path,
+  Stdlib::Absolutepath $ssl_key_path       = $openvoxdb::params::ssl_key_path,
+  Stdlib::Absolutepath $ssl_key_pk8_path   = $openvoxdb::params::ssl_key_pk8_path,
+  Stdlib::Absolutepath $ssl_ca_cert_path   = $openvoxdb::params::ssl_ca_cert_path,
+  Boolean $ssl_deploy_certs                = $openvoxdb::params::ssl_deploy_certs,
+  $ssl_key                                 = $openvoxdb::params::ssl_key,
+  $ssl_cert                                = $openvoxdb::params::ssl_cert,
+  $ssl_ca_cert                             = $openvoxdb::params::ssl_ca_cert,
+  $ssl_protocols                           = $openvoxdb::params::ssl_protocols,
+  $postgresql_ssl_on                       = $openvoxdb::params::postgresql_ssl_on,
+  $cipher_suites                           = $openvoxdb::params::cipher_suites,
+  $migrate                                 = $openvoxdb::params::migrate,
+  $database_host                           = $openvoxdb::params::database_host,
+  $database_port                           = $openvoxdb::params::database_port,
+  $database_username                       = $openvoxdb::params::database_username,
+  Variant[String[1], Sensitive[String[1]]] $database_password = $openvoxdb::params::database_password,
+  $database_name                           = $openvoxdb::params::database_name,
+  $manage_db_password                      = $openvoxdb::params::manage_db_password,
+  $jdbc_ssl_properties                     = $openvoxdb::params::jdbc_ssl_properties,
+  $database_validate                       = $openvoxdb::params::database_validate,
+  $node_ttl                                = $openvoxdb::params::node_ttl,
+  $node_purge_ttl                          = $openvoxdb::params::node_purge_ttl,
+  $report_ttl                              = $openvoxdb::params::report_ttl,
+  Optional[Array] $facts_blacklist         = $openvoxdb::params::facts_blacklist,
+  $gc_interval                             = $openvoxdb::params::gc_interval,
+  $node_purge_gc_batch_limit               = $openvoxdb::params::node_purge_gc_batch_limit,
+  $conn_max_age                            = $openvoxdb::params::conn_max_age,
+  $conn_lifetime                           = $openvoxdb::params::conn_lifetime,
+  $puppetdb_package                        = $openvoxdb::params::puppetdb_package,
+  $puppetdb_service                        = $openvoxdb::params::puppetdb_service,
+  $puppetdb_service_status                 = $openvoxdb::params::puppetdb_service_status,
+  $puppetdb_user                           = $openvoxdb::params::puppetdb_user,
+  $puppetdb_group                          = $openvoxdb::params::puppetdb_group,
+  $read_database_host                      = $openvoxdb::params::read_database_host,
+  $read_database_port                      = $openvoxdb::params::read_database_port,
+  $read_database_username                  = $openvoxdb::params::read_database_username,
+  Variant[String[1], Sensitive[String[1]]] $read_database_password = $openvoxdb::params::read_database_password,
+  $read_database_name                      = $openvoxdb::params::read_database_name,
+  $manage_read_db_password                 = $openvoxdb::params::manage_read_db_password,
+  $read_database_jdbc_ssl_properties       = $openvoxdb::params::read_database_jdbc_ssl_properties,
+  $read_database_validate                  = $openvoxdb::params::read_database_validate,
+  $read_conn_max_age                       = $openvoxdb::params::read_conn_max_age,
+  $read_conn_lifetime                      = $openvoxdb::params::read_conn_lifetime,
+  $confdir                                 = $openvoxdb::params::confdir,
+  $vardir                                  = $openvoxdb::params::vardir,
+  $manage_firewall                         = $openvoxdb::params::manage_firewall,
+  $manage_database                         = $openvoxdb::params::manage_database,
+  $java_args                               = $openvoxdb::params::java_args,
+  $merge_default_java_args                 = $openvoxdb::params::merge_default_java_args,
+  $max_threads                             = $openvoxdb::params::max_threads,
+  $command_threads                         = $openvoxdb::params::command_threads,
+  $concurrent_writes                       = $openvoxdb::params::concurrent_writes,
+  $store_usage                             = $openvoxdb::params::store_usage,
+  $temp_usage                              = $openvoxdb::params::temp_usage,
+  $disable_update_checking                 = $openvoxdb::params::disable_update_checking,
+  $certificate_whitelist_file              = $openvoxdb::params::certificate_whitelist_file,
+  $certificate_whitelist                   = $openvoxdb::params::certificate_whitelist,
+  $database_max_pool_size                  = $openvoxdb::params::database_max_pool_size,
+  $read_database_max_pool_size             = $openvoxdb::params::read_database_max_pool_size,
+  Boolean $automatic_dlo_cleanup           = $openvoxdb::params::automatic_dlo_cleanup,
+  String[1] $cleanup_timer_interval        = $openvoxdb::params::cleanup_timer_interval,
+  Integer[1] $dlo_max_age                  = $openvoxdb::params::dlo_max_age,
+  Optional[Stdlib::Absolutepath] $java_bin = $openvoxdb::params::java_bin,
+) inherits openvoxdb::params {
   # Apply necessary suffix if zero is specified.
   # Can we drop this in the next major release?
   if $node_ttl == '0' {
@@ -394,7 +394,7 @@ class puppetdb::server (
   }
 
   # Validate node_ttl
-  $node_ttl_real = assert_type(Puppetdb::Ttl, $_node_ttl_real)
+  $node_ttl_real = assert_type(Openvoxdb::Ttl, $_node_ttl_real)
 
   # Apply necessary suffix if zero is specified.
   # Can we drop this in the next major release?
@@ -405,7 +405,7 @@ class puppetdb::server (
   }
 
   # Validate node_purge_ttl
-  $node_purge_ttl_real = assert_type(Puppetdb::Ttl, $_node_purge_ttl_real)
+  $node_purge_ttl_real = assert_type(Openvoxdb::Ttl, $_node_purge_ttl_real)
 
   # Apply necessary suffix if zero is specified.
   # Can we drop this in the next major release?
@@ -416,7 +416,7 @@ class puppetdb::server (
   }
 
   # Validate report_ttl
-  $repor_ttl_real = assert_type(Puppetdb::Ttl, $_report_ttl_real)
+  $repor_ttl_real = assert_type(Openvoxdb::Ttl, $_report_ttl_real)
 
   # Validate puppetdb_service_status
   $service_enabled = $puppetdb_service_status ? {
@@ -426,12 +426,12 @@ class puppetdb::server (
   }
 
   package { $puppetdb_package:
-    ensure => $puppetdb::params::puppetdb_version,
+    ensure => $openvoxdb::params::puppetdb_version,
     notify => Service[$puppetdb_service],
   }
 
   if $manage_firewall {
-    class { 'puppetdb::server::firewall':
+    class { 'openvoxdb::server::firewall':
       http_port      => $listen_port,
       open_http_port => $open_listen_port,
       ssl_port       => $ssl_listen_port,
@@ -439,14 +439,14 @@ class puppetdb::server (
     }
   }
 
-  class { 'puppetdb::server::global':
+  class { 'openvoxdb::server::global':
     vardir         => $vardir,
     confdir        => $confdir,
     puppetdb_group => $puppetdb_group,
     notify         => Service[$puppetdb_service],
   }
 
-  class { 'puppetdb::server::command_processing':
+  class { 'openvoxdb::server::command_processing':
     command_threads   => $command_threads,
     concurrent_writes => $concurrent_writes,
     store_usage       => $store_usage,
@@ -455,7 +455,7 @@ class puppetdb::server (
     notify            => Service[$puppetdb_service],
   }
 
-  class { 'puppetdb::server::database':
+  class { 'openvoxdb::server::database':
     database_host             => $database_host,
     database_port             => $database_port,
     database_username         => $database_username,
@@ -493,7 +493,7 @@ class puppetdb::server (
     $real_database_name =  $read_database_name
   }
 
-  class { 'puppetdb::server::read_database':
+  class { 'openvoxdb::server::read_database':
     read_database_host     => $real_database_host,
     read_database_port     => $real_database_port,
     read_database_username => $read_database_username,
@@ -565,7 +565,7 @@ class puppetdb::server (
     }
   }
 
-  class { 'puppetdb::server::jetty':
+  class { 'openvoxdb::server::jetty':
     listen_address     => $listen_address,
     listen_port        => $listen_port,
     disable_cleartext  => $disable_cleartext,
@@ -584,7 +584,7 @@ class puppetdb::server (
     puppetdb_group     => $puppetdb_group,
   }
 
-  class { 'puppetdb::server::puppetdb':
+  class { 'openvoxdb::server::puppetdb':
     certificate_whitelist_file => $certificate_whitelist_file,
     certificate_whitelist      => $certificate_whitelist,
     disable_update_checking    => $disable_update_checking,
@@ -597,12 +597,12 @@ class puppetdb::server (
     if $merge_default_java_args {
       create_resources(
         'ini_subsetting',
-        puppetdb::create_subsetting_resource_hash(
+        openvoxdb::create_subsetting_resource_hash(
           $java_args, {
             ensure            => present,
             section           => '',
             key_val_separator => '=',
-            path              => $puppetdb::params::puppetdb_initconf,
+            path              => $openvoxdb::params::puppetdb_initconf,
             setting           => 'JAVA_ARGS',
             require           => Package[$puppetdb_package],
             notify            => Service[$puppetdb_service],
@@ -611,11 +611,11 @@ class puppetdb::server (
       ini_setting { 'java_args':
         ensure  => present,
         section => '',
-        path    => $puppetdb::params::puppetdb_initconf,
+        path    => $openvoxdb::params::puppetdb_initconf,
         setting => 'JAVA_ARGS',
         require => Package[$puppetdb_package],
         notify  => Service[$puppetdb_service],
-        value   => puppetdb::flatten_java_args($java_args),
+        value   => openvoxdb::flatten_java_args($java_args),
       }
     }
   }
@@ -625,7 +625,7 @@ class puppetdb::server (
     ini_setting { 'java':
       ensure  => 'present',
       section => '',
-      path    => $puppetdb::params::puppetdb_initconf,
+      path    => $openvoxdb::params::puppetdb_initconf,
       setting => 'JAVA_BIN',
       require => Package[$puppetdb_package],
       notify  => Service[$puppetdb_service],
@@ -672,22 +672,22 @@ class puppetdb::server (
 
   if $manage_firewall {
     Package[$puppetdb_package]
-    -> Class['puppetdb::server::firewall']
-    -> Class['puppetdb::server::global']
-    -> Class['puppetdb::server::command_processing']
-    -> Class['puppetdb::server::database']
-    -> Class['puppetdb::server::read_database']
-    -> Class['puppetdb::server::jetty']
-    -> Class['puppetdb::server::puppetdb']
+    -> Class['openvoxdb::server::firewall']
+    -> Class['openvoxdb::server::global']
+    -> Class['openvoxdb::server::command_processing']
+    -> Class['openvoxdb::server::database']
+    -> Class['openvoxdb::server::read_database']
+    -> Class['openvoxdb::server::jetty']
+    -> Class['openvoxdb::server::puppetdb']
     -> Service[$puppetdb_service]
   } else {
     Package[$puppetdb_package]
-    -> Class['puppetdb::server::global']
-    -> Class['puppetdb::server::command_processing']
-    -> Class['puppetdb::server::database']
-    -> Class['puppetdb::server::read_database']
-    -> Class['puppetdb::server::jetty']
-    -> Class['puppetdb::server::puppetdb']
+    -> Class['openvoxdb::server::global']
+    -> Class['openvoxdb::server::command_processing']
+    -> Class['openvoxdb::server::database']
+    -> Class['openvoxdb::server::read_database']
+    -> Class['openvoxdb::server::jetty']
+    -> Class['openvoxdb::server::puppetdb']
     -> Service[$puppetdb_service]
   }
 }

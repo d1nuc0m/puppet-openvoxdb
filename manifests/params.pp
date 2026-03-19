@@ -1,7 +1,7 @@
 # @summary default configuration settings
 #
 # @api private
-class puppetdb::params {
+class openvoxdb::params {
   $listen_address            = 'localhost'
   $listen_port               = '8080'
   $disable_cleartext         = false
@@ -82,17 +82,6 @@ class puppetdb::params {
   $masterless           = false
 
   case fact('os.family') {
-    'Archlinux': {
-      $puppetdb_package    = 'puppetdb'
-      $terminus_package    = 'puppetdb-termini'
-      $etcdir              = '/etc/puppetlabs/puppetdb'
-      $puppet_confdir      = '/etc/puppetlabs/puppet'
-      $puppet_service_name = 'puppetserver'
-      $vardir              = '/opt/puppetlabs/server/data/puppetdb'
-      $puppetdb_user       = 'puppetdb'
-      $puppetdb_group      = 'puppetdb'
-      $puppetdb_initconf   = '/etc/sysconfig/puppetdb'
-    }
     'Debian': {
       $puppetdb_package    = 'openvoxdb'
       $terminus_package    = 'openvoxdb-termini'
@@ -105,8 +94,8 @@ class puppetdb::params {
       $puppetdb_initconf   = '/etc/default/puppetdb'
     }
     'FreeBSD': {
-      $puppetdb_package    = "openvoxdb-${puppetdb::params::puppetdb_major_version}"
-      $terminus_package    = "openvoxdb-terminus-${puppetdb::params::puppetdb_major_version}"
+      $puppetdb_package    = "openvoxdb${openvoxdb::params::puppetdb_major_version}"
+      $terminus_package    = "openvoxdb-terminus${openvoxdb::params::puppetdb_major_version}"
       $etcdir              = '/usr/local/etc/puppetdb'
       $puppet_confdir      = '/usr/local/etc/puppet'
       $puppet_service_name = 'puppetserver'
@@ -116,8 +105,8 @@ class puppetdb::params {
       $puppetdb_initconf   = undef
     }
     'OpenBSD': {
-      $puppetdb_package    = 'puppetdb'
-      $terminus_package    = 'puppetdb-termini'
+      $puppetdb_package    = 'openvoxdb'
+      $terminus_package    = 'openvoxdb-termini'
       $etcdir              = '/etc/puppetlabs/puppetdb'
       $puppet_confdir      = '/etc/puppetlabs/puppet'
       $puppet_service_name = undef

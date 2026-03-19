@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb::server::database', type: :class do
+describe 'openvoxdb::server::database', type: :class do
   context 'on a supported platform' do
     let(:facts) do
       {

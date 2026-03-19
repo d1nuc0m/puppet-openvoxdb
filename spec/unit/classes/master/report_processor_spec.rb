@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'puppetdb::master::report_processor', type: :class do
+describe 'openvoxdb::master::report_processor', type: :class do
   around do |example|
     confdir = RSpec.configuration.confdir
     RSpec.configuration.confdir = '/etc/puppet'
@@ -16,7 +16,7 @@ describe 'puppetdb::master::report_processor', type: :class do
                     clientcert: 'test.domain.local')
       end
 
-      it { is_expected.to contain_class('puppetdb::master::report_processor') }
+      it { is_expected.to contain_class('openvoxdb::master::report_processor') }
 
       describe 'when using default values' do
         it {

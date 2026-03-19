@@ -116,7 +116,7 @@ shared_examples 'postgresql_psql default read grant' do
   }
 end
 
-shared_examples 'puppetdb::database::read_only_user' do |error = false|
+shared_examples 'openvoxdb::database::read_only_user' do |error = false|
   let(:defaults) do
     {
       read_database_username: nil,
@@ -130,7 +130,7 @@ shared_examples 'puppetdb::database::read_only_user' do |error = false|
   if error
     it { is_expected.to raise_error(error) }
   else
-    it { is_expected.to contain_puppetdb__database__read_only_user(name).with(with) }
+    it { is_expected.to contain_openvoxdb__database__read_only_user(name).with(with) }
 
     it {
       is_expected.to contain_postgresql__server__role(with[:read_database_username]).
@@ -141,7 +141,7 @@ shared_examples 'puppetdb::database::read_only_user' do |error = false|
     it {
       btitle = "#{with[:database_name]} grant read permission on new objects from #{with[:database_owner]} to #{with[:read_database_username]}"
       is_expected.to contain_postgresql__server__database_grant("#{with[:database_name]} grant connection permission to #{with[:read_database_username]}").
-        that_comes_before("Puppetdb::Database::Default_read_grant[#{btitle}]").
+        that_comes_before("Openvoxdb::Database::Default_read_grant[#{btitle}]").
         with(
           privilege: 'CONNECT',
           db:        with[:database_name],
@@ -151,8 +151,8 @@ shared_examples 'puppetdb::database::read_only_user' do |error = false|
 
     it {
       rtitle = "#{with[:database_name]} grant read permission on new objects from #{with[:database_owner]} to #{with[:read_database_username]}"
-      is_expected.to contain_puppetdb__database__default_read_grant(rtitle).
-        that_comes_before("Puppetdb::Database::Read_grant[#{with[:database_name]} grant read-only permission on existing objects to #{with[:read_database_username]}]").
+      is_expected.to contain_openvoxdb__database__default_read_grant(rtitle).
+        that_comes_before("Openvoxdb::Database::Read_grant[#{with[:database_name]} grant read-only permission on existing objects to #{with[:read_database_username]}]").
         with(
           database_username:           with[:database_owner],
           database_read_only_username: with[:read_database_username],
@@ -172,7 +172,7 @@ shared_examples 'puppetdb::database::read_only_user' do |error = false|
     end
 
     it {
-      is_expected.to contain_puppetdb__database__read_grant("#{with[:database_name]} grant read-only permission on existing objects to #{with[:read_database_username]}").
+      is_expected.to contain_openvoxdb__database__read_grant("#{with[:database_name]} grant read-only permission on existing objects to #{with[:read_database_username]}").
         with(
           database_read_only_username: with[:read_database_username],
           database_name:               with[:database_name],
@@ -191,33 +191,33 @@ shared_examples 'puppetdb::database::read_only_user' do |error = false|
   end
 end
 
-shared_examples 'puppetdb::database::read_grant' do |error|
+shared_examples 'openvoxdb::database::read_grant' do |error|
   let(:defaults) { {} }
   let(:with) { defined?(args) ? defaults.merge(args) : defaults }
 
   if error
     it { is_expected.to raise_error(error) }
   else
-    it { is_expected.to contain_puppetdb__database__read_grant(name).with(with) }
+    it { is_expected.to contain_openvoxdb__database__read_grant(name).with(with) }
 
     include_examples 'postgresql_psql read grant'
   end
 end
 
-shared_examples 'puppetdb::database::default_read_grant' do |error|
+shared_examples 'openvoxdb::database::default_read_grant' do |error|
   let(:defaults) { {} }
   let(:with) { defined?(args) ? defaults.merge(args) : defaults }
 
   if error
     it { is_expected.to raise_error(error) }
   else
-    it { is_expected.to contain_puppetdb__database__default_read_grant(name).with(with) }
+    it { is_expected.to contain_openvoxdb__database__default_read_grant(name).with(with) }
 
     include_examples 'postgresql_psql default read grant'
   end
 end
 
-shared_examples 'puppetdb::database::postgresql_ssl_rules' do |error|
+shared_examples 'openvoxdb::database::postgresql_ssl_rules' do |error|
   let(:defaults) { { postgres_version: '14' } }
   let(:with) { defined?(args) ? defaults.merge(args) : defaults }
 
@@ -227,7 +227,7 @@ shared_examples 'puppetdb::database::postgresql_ssl_rules' do |error|
     let(:identity_map_key) { "#{with[:database_name]}-#{with[:database_username]}-map" }
     let(:client_cert) { with[:postgres_version].to_f >= 12.0 ? 'verify-full' : '1' }
 
-    it { is_expected.to contain_puppetdb__database__postgresql_ssl_rules(name).with(with) }
+    it { is_expected.to contain_openvoxdb__database__postgresql_ssl_rules(name).with(with) }
 
     it {
       is_expected.to contain_postgresql__server__pg_hba_rule("Allow certificate mapped connections to #{with[:database_name]} as #{with[:database_username]} (ipv4)").

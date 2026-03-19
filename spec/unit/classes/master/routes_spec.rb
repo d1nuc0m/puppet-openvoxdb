@@ -11,7 +11,7 @@ shared_examples 'routes master.facts.cache format' do |format|
   end
 end
 
-describe 'puppetdb::master::routes', type: :class do
+describe 'openvoxdb::master::routes', type: :class do
   let(:facts) { on_supported_os.take(1).first[1] }
   let(:params) do
     {

@@ -73,28 +73,28 @@
 # @param password_encryption
 #   PostgreSQL password authentication method, either `md5` or `scram-sha-256`
 #
-class puppetdb::database::postgresql (
-  $listen_addresses            = $puppetdb::params::database_host,
-  $puppetdb_server             = $puppetdb::params::puppetdb_server,
-  $database_name               = $puppetdb::params::database_name,
-  $database_locale = $puppetdb::params::database_locale,
-  $database_username           = $puppetdb::params::database_username,
-  Variant[String[1], Sensitive[String[1]]] $database_password = $puppetdb::params::database_password,
-  $database_port               = $puppetdb::params::database_port,
-  $manage_database             = $puppetdb::params::manage_database,
-  $manage_server               = $puppetdb::params::manage_dbserver,
-  $manage_package_repo         = $puppetdb::params::manage_pg_repo,
-  $postgres_version            = $puppetdb::params::postgres_version,
-  $postgresql_ssl_on           = $puppetdb::params::postgresql_ssl_on,
-  $postgresql_ssl_key_path     = $puppetdb::params::postgresql_ssl_key_path,
-  $postgresql_ssl_cert_path    = $puppetdb::params::postgresql_ssl_cert_path,
-  $postgresql_ssl_ca_cert_path = $puppetdb::params::postgresql_ssl_ca_cert_path,
-  $read_database_username      = $puppetdb::params::read_database_username,
-  Variant[String[1], Sensitive[String[1]]] $read_database_password = $puppetdb::params::read_database_password,
-  $read_database_host          = $puppetdb::params::read_database_host,
+class openvoxdb::database::postgresql (
+  $listen_addresses            = $openvoxdb::params::database_host,
+  $puppetdb_server             = $openvoxdb::params::puppetdb_server,
+  $database_name               = $openvoxdb::params::database_name,
+  $database_locale = $openvoxdb::params::database_locale,
+  $database_username           = $openvoxdb::params::database_username,
+  Variant[String[1], Sensitive[String[1]]] $database_password = $openvoxdb::params::database_password,
+  $database_port               = $openvoxdb::params::database_port,
+  $manage_database             = $openvoxdb::params::manage_database,
+  $manage_server               = $openvoxdb::params::manage_dbserver,
+  $manage_package_repo         = $openvoxdb::params::manage_pg_repo,
+  $postgres_version            = $openvoxdb::params::postgres_version,
+  $postgresql_ssl_on           = $openvoxdb::params::postgresql_ssl_on,
+  $postgresql_ssl_key_path     = $openvoxdb::params::postgresql_ssl_key_path,
+  $postgresql_ssl_cert_path    = $openvoxdb::params::postgresql_ssl_cert_path,
+  $postgresql_ssl_ca_cert_path = $openvoxdb::params::postgresql_ssl_ca_cert_path,
+  $read_database_username      = $openvoxdb::params::read_database_username,
+  Variant[String[1], Sensitive[String[1]]] $read_database_password = $openvoxdb::params::read_database_password,
+  $read_database_host          = $openvoxdb::params::read_database_host,
   Boolean $password_sensitive  = false,
-  Postgresql::Pg_password_encryption $password_encryption = $puppetdb::params::password_encryption,
-) inherits puppetdb::params {
+  Postgresql::Pg_password_encryption $password_encryption = $openvoxdb::params::password_encryption,
+) inherits openvoxdb::params {
   $port = scanf($database_port, '%i')[0]
 
   if $manage_server {
@@ -122,7 +122,7 @@ class puppetdb::database::postgresql (
     # configure PostgreSQL communication with Puppet Agent SSL certificates if
     # postgresql_ssl_on is set to true
     if $postgresql_ssl_on {
-      class { 'puppetdb::database::ssl_configuration':
+      class { 'openvoxdb::database::ssl_configuration':
         database_name               => $database_name,
         database_username           => $database_username,
         read_database_username      => $read_database_username,
@@ -177,7 +177,7 @@ class puppetdb::database::postgresql (
                 WHERE privs.can_create=true",
     }
 
-    -> puppetdb::database::read_only_user { $read_database_username:
+    -> openvoxdb::database::read_only_user { $read_database_username:
       read_database_username => $read_database_username,
       database_name          => $database_name,
       password_hash          => postgresql::postgresql_password(
