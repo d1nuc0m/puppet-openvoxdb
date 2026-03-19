@@ -30,7 +30,7 @@ describe 'openvoxdb::master::config', type: :class do
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_server: 'puppetdb.example.com',
               puppetdb_port: '8081',
-              use_ssl: 'true'
+              use_ssl: 'true',
             )
           }
         end
@@ -41,7 +41,7 @@ describe 'openvoxdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '8080',
-              use_ssl: 'false'
+              use_ssl: 'false',
             )
           }
         end
@@ -53,7 +53,7 @@ describe 'openvoxdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '1234',
-              use_ssl: 'true'
+              use_ssl: 'true',
             )
           }
         end
@@ -65,7 +65,7 @@ describe 'openvoxdb::master::config', type: :class do
           it {
             is_expected.to contain_puppetdb_conn_validator('puppetdb_conn').with(
               puppetdb_port: '1234',
-              use_ssl: 'false'
+              use_ssl: 'false',
             )
           }
         end

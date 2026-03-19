@@ -20,14 +20,14 @@ describe 'openvoxdb::master::report_processor', type: :class do
 
       describe 'when using default values' do
         it {
-          is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb').
-            with(
+          is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb')
+            .with(
               'ensure'               => 'absent',
               'path'                 => '/etc/puppetlabs/puppet/puppet.conf',
               'section'              => 'master',
               'setting'              => 'reports',
               'subsetting'           => 'puppetdb',
-              'subsetting_separator' => ','
+              'subsetting_separator' => ',',
             )
         }
       end
@@ -40,14 +40,14 @@ describe 'openvoxdb::master::report_processor', type: :class do
         end
 
         it {
-          is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb').
-            with(
+          is_expected.to contain_ini_subsetting('puppet.conf/reports/puppetdb')
+            .with(
               'ensure'               => 'present',
               'path'                 => '/etc/puppetlabs/puppet/puppet.conf',
               'section'              => 'master',
               'setting'              => 'reports',
               'subsetting'           => 'puppetdb',
-              'subsetting_separator' => ','
+              'subsetting_separator' => ',',
             )
         }
       end

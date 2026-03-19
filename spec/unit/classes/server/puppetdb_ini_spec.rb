@@ -7,44 +7,44 @@ describe 'openvoxdb::server::puppetdb', type: :class do
 
   describe 'when using default values' do
     it {
-      is_expected.to contain_ini_setting('puppetdb-connections-from-master-only').
-        with(
+      is_expected.to contain_ini_setting('puppetdb-connections-from-master-only')
+        .with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/puppetdb.ini',
           'section' => 'puppetdb',
           'setting' => 'certificate-whitelist',
-          'value'   => '/etc/puppetlabs/puppetdb/certificate-whitelist'
+          'value'   => '/etc/puppetlabs/puppetdb/certificate-whitelist',
         )
     }
 
     it {
-      is_expected.to contain_file('/etc/puppetlabs/puppetdb/certificate-whitelist').
-        with(
+      is_expected.to contain_file('/etc/puppetlabs/puppetdb/certificate-whitelist')
+        .with(
           'ensure'  => 'absent',
           'owner'   => 0,
           'group'   => 0,
           'mode'    => '0644',
-          'content' => ''
+          'content' => '',
         )
     }
 
     it {
-      is_expected.to contain_file('/etc/puppetlabs/puppetdb/conf.d/puppetdb.ini').
-        with(
+      is_expected.to contain_file('/etc/puppetlabs/puppetdb/conf.d/puppetdb.ini')
+        .with(
           'ensure' => 'file',
           'owner' => 'root',
           'group' => 'puppetdb',
-          'mode' => '0640'
+          'mode' => '0640',
         )
     }
 
     it {
-      is_expected.to contain_ini_setting('puppetdb_disable_update_checking').
-        with(
+      is_expected.to contain_ini_setting('puppetdb_disable_update_checking')
+        .with(
           'ensure'  => 'absent',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/puppetdb.ini',
           'section' => 'puppetdb',
-          'setting' => 'disable-update-checking'
+          'setting' => 'disable-update-checking',
         )
     }
   end
@@ -57,24 +57,24 @@ describe 'openvoxdb::server::puppetdb', type: :class do
     end
 
     it {
-      is_expected.to contain_ini_setting('puppetdb-connections-from-master-only').
-        with(
+      is_expected.to contain_ini_setting('puppetdb-connections-from-master-only')
+        .with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/puppetdb.ini',
           'section' => 'puppetdb',
           'setting' => 'certificate-whitelist',
-          'value'   => '/etc/puppetlabs/puppetdb/certificate-whitelist'
+          'value'   => '/etc/puppetlabs/puppetdb/certificate-whitelist',
         )
     }
 
     it {
-      is_expected.to contain_file('/etc/puppetlabs/puppetdb/certificate-whitelist').
-        with(
+      is_expected.to contain_file('/etc/puppetlabs/puppetdb/certificate-whitelist')
+        .with(
           'ensure'  => 'present',
           'owner'   => 0,
           'group'   => 0,
           'mode'    => '0644',
-          'content' => "puppetmaster\n"
+          'content' => "puppetmaster\n",
         )
     }
   end
@@ -87,13 +87,13 @@ describe 'openvoxdb::server::puppetdb', type: :class do
     end
 
     it {
-      is_expected.to contain_ini_setting('puppetdb_disable_update_checking').
-        with(
+      is_expected.to contain_ini_setting('puppetdb_disable_update_checking')
+        .with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/puppetdb.ini',
           'section' => 'puppetdb',
           'setting' => 'disable-update-checking',
-          'value'   => 'true'
+          'value'   => 'true',
         )
     }
   end
