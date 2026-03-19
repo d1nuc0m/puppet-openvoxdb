@@ -88,7 +88,7 @@ describe 'openvoxdb', type: :class do
         let(:params) do
           {
             postgresql_ssl_on: true,
-            puppetdb_server: 'puppetdb_host',
+            puppetdb_server: 'puppetdb.example.com',
           }
         end
 
@@ -98,7 +98,7 @@ describe 'openvoxdb', type: :class do
           is_expected.to contain_class('openvoxdb::database::postgresql')
             .with(
               'postgresql_ssl_on' => true,
-              'puppetdb_server' => 'puppetdb_host',
+              'puppetdb_server' => 'puppetdb.example.com',
             )
         }
       end
