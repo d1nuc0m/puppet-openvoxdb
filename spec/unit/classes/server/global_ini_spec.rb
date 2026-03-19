@@ -5,23 +5,23 @@ describe 'openvoxdb::server::global', type: :class do
 
   describe 'when using default values' do
     it {
-      is_expected.to contain_ini_setting('puppetdb_global_vardir').
-        with(
+      is_expected.to contain_ini_setting('puppetdb_global_vardir')
+        .with(
           'ensure' => 'present',
           'path' => '/etc/puppetlabs/puppetdb/conf.d/config.ini',
           'section' => 'global',
           'setting' => 'vardir',
-          'value' => '/opt/puppetlabs/server/data/puppetdb'
+          'value' => '/opt/puppetlabs/server/data/puppetdb',
         )
     }
 
     it {
-      is_expected.to contain_file('/etc/puppetlabs/puppetdb/conf.d/config.ini').
-        with(
+      is_expected.to contain_file('/etc/puppetlabs/puppetdb/conf.d/config.ini')
+        .with(
           'ensure' => 'file',
           'owner' => 'root',
           'group' => 'puppetdb',
-          'mode' => '0640'
+          'mode' => '0640',
         )
     }
   end

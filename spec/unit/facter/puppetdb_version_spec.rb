@@ -12,9 +12,9 @@ describe 'openvoxdb_version' do
 
     context 'on a default system' do
       it 'returns the correct version from puppetdb --version' do
-        expect(Facter::Core::Execution).to receive(:execute).
-          with('puppetdb --version').
-          and_return('puppetdb version: 7.19.0')
+        expect(Facter::Core::Execution).to receive(:execute)
+          .with('puppetdb --version')
+          .and_return('puppetdb version: 7.19.0')
 
         expect(Facter.fact(:openvoxdb_version).value).to eq('7.19.0')
       end

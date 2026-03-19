@@ -16,13 +16,13 @@ describe 'openvoxdb::server::database', type: :class do
     end
 
     it {
-      is_expected.to contain_ini_setting('puppetdb_facts_blacklist').
-        with(
+      is_expected.to contain_ini_setting('puppetdb_facts_blacklist')
+        .with(
           'ensure'  => 'present',
           'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
           'section' => 'database',
           'setting' => 'facts-blacklist',
-          'value'   => 'one_fact, another_fact'
+          'value'   => 'one_fact, another_fact',
         )
     }
   end
@@ -37,13 +37,13 @@ describe 'openvoxdb::server::database', type: :class do
         end
 
         it {
-          is_expected.to contain_ini_setting('puppetdb_database_max_pool_size').
-            with(
+          is_expected.to contain_ini_setting('puppetdb_database_max_pool_size')
+            .with(
               'ensure'  => 'present',
               'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
               'section' => 'database',
               'setting' => 'maximum-pool-size',
-              'value'   => '12345'
+              'value'   => '12345',
             )
         }
       end
@@ -56,12 +56,12 @@ describe 'openvoxdb::server::database', type: :class do
         end
 
         it {
-          is_expected.to contain_ini_setting('puppetdb_database_max_pool_size').
-            with(
+          is_expected.to contain_ini_setting('puppetdb_database_max_pool_size')
+            .with(
               'ensure'  => 'absent',
               'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
               'section' => 'database',
-              'setting' => 'maximum-pool-size'
+              'setting' => 'maximum-pool-size',
             )
         }
       end
@@ -77,8 +77,8 @@ describe 'openvoxdb::server::database', type: :class do
     end
 
     it 'configures subname correctly' do
-      is_expected.to contain_ini_setting('puppetdb_subname').
-        with(
+      is_expected.to contain_ini_setting('puppetdb_subname')
+        .with(
           ensure: 'present',
           path: '/etc/puppetlabs/puppetdb/conf.d/database.ini',
           section: 'database',
@@ -88,7 +88,7 @@ describe 'openvoxdb::server::database', type: :class do
                  'sslmode=verify-full&' \
                  'sslrootcert=/etc/puppetlabs/puppetdb/ssl/ca.pem&' \
                  'sslkey=/tmp/private_key.pk8&' \
-                 'sslcert=/etc/puppetlabs/puppetdb/ssl/public.pem'
+                 'sslcert=/etc/puppetlabs/puppetdb/ssl/public.pem',
         )
     end
   end

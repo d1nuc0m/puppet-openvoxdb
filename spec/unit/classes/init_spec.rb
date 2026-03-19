@@ -76,11 +76,11 @@ describe 'openvoxdb', type: :class do
         end
 
         it do
-          is_expected.to contain_postgresql__server__pg_hba_rule('allow access to all users for instance main').
-            with_type('host').
-            with_database('all').
-            with_user('all').
-            with_auth_method('md5')
+          is_expected.to contain_postgresql__server__pg_hba_rule('allow access to all users for instance main')
+            .with_type('host')
+            .with_database('all')
+            .with_user('all')
+            .with_auth_method('md5')
         end
       end
 
@@ -95,10 +95,10 @@ describe 'openvoxdb', type: :class do
         it { is_expected.to contain_class('openvoxdb::server').with('postgresql_ssl_on' => true) }
 
         it {
-          is_expected.to contain_class('openvoxdb::database::postgresql').
-            with(
+          is_expected.to contain_class('openvoxdb::database::postgresql')
+            .with(
               'postgresql_ssl_on' => true,
-              'puppetdb_server' => 'puppetdb_host'
+              'puppetdb_server' => 'puppetdb_host',
             )
         }
       end

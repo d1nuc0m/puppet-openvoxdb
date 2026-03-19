@@ -14,9 +14,9 @@ class Puppet::Util::PuppetdbValidator
 
   def log_error(cause, code = nil)
     if code.nil?
-      Puppet.notice "Unable to connect to puppetdb server (http#{use_ssl ? 's' : ''}://#{puppetdb_server}:#{puppetdb_port}): #{cause}"
+      Puppet.notice "Unable to connect to puppetdb server (http#{'s' if use_ssl}://#{puppetdb_server}:#{puppetdb_port}): #{cause}"
     else
-      Puppet.notice "Unable to connect to puppetdb server (http#{use_ssl ? 's' : ''}://#{puppetdb_server}:#{puppetdb_port}): [#{code}] #{cause}"
+      Puppet.notice "Unable to connect to puppetdb server (http#{'s' if use_ssl}://#{puppetdb_server}:#{puppetdb_port}): [#{code}] #{cause}"
     end
   end
 
