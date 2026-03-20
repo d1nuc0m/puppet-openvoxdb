@@ -238,6 +238,10 @@ class { 'openvoxdb':
 Anyway you are advised to **backup before migrating**, test the migration in a
 separate environment and run it manually to be sure.
 
+Migration from `puppetlabs/puppetdb` to `puppet/openvoxdb` also introduces
+type checking of parameters. Please report any issue of incompatible parameters
+that work with puppetdb module and are not accepted by openvoxdb module.
+
 **Upgrade from PuppetDB < 8.x is currently unsupported**.
 
 ## Usage
