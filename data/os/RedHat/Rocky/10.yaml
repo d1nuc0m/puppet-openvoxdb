@@ -1,0 +1,5 @@
+---
+# As of v10.6.1, puppetlabs/postgresql does not have EL10 support/data
+postgresql::globals::version: '16'
+postgresql::globals::default_version: '16'
+postgresql::globals::globals_version: '16'
