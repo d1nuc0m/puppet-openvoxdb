@@ -15,7 +15,7 @@ describe 'openvoxdb::server::validate_db', type: :class do
       is_expected.to contain_class('openvoxdb::server::validate_db')
         .with(
           database_host: 'localhost',
-          database_port: '5432',
+          database_port: 5432,
           database_username: 'puppetdb',
           database_password: 'puppetdb',
           database_name: 'puppetdb',
@@ -34,7 +34,7 @@ describe 'openvoxdb::server::validate_db', type: :class do
         is_expected.to contain_postgresql_conn_validator('validate puppetdb postgres connection')
           .with(
             host:        'localhost',
-            port:        '5432',
+            port:        5432,
             db_username: 'puppetdb',
             db_password: 'puppetdb',
             db_name:     'puppetdb',
