@@ -437,7 +437,7 @@ Default value: `$openvoxdb::params::facts_blacklist`
 
 ##### <a name="-openvoxdb--gc_interval"></a>`gc_interval`
 
-Data type: `Variant[Integer, String[1]]`
+Data type: `Integer`
 
 This controls how often (in minutes) to compact the database. The compaction
 process reclaims space and deletes unnecessary rows. If not supplied, the
@@ -447,7 +447,7 @@ Default value: `$openvoxdb::params::gc_interval`
 
 ##### <a name="-openvoxdb--node_purge_gc_batch_limit"></a>`node_purge_gc_batch_limit`
 
-Data type: `Variant[Integer, String[1]]`
+Data type: `Integer`
 
 Nodes will be purged in batches of this size, one batch per gc-interval.
 
@@ -455,7 +455,7 @@ Default value: `$openvoxdb::params::node_purge_gc_batch_limit`
 
 ##### <a name="-openvoxdb--conn_max_age"></a>`conn_max_age`
 
-Data type: `Variant[Integer, String[1]]`
+Data type: `Integer`
 
 The maximum time (in minutes) for a pooled connection to remain unused before
 it is closed off.
@@ -466,7 +466,7 @@ Default value: `$openvoxdb::params::conn_max_age`
 
 ##### <a name="-openvoxdb--conn_lifetime"></a>`conn_lifetime`
 
-Data type: `Variant[Integer, String[1]]`
+Data type: `Integer`
 
 The maximum time (in minutes) a pooled connection should remain open. Any
 connections older than this setting will be closed off. Connections currently in
@@ -662,7 +662,7 @@ Default value: `$openvoxdb::params::read_database_name`
 
 ##### <a name="-openvoxdb--read_conn_max_age"></a>`read_conn_max_age`
 
-Data type: `Variant[String, Integer]`
+Data type: `Integer`
 
 The maximum time (in minutes) for a pooled read database connection to remain
 unused before it is closed off.
@@ -673,7 +673,7 @@ Default value: `$openvoxdb::params::read_conn_max_age`
 
 ##### <a name="-openvoxdb--read_conn_lifetime"></a>`read_conn_lifetime`
 
-Data type: `Variant[String[1], Integer]`
+Data type: `Integer`
 
 The maximum time (in minutes) a pooled read database connection should remain
 open. Any connections older than this setting will be closed off. Connections
