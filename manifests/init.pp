@@ -400,7 +400,7 @@ class openvoxdb (
   String[1] $puppetdb_group                                              = $openvoxdb::params::puppetdb_group,
   Stdlib::Host $puppetdb_server                                          = $openvoxdb::params::puppetdb_server,
   Optional[Stdlib::Host] $read_database_host                             = $openvoxdb::params::read_database_host,
-  Optional[Variant[Stdlib::Port::Unprivileged, String]] $read_database_port = $openvoxdb::params::read_database_port,
+  Optional[Stdlib::Port::Unprivileged] $read_database_port               = $openvoxdb::params::read_database_port,
   Optional[String] $read_database_username                               = $openvoxdb::params::read_database_username,
   Optional[Variant[String[1], Sensitive[String[1]]]] $read_database_password = $openvoxdb::params::read_database_password,
   String $read_database_name                                             = $openvoxdb::params::read_database_name,

@@ -595,7 +595,7 @@ Default value: `$openvoxdb::params::read_database_host`
 
 ##### <a name="-openvoxdb--read_database_port"></a>`read_database_port`
 
-Data type: `Optional[Variant[Stdlib::Port::Unprivileged, String]]`
+Data type: `Optional[Stdlib::Port::Unprivileged]`
 
 The port that the read database server listens on. If `read_database_host`
 is set to `undef`, and `manage_database` is set to `true`, it will use the value of
