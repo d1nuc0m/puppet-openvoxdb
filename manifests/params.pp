@@ -39,7 +39,7 @@ class openvoxdb::params {
   $database_username      = 'puppetdb'
   $database_password      = 'puppetdb'
   $manage_db_password     = true
-  $jdbc_ssl_properties    = ''
+  $jdbc_ssl_properties    = undef
   $database_validate      = true
   $database_max_pool_size = undef
   $puppetdb_server        = fact('networking.fqdn')
