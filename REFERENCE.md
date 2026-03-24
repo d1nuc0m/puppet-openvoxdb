@@ -158,7 +158,7 @@ Default value: `$openvoxdb::params::listen_address`
 
 ##### <a name="-openvoxdb--listen_port"></a>`listen_port`
 
-Data type: `Variant[Stdlib::Port::Unprivileged, String]`
+Data type: `Stdlib::Port::Unprivileged`
 
 The port on which the puppetdb web server should accept HTTP requests. Defaults
 to `8080`.
@@ -192,7 +192,7 @@ Default value: `$openvoxdb::params::ssl_listen_address`
 
 ##### <a name="-openvoxdb--ssl_listen_port"></a>`ssl_listen_port`
 
-Data type: `Variant[Stdlib::Port::Unprivileged, String]`
+Data type: `Stdlib::Port::Unprivileged`
 
 The port on which the puppetdb web server should accept HTTPS requests. Defaults
 to `8081`.
@@ -210,9 +210,9 @@ Default value: `$openvoxdb::params::disable_ssl`
 
 ##### <a name="-openvoxdb--open_ssl_listen_port"></a>`open_ssl_listen_port`
 
-Data type: `Variant[Boolean, Undef]`
+Data type: `Boolean`
 
-If true, open the `ssl_listen_port` on the firewall. Defaults to `undef`.
+If true, open the `ssl_listen_port` on the firewall. Defaults to `false`.
 
 Default value: `$openvoxdb::params::open_ssl_listen_port`
 
@@ -327,7 +327,7 @@ Default value: `$openvoxdb::params::database_host`
 
 ##### <a name="-openvoxdb--database_port"></a>`database_port`
 
-Data type: `Variant[Stdlib::Port::Unprivileged, String]`
+Data type: `Stdlib::Port::Unprivileged`
 
 The port that the database server listens on. Defaults to `5432`.
 

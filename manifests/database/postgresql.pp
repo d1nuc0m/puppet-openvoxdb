@@ -95,8 +95,6 @@ class openvoxdb::database::postgresql (
   Boolean $password_sensitive  = false,
   Postgresql::Pg_password_encryption $password_encryption = $openvoxdb::params::password_encryption,
 ) inherits openvoxdb::params {
-  $port = scanf($database_port, '%i')[0]
-
   if $manage_server {
     class { 'postgresql::globals':
       manage_package_repo => $manage_package_repo,
@@ -106,7 +104,7 @@ class openvoxdb::database::postgresql (
     class { 'postgresql::server':
       ip_mask_allow_all_users => '0.0.0.0/0',
       listen_addresses        => $listen_addresses,
-      port                    => $port,
+      port                    => $database_port,
       password_encryption     => $password_encryption,
     }
 
@@ -143,7 +141,7 @@ class openvoxdb::database::postgresql (
       postgresql::server::extension { 'pg_trgm':
         database => $database_name,
         require  => Postgresql::Server::Db[$database_name],
-        port     => $port,
+        port     => $database_port,
       }
     }
   }
@@ -156,12 +154,12 @@ class openvoxdb::database::postgresql (
       encoding => 'UTF8',
       locale   => $database_locale,
       grant    => 'all',
-      port     => $port,
+      port     => $database_port,
     }
 
     -> postgresql_psql { 'revoke all access on public schema':
       db      => $database_name,
-      port    => $port,
+      port    => $database_port,
       command => 'REVOKE CREATE ON SCHEMA public FROM public',
       unless  => "SELECT * FROM
                   (SELECT has_schema_privilege('public', 'public', 'create') can_create) privs
@@ -170,7 +168,7 @@ class openvoxdb::database::postgresql (
 
     -> postgresql_psql { "grant all permissions to ${database_username}":
       db      => $database_name,
-      port    => $port,
+      port    => $database_port,
       command => "GRANT CREATE ON SCHEMA public TO \"${database_username}\"",
       unless  => "SELECT * FROM
                   (SELECT has_schema_privilege('${database_username}', 'public', 'create') can_create) privs
@@ -183,13 +181,13 @@ class openvoxdb::database::postgresql (
       password_hash          => postgresql::postgresql_password(
       $read_database_username, $read_database_password, $password_sensitive, $password_encryption),
       database_owner         => $database_username,
-      database_port          => $port,
+      database_port          => $database_port,
       password_encryption    => $password_encryption,
     }
 
     -> postgresql_psql { "grant ${read_database_username} role to ${database_username}":
       db      => $database_name,
-      port    => $port,
+      port    => $database_port,
       command => "GRANT \"${read_database_username}\" TO \"${database_username}\"",
       unless  => "SELECT oid, rolname FROM pg_roles WHERE
                    pg_has_role( '${database_username}', oid, 'member') and rolname = '${read_database_username}'";

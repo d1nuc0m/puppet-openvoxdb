@@ -27,7 +27,7 @@
 #   Defaults to `false`.
 #
 # @param open_ssl_listen_port
-#   If true, open the `ssl_listen_port` on the firewall. Defaults to `undef`.
+#   If true, open the `ssl_listen_port` on the firewall. Defaults to `false`.
 #
 # @param ssl_protocols
 #   Specify the supported SSL protocols for PuppetDB (e.g. TLSv1, TLSv1.1, TLSv1.2.)
@@ -346,15 +346,14 @@
 #   PostgreSQL password authentication method, either `md5` or `scram-sha-256`
 #
 class openvoxdb (
-  # IMPORTANT - type validation has been introduced at fork time, it is "relaxed" to allow retrocompatibility with puppetlabs/puppetdb
   Stdlib::Host $listen_address                                           = $openvoxdb::params::listen_address,
-  Variant[Stdlib::Port::Unprivileged, String] $listen_port               = $openvoxdb::params::listen_port,
+  Stdlib::Port::Unprivileged $listen_port                                = $openvoxdb::params::listen_port,
   Boolean $disable_cleartext                                             = $openvoxdb::params::disable_cleartext,
   Boolean $open_listen_port                                              = $openvoxdb::params::open_listen_port,
   Stdlib::Host $ssl_listen_address                                       = $openvoxdb::params::ssl_listen_address,
-  Variant[Stdlib::Port::Unprivileged, String] $ssl_listen_port           = $openvoxdb::params::ssl_listen_port,
+  Stdlib::Port::Unprivileged $ssl_listen_port                            = $openvoxdb::params::ssl_listen_port,
   Boolean $disable_ssl                                                   = $openvoxdb::params::disable_ssl,
-  Variant[Boolean, Undef] $open_ssl_listen_port                          = $openvoxdb::params::open_ssl_listen_port,
+  Boolean $open_ssl_listen_port                                          = $openvoxdb::params::open_ssl_listen_port,
   Stdlib::Unixpath $ssl_dir                                              = $openvoxdb::params::ssl_dir,
   Boolean $ssl_set_cert_paths                                            = $openvoxdb::params::ssl_set_cert_paths,
   Stdlib::Unixpath $ssl_cert_path                                        = $openvoxdb::params::ssl_cert_path,
@@ -378,7 +377,7 @@ class openvoxdb (
   Boolean $manage_package_repo                                           = $openvoxdb::params::manage_pg_repo,
   String[1] $postgres_version                                            = $openvoxdb::params::postgres_version,
   Stdlib::Host $database_host                                            = $openvoxdb::params::database_host,
-  Variant[Stdlib::Port::Unprivileged, String] $database_port             = $openvoxdb::params::database_port,
+  Stdlib::Port::Unprivileged $database_port                              = $openvoxdb::params::database_port,
   String[1] $database_username                                           = $openvoxdb::params::database_username,
   Variant[String[1], Sensitive[String[1]]] $database_password            = $openvoxdb::params::database_password,
   String[1] $database_name                                               = $openvoxdb::params::database_name,

@@ -108,8 +108,8 @@ describe 'standalone' do
   describe 'supports changing database port', :change do
     let(:puppetdb_params) do
       <<~EOS
-        database_port           => '5433',
-        read_database_port      => '5433',
+        database_port           => 5433,
+        read_database_port      => 5433,
       EOS
     end
 

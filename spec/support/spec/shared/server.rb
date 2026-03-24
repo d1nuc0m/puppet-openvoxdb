@@ -3,10 +3,10 @@
 shared_examples 'openvoxdb::server::firewall' do
   let(:defaults) do
     {
-      http_port: '8080',
+      http_port: 8080,
       open_http_port: false,
-      ssl_port: '8081',
-      open_ssl_port: nil,
+      ssl_port: 8081,
+      open_ssl_port: false,
     }
   end
 

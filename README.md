@@ -220,9 +220,8 @@ You can also manually trigger puppet runs on the nodes in the correct order
 
 ## Migrating PuppetDB to OpenVoxDB
 
-Actually the `puppet-openvoxdb` module keeps the same parameter names of
-`puppetlabs-puppetdb`, so if you are already using PuppetDB 8.x, it _should_ be
-enough to add OpenVox repositories and rename the classes in your manifest:
+Actually the `puppet-openvoxdb` module keeps the same parameter names of `puppetlabs-puppetdb`.
+If you are already using PuppetDB 8.x, it _should_ be enough to add OpenVox repositories, rename the classes in your manifest and type check the parameters:
 
 ```puppet
 class { 'puppetdb':
@@ -231,16 +230,14 @@ class { 'puppetdb':
 
 # Renamed to
 class { 'openvoxdb':
-  # Same parameters as before
+  # Same parameters as before, with the correct data type
 }
 ```
 
 Anyway you are advised to **backup before migrating**, test the migration in a
 separate environment and run it manually to be sure.
 
-Migration from `puppetlabs/puppetdb` to `puppet/openvoxdb` also introduces
-type checking of parameters. Please report any issue of incompatible parameters
-that work with puppetdb module and are not accepted by openvoxdb module.
+**Migration from `puppetlabs/puppetdb` to `puppet/openvoxdb` also introduces type checking of parameters**.
 
 **Upgrade from PuppetDB < 8.x is currently unsupported**.
 
