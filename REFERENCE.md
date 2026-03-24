@@ -218,7 +218,7 @@ Default value: `$openvoxdb::params::open_ssl_listen_port`
 
 ##### <a name="-openvoxdb--ssl_protocols"></a>`ssl_protocols`
 
-Data type: `Variant[String[1], Undef]`
+Data type: `Optional[String[1]]`
 
 Specify the supported SSL protocols for PuppetDB (e.g. TLSv1, TLSv1.1, TLSv1.2.)
 
@@ -267,7 +267,7 @@ Default value: `$openvoxdb::params::postgresql_ssl_ca_cert_path`
 
 ##### <a name="-openvoxdb--cipher_suites"></a>`cipher_suites`
 
-Data type: `Variant[String[1], Undef]`
+Data type: `Optional[String[1]]`
 
 Configure jetty's supported `cipher-suites` (e.g. `SSL_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384`).
 Defaults to `undef`.
@@ -369,7 +369,7 @@ Default value: `$openvoxdb::params::database_name`
 
 ##### <a name="-openvoxdb--jdbc_ssl_properties"></a>`jdbc_ssl_properties`
 
-Data type: `Variant[String, Undef]`
+Data type: `Optional[String]`
 
 The text to append to the JDBC connection URI. This should begin with a '?'
 character. For example, to use SSL for the PostgreSQL connection, set this
@@ -574,7 +574,7 @@ Default value: `$openvoxdb::params::merge_default_java_args`
 
 ##### <a name="-openvoxdb--max_threads"></a>`max_threads`
 
-Data type: `Variant[String[1], Integer, Undef]`
+Data type: `Optional[Integer]`
 
 Jetty option to explicitly set `max-threads`. Defaults to `undef`, so the
 PuppetDB-Jetty default is used.
@@ -583,7 +583,7 @@ Default value: `$openvoxdb::params::max_threads`
 
 ##### <a name="-openvoxdb--read_database_host"></a>`read_database_host`
 
-Data type: `Variant[Stdlib::Host, Undef]`
+Data type: `Optional[Stdlib::Host]`
 
 *This parameter must be set to use another PuppetDB instance for queries.*
 
@@ -595,7 +595,7 @@ Default value: `$openvoxdb::params::read_database_host`
 
 ##### <a name="-openvoxdb--read_database_port"></a>`read_database_port`
 
-Data type: `Variant[Stdlib::Port::Unprivileged, String, Undef]`
+Data type: `Optional[Variant[Stdlib::Port::Unprivileged, String]]`
 
 The port that the read database server listens on. If `read_database_host`
 is set to `undef`, and `manage_database` is set to `true`, it will use the value of
@@ -605,7 +605,7 @@ Default value: `$openvoxdb::params::read_database_port`
 
 ##### <a name="-openvoxdb--read_database_username"></a>`read_database_username`
 
-Data type: `Variant[String, Undef]`
+Data type: `Optional[String]`
 
 The name of the read database user to connect as. Defaults to `puppetdb-read`. This
 option is supported in PuppetDB >= 1.6.
@@ -614,7 +614,7 @@ Default value: `$openvoxdb::params::read_database_username`
 
 ##### <a name="-openvoxdb--read_database_password"></a>`read_database_password`
 
-Data type: `Variant[String[1], Sensitive[String[1]]]`
+Data type: `Optional[Variant[String[1], Sensitive[String[1]]]]`
 
 The password for the read database user. Defaults to `puppetdb-read`. This option is
 supported in PuppetDB >= 1.6.
@@ -746,7 +746,7 @@ Default value: `$openvoxdb::params::ssl_deploy_certs`
 
 ##### <a name="-openvoxdb--ssl_key"></a>`ssl_key`
 
-Data type: `Variant[String[1], Sensitive[String[1]], Undef]`
+Data type: `Optional[Variant[String[1], Sensitive[String[1]]]]`
 
 Contents of your SSL key, as a string.
 
@@ -754,7 +754,7 @@ Default value: `$openvoxdb::params::ssl_key`
 
 ##### <a name="-openvoxdb--ssl_cert"></a>`ssl_cert`
 
-Data type: `Variant[String[1], Sensitive[String[1]], Undef]`
+Data type: `Optional[Variant[String[1], Sensitive[String[1]]]]`
 
 Contents of your SSL certificate, as a string.
 
@@ -762,7 +762,7 @@ Default value: `$openvoxdb::params::ssl_cert`
 
 ##### <a name="-openvoxdb--ssl_ca_cert"></a>`ssl_ca_cert`
 
-Data type: `Variant[String[1], Sensitive[String[1]], Undef]`
+Data type: `Optional[Variant[String[1], Sensitive[String[1]]]]`
 
 Contents of your SSL CA certificate, as a string.
 
@@ -779,7 +779,7 @@ Default value: `$openvoxdb::params::manage_firewall`
 
 ##### <a name="-openvoxdb--command_threads"></a>`command_threads`
 
-Data type: `Variant[String[1], Integer, Undef]`
+Data type: `Optional[Integer]`
 
 The number of command processing threads to use. Defaults to `undef`, using the
 PuppetDB built-in default.
@@ -788,7 +788,7 @@ Default value: `$openvoxdb::params::command_threads`
 
 ##### <a name="-openvoxdb--concurrent_writes"></a>`concurrent_writes`
 
-Data type: `Variant[String[1], Integer, Undef]`
+Data type: `Optional[Integer]`
 
 The number of threads allowed to write to disk at any one time. Defaults to
 `undef`, which uses the PuppetDB built-in default.
@@ -797,7 +797,7 @@ Default value: `$openvoxdb::params::concurrent_writes`
 
 ##### <a name="-openvoxdb--store_usage"></a>`store_usage`
 
-Data type: `Variant[String[1], Integer, Undef]`
+Data type: `Optional[Integer]`
 
 The amount of disk space (in MB) to allow for persistent message storage.
 Defaults to `undef`, using the PuppetDB built-in default.
@@ -806,7 +806,7 @@ Default value: `$openvoxdb::params::store_usage`
 
 ##### <a name="-openvoxdb--temp_usage"></a>`temp_usage`
 
-Data type: `Variant[String[1], Integer, Undef]`
+Data type: `Optional[Integer]`
 
 The amount of disk space (in MB) to allow for temporary message storage.
 Defaults to `undef`, using the PuppetDB built-in default.
@@ -815,7 +815,7 @@ Default value: `$openvoxdb::params::temp_usage`
 
 ##### <a name="-openvoxdb--disable_update_checking"></a>`disable_update_checking`
 
-Data type: `Variant[Boolean, Undef]`
+Data type: `Optional[Boolean]`
 
 Setting this to true disables checking for updated versions of PuppetDB and sending basic analytics data to Puppet.
 Defaults to `undef`, using the PuppetDB built-in default.
@@ -840,7 +840,7 @@ Default value: `$openvoxdb::params::certificate_whitelist`
 
 ##### <a name="-openvoxdb--database_max_pool_size"></a>`database_max_pool_size`
 
-Data type: `Variant[String[1], Undef]`
+Data type: `Optional[String[1]]`
 
 When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
 Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.
@@ -849,7 +849,7 @@ Default value: `$openvoxdb::params::database_max_pool_size`
 
 ##### <a name="-openvoxdb--read_database_max_pool_size"></a>`read_database_max_pool_size`
 
-Data type: `Variant[String[1], Undef]`
+Data type: `Optional[String[1]]`
 
 When the pool reaches this size, and no idle connections are available, attempts to get a connection will wait for connection-timeout milliseconds before timing out.
 Note that PuppetDB will use one pool for writes and another for reads, so the total number of connections used will be twice this setting.

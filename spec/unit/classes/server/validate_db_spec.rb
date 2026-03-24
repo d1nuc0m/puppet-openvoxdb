@@ -19,7 +19,6 @@ describe 'openvoxdb::server::validate_db', type: :class do
           database_username: 'puppetdb',
           database_password: 'puppetdb',
           database_name: 'puppetdb',
-          jdbc_ssl_properties: '',
         )
     }
 
